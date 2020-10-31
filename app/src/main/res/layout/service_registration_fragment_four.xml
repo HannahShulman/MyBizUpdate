@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+        <EditText
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            style="@style/MyEditTextStyle"
+            android:id="@+id/service_email_et"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+
+        <TextView
+            android:layout_alignStart="@+id/service_password_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/service_email_et"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:text="@string/invalid_email"
+            android:id="@+id/email_warning_chars"
+            android:textColor="@color/red_create_account"/>
+
+        <EditText
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/service_email_et"
+            style="@style/MyEditTextStyle"
+            android:id="@+id/service_password_et"
+            android:hint="@string/password"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+
+        <TextView
+            android:layout_alignStart="@+id/service_password_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/service_password_et"
+            android:textSize="12sp"
+            android:text="לפחות 9 תווים"
+            android:id="@+id/warning_chars"
+            android:textColor="@color/red_create_account"/>
+
+
+        <FrameLayout
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/warning_chars"
+            android:layout_width="100dp"
+            android:layout_height="40dp">
+
+            <TextView
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/google_vari"/>
+
+            <com.facebook.login.widget.LoginButton
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/fb_vari"/>
+
+
+        </FrameLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

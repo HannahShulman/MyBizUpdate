@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:id="@+id/toolbar"
+        android:title="@string/confirm_id"/>
+    <View
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/elevation"/>
+
+    <ImageView
+        android:visibility="gone"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+        android:id="@+id/back_icon"/>
+
+    <TextView
+        android:text="@string/wait_for_reg"
+        android:gravity="center"
+        android:layout_marginTop="96dp"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:alpha=".87"
+        android:textSize="20sp"
+        android:id="@+id/slogen"/>
+
+
+
+
+
+
+    <FrameLayout
+        android:layout_marginTop="12.5dp"
+        android:layout_width="274dp"
+        android:layout_height="47dp"
+        android:id="@+id/facebook_reg_layout"
+        android:layout_below="@+id/google_sign_in_btn"
+        android:layout_centerHorizontal="true">
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebook_sign_in_btn"
+            android:layout_marginTop="67dp"
+            android:layout_width="274dp"
+            android:layout_height="47dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="@android:color/black"
+            android:background="@color/colorPrimary"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/facebook_cover_btn"
+            android:background="@drawable/facebook_btn"/>
+
+    </FrameLayout>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/pb"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_gravity="center"
+        android:indeterminateDrawable="@drawable/progress_bar_style"
+        android:max="100"
+        android:progress="20"
+        />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/facebook_reg_layout"
+        android:layout_marginTop="45dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/confirm_agreement"
+        android:id="@+id/layout"
+        >
+
+    </LinearLayout>
+
+
+    <TextView
+        android:clickable="true"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/google_sign_in_btn"
+        android:layout_marginTop="50dp"
+        android:layout_width="274dp"
+        android:textSize="7.5pt"
+        android:layout_height="47dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/google_signin_btn"
+        android:layout_below="@+id/slogen"
+        android:layout_alignEnd="@+id/facebook_reg_layout" />
+
+    <TextView
+        android:visibility="invisible"
+        android:textColor="#000000"
+        android:alpha=".20"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_worry"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/facebook_reg_layout"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

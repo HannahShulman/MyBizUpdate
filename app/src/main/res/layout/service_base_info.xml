@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+                <TextView
+
+            android:layout_below="@+id/opening_hours_text"
+            android:id="@+id/openning_hours_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="1dp"
+            android:alpha=".56"
+            android:paddingTop="1dp"
+            android:background="@android:color/white"
+            android:gravity="center_vertical|bottom"
+            android:text="א-ה  10:00-22:00"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/opening_hours_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|top"
+                    android:paddingBottom="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@android:color/white"
+                    android:text="@string/open_hours"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/openning_hours_info" />
+
+
+        </RelativeLayout>
+
+                <ImageView
+                    android:layout_gravity="end"
+                    android:clickable="true"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:id="@+id/open_hours_edit"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="42dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="42dp"
+                    app:srcCompat="@drawable/ic_create_black_24dp"/>
+
+
+        </FrameLayout>
+
+        <View
+            android:layout_below="@+id/openning_hours_info"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:alpha=".12"
+            android:id="@+id/first_view"
+            android:background="@android:color/black" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="end"
+                    android:clickable="true"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:id="@+id/address_edit"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="42dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="42dp"
+                    app:srcCompat="@drawable/ic_create_black_24dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|top"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingBottom="1dp"
+                    android:background="@android:color/white"
+                    android:text="@string/address"
+                    android:id="@+id/address_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <TextView
+
+                    android:layout_below="@+id/address_text"
+                    android:id="@+id/address_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="44dp"
+                    android:layout_marginStart="16dp"
+                    android:paddingTop="1dp"
+                    android:alpha=".56"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical|bottom"
+                    android:text="חגי 21  ירושלים"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" /></RelativeLayout>
+        </FrameLayout>
+        <View
+            android:layout_below="@+id/address_info"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:alpha=".12"
+            android:id="@+id/second_view"
+            android:background="@android:color/black" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/phone_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|top"
+            android:layout_marginStart="16dp"
+            android:paddingBottom="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/white"
+            android:text="@string/phone_number"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+        <TextView
+
+            android:text="00000"
+            android:paddingTop="1dp"
+            android:layout_below="@+id/phone_text"
+            android:id="@+id/phone_number_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginStart="16dp"
+            android:alpha=".56"
+            android:background="@android:color/white"
+            android:gravity="center_vertical|bottom|start"
+            android:layout_gravity="start"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+        </RelativeLayout>
+
+
+        <ImageView
+            android:layout_gravity="end"
+            android:clickable="true"
+            android:background="?selectableItemBackgroundBorderless"
+            android:id="@+id/phone_number_edit"
+            android:layout_alignParentEnd="true"
+            android:layout_width="42dp"
+            android:padding="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_height="42dp"
+            app:srcCompat="@drawable/ic_create_black_24dp"/>
+
+
+</FrameLayout>
+        <View
+            android:layout_below="@+id/phone_number_info"
+            android:layout_width="match_parent"
+            android:layout_height="12.5dp"
+            android:background="@color/general_grey"
+            android:id="@+id/third_view"
+
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/white"
+            android:paddingBottom="1dp"
+            android:layout_marginStart="16dp"
+            android:text="מידע על השירות"
+            android:id="@+id/service_info_txt"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_below="@+id/service_info_txt"
+            android:id="@+id/service_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="44dp"
+            android:alpha=".56"
+            android:background="@android:color/white"
+            android:maxWidth="320dp"
+            android:paddingBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:paddingTop="1dp"
+            android:text="חברת ההסעות הזולה בארץ, מגוון רחב של אוטובוסים ומיניבוסים"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_gravity="end"
+                    android:clickable="true"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:id="@+id/info_edit"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="42dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="42dp"
+                    app:srcCompat="@drawable/ic_create_black_24dp"/>
+
+        </RelativeLayout>
+
+
+
+
+
+        </FrameLayout>
+
+        <View
+            android:layout_below="@+id/service_info"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:alpha=".12"
+            android:background="@android:color/black"
+            android:id="@+id/forth_view"/>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/add_info_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingBottom="1dp"
+        android:paddingTop="4dp"
+        android:text="@string/add_attributes"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        />
+
+
+        <TextView
+            android:id="@+id/service_additional_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha=".56"
+            android:background="@android:color/white"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="44dp"
+            android:text="@string/info"
+            android:paddingTop="1dp"
+            android:paddingBottom="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:layout_below="@+id/add_info_txt"
+            android:layout_alignParentEnd="true" />
+
+                <ImageView
+                    android:layout_gravity="end"
+                    android:clickable="true"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:id="@+id/additional_info_edit"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="42dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="42dp"
+                    app:srcCompat="@drawable/ic_create_black_24dp"/>
+
+        </RelativeLayout>
+
+
+
+
+
+        </FrameLayout>
+
+
+</LinearLayout>

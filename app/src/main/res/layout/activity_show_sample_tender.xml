@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_show_sample_tender"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#dcdee3"
+    tools:context="com.mybiz.Activities.ShowSampleTender">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/toolbar"
+        ></androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/elevation"
+        android:layout_marginBottom="16dp"/>
+
+    <include
+
+        layout="@layout/user_tender_layout"/>
+
+    <TextView
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/share_text"
+        android:textSize="20sp"
+        android:textColor="@color/tw__composer_black"
+        android:alpha=".87"
+        android:text="@string/service_will_see"
+        android:layout_marginBottom="50dp"
+        />
+
+
+
+
+</LinearLayout>

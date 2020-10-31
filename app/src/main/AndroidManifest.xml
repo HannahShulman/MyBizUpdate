@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mybiz">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/symbol"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ChatActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreateAccountChoiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PersonalRegistrationActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".InstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name=".TabsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme.NoActionBar" />
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".Activities.ShareMyService"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.AllServiceInfo"
+            android:theme="@style/AppTheme_noActionBar"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".SendMessageService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".NoLinkedActivity"
+            android:screenOrientation="portrait">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data android:scheme="http" />
+                <data android:host="mybizz.application.to" />
+            </intent-filter>
+            <!--
+ ATTENTION: This intent was auto-generated. Follow instructions at
+  https://g.co/AppIndexing/AndroidStudio to publish your URLs.
+            -->
+
+        </activity>
+        <activity
+            android:name=".Activities.AddCommentActivity"
+            android:theme="@style/AppTheme_noActionBar"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PrivateProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreateTender"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Activities.AboutMybizzActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme_noActionBar" />
+        <activity
+            android:name=".MyProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreateSpecial"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.LogInAccount"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1630679980572317"
+            android:exported="true" />
+
+        <activity
+            android:name=".Activities.ServiceOffersList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.IntroTendersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.IntroCreateSpecialActivity"
+            android:label="@string/title_activity_intro_create_special"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Activities.PrivateRegisterLocation"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".UpdatesFromServer"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".ServiceRegistrationActivityForm"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".ServiceRegistrationFragmentContainer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MidLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.SingleServicesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreateSampleTender"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tests.CameraActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".RegistrationConfirmationActivity" />
+        <activity android:name=".Activities.ShowSampleTender" />
+        <activity
+            android:name=".Activities.TermsAndConditionsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme_noActionBar" />
+    </application>
+
+</manifest>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#007078</color>
+    <color name="colorPrimaryDark">#005c65</color>
+    <color name="colorAccent">#007078</color>
+    <color name="main_color">#007078</color>
+    <color name="white">#fff</color>
+    <color name="red_create_account">#ff5a5e</color>
+    <color name="yellow_star">#e7ae01</color>
+    <color name="review_green">#607f0e</color>
+    <color name="general_grey">#dcdee3</color>
+</resources>
+
+<!--old red color ff5252-->
+
+

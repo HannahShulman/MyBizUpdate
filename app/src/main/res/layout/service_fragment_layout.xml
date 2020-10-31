@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--first child of drawerlayout  is the content-->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#fff"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:fillViewport="true"
+            android:id="@+id/fragment_container"/>
+
+
+        <LinearLayout
+            android:background="@drawable/top_border"
+            android:elevation="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:id="@+id/footer_container"
+            android:gravity="bottom"
+
+            >
+
+            <LinearLayout
+                android:foreground="?selectableItemBackground"
+                android:background="?selectableItemBackground"
+                android:id="@+id/prof_ll"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:alpha=".56"
+                android:layout_marginTop="8dp"
+                android:layout_height="match_parent">
+
+
+
+                <ImageView
+                    android:background="?selectableItemBackground"
+                    android:id="@+id/prof_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="4dp"
+                    app:srcCompat="@drawable/prof_icon"/>
+
+                <TextView
+                    android:textColor="@color/selected_icons"
+                    android:background="?selectableItemBackground"
+                    android:id="@+id/prof_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/professions"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:foreground="?selectableItemBackground"
+                android:background="?selectableItemBackground"
+                android:focusableInTouchMode="false"
+                android:id="@+id/service_ll"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp"
+                android:alpha=".56"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_marginTop="4dp"
+                    android:background="@color/tw__transparent"
+                    android:id="@+id/service_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/service_icon"/>
+
+                <TextView
+                    android:textColor="@color/selected_icons"
+                    android:background="@color/tw__transparent"
+                    android:id="@+id/service_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/business"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:foreground="?selectableItemBackground"
+                android:background="?selectableItemBackground"
+                android:id="@+id/favorite_ll"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp"
+                android:alpha=".56"
+                android:layout_height="match_parent">
+
+
+                <ImageView
+                    android:layout_marginTop="4dp"
+                    android:background="?selectableItemBackground"
+                    android:id="@+id/favorite_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/favorite_icon"/>
+
+                <TextView
+                    android:background="?selectableItemBackground"
+                    android:textColor="@color/selected_icons"
+                    android:id="@+id/favorite_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="@string/favourite"/>
+            </LinearLayout>
+
+            </LinearLayout>
+</LinearLayout>
+
+
+

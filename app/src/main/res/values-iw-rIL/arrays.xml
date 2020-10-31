@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_type" >
+        <item>choose service type</item>
+        <item>Business</item>
+        <item>Professional</item>
+    </string-array>
+    <string-array name="list_of_countries">
+        <item>aaa</item>
+        <item>bbb</item>
+        <item>ccc</item>
+    </string-array>
+    <string-array name="days">
+        <item>זמן תפוגה</item>
+        <item> 1 ימים</item>
+        <item>2 ימים</item>
+        <item>3 ימים</item>
+        <item>4 ימים</item>
+        <item>5 ימים</item>
+        <item>6 ימים</item>
+        <item>7 ימים</item>
+        <item>8 ימים</item>
+        <item>9 ימים</item>
+        <item>10 ימים</item>
+        <item>11 ימים</item>
+        <item>12 ימים</item>
+        <item>13 ימים</item>
+        <item>14 ימים</item>
+        <item>15 ימים</item>
+    </string-array>
+    <string-array name="cities" ></string-array>
+</resources>

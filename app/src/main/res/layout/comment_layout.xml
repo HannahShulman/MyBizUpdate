@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+    
+android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layoutDirection="rtl">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:id="@+id/profile"/>
+
+        <LinearLayout
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="2dp">
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:alpha=".87"
+                    android:textSize="16sp"
+                    android:text="שלמה כהן"
+                    android:id="@+id/reviewer_name"
+                    android:layout_gravity="top"/></LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="-2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:gravity="center">
+
+                <TextView
+                    android:textSize="16sp"
+                    android:textColor="@color/tw__composer_black"
+                    android:alpha=".56"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="31 oct 2016"
+                    android:id="@+id/review_date"
+                    android:layout_marginBottom="5dp"
+                    /></LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical">
+
+            <RatingBar
+                android:progressTint="@color/colorPrimary"
+                android:layout_marginLeft="15dp"
+                android:gravity="right"
+                android:id="@+id/ratingBar12"
+                android:rating="5"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX=".999"
+                android:scaleY=".999"
+                android:transformPivotX="0dp"
+                android:transformPivotY="0dp"
+                android:isIndicator="true"
+                android:max="5" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        >
+
+    <TextView
+        android:id="@+id/review_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:alpha=".87"
+        android:textSize="14sp"
+        android:text="@string/comment"/>
+</LinearLayout>
+
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"></LinearLayout>
+
+</LinearLayout>

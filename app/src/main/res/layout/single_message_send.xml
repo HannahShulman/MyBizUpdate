@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/single_msg_main_layout"
+    >
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/date_wrapper"
+        android:orientation="vertical">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="14dp" />
+
+        <TextView
+            android:id="@+id/date_view"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingRight="12dp"
+            android:paddingLeft="12dp"
+            android:background="@drawable/date_background"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="14dp" />
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/send_txt_selector"
+            android:layout_marginEnd="14dp"
+            android:id="@+id/bgContainer"
+            android:layoutDirection="rtl"
+            android:layout_gravity="left"
+            android:layout_marginStart="75dp"
+            android:visibility="visible"
+            >
+
+            <TextView
+                android:layout_marginRight="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="abc"
+                android:textColor="#000"
+                android:paddingEnd="10dp"
+                android:gravity="center_vertical"
+                android:id="@+id/message_txt"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="0dp"
+                />
+
+            <TextView
+                android:id="@+id/time"
+                android:textColor="#000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="date"
+                android:alpha=".56"
+                android:gravity="bottom"
+                android:textSize="12sp"
+                android:layout_gravity="bottom"
+                android:paddingEnd="4dp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_done_all_black_18dp"
+                android:layout_gravity="bottom"
+                android:id="@+id/check"
+                />
+
+        </LinearLayout>
+
+</LinearLayout>

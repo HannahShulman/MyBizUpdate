@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/invite_friend"
+            android:icon="@drawable/ic_person_add_black_24dp"
+            android:title="@string/invite_friend"/>
+
+
+        <item
+            android:id="@+id/login_account"
+            android:icon="@drawable/ic_account_box_black_24dp"
+            android:title="@string/sign_in_as_private"/>
+
+
+        <item
+            android:id="@+id/business_account"
+            android:icon="@drawable/ic_business_center_black_24dp"
+            android:title="@string/sign_in_as_a_service"/>
+
+
+        <item
+            android:id="@+id/favorite_service"
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:title="@string/favourite"/>
+
+        <item
+            android:id="@+id/about_mybizz"
+            android:icon="@drawable/ic_info_black_24dp"
+            android:title="@string/drawer_about"/>
+
+
+
+    </group>
+
+</menu>

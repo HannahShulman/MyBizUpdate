@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mybiz.SingleServiceListFragment"
+    android:background="#dcdee3">
+
+    <!-- TODO: Update blank fragment layout -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="16dp"
+        android:divider="@drawable/tw__transparent"
+        android:id="@+id/single_services"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:gravity="center"
+            android:id="@+id/empty_favorites_layout">
+
+
+            <ImageView
+                android:layout_marginTop="-70dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:alpha=".54"
+                app:srcCompat="@drawable/ic_favorite_border_black_48dp"
+                android:id="@+id/image"/>
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/image"
+                android:textSize="16sp"
+                android:alpha=".54"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_favorites_yet"
+                />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

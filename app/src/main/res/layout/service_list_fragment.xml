@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp">
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/service_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="true"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:numColumns="3"
+        android:stretchMode="spacingWidth"
+        android:focusable="true"
+        android:clickable="true"
+        android:clipToPadding="false"
+        />
+
+</LinearLayout>

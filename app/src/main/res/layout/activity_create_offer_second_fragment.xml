@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_create_offer_second_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mybiz.Fragments.CreateOfferSecondFragment">
+
+    <RadioGroup
+
+        android:layout_marginTop="90dp"
+        android:layout_marginStart="28dp"
+        android:layout_below="@+id/text"
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <RadioButton
+            android:paddingBottom="4dp"
+            android:paddingTop="2dp"
+            android:paddingStart="4dp"
+            android:paddingLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="שתף בפייסבוק"
+            android:textSize="20sp"
+            android:id="@+id/fb_shareBtn"/>
+
+
+        <RadioButton
+            android:padding="4dp"
+            android:id="@+id/pp_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text= "@string/payment"
+            android:textSize="20sp"/>
+
+    </RadioGroup>
+
+
+    <TextView
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:id="@+id/text"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/tw__composer_black"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="לפרסום מבצע יש לשלם באמצעות פייפאל.
+בשלב זה ניתן לפרסם מבצעים בחינם
+ למשתפים המבצע בפייסבוק."
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+    android:layout_alignEnd="@+id/text"
+    android:layout_width="95dp"
+    android:layout_height="33dp"
+    app:srcCompat="@drawable/facebook_sharing"
+    android:id="@+id/facebook_btn_image"
+    android:layout_alignTop="@+id/radio_group" />
+
+
+    <ImageView
+        android:layout_alignEnd="@+id/text"
+        android:layout_below="@+id/facebook_btn_image"
+        android:layout_marginTop="50dp"
+        android:layout_width="95dp"
+        android:layout_height="33dp"
+        app:srcCompat="@drawable/paypal_btn"
+        android:id="@+id/paypal_btn"
+        />
+</RelativeLayout>

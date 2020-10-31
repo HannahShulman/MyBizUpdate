@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent">
+
+
+    <EditText
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/short_description"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        style="@style/MyEditTextStyle"
+        android:hint="@string/short_des_hint"
+        android:maxLength="90"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_marginEnd="22dp"
+        android:layout_alignEnd="@+id/request"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_counter1"
+        android:textSize="12sp"
+        android:textColor="#000000"
+        android:alpha=".54"
+        android:maxLength="90"
+        android:text="0/90"
+        android:layout_below="@+id/short_description"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_below="@+id/short_description"
+        android:layout_marginTop="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/additional_attributes_opt"
+        style="@style/MyEditTextStyle"
+        android:id="@+id/additional_attributes"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:maxLength="600"
+        />
+
+    <TextView
+        android:layout_marginEnd="22dp"
+        android:layout_alignEnd="@+id/request"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_counter2"
+        android:textSize="12sp"
+        android:textColor="#000000"
+        android:alpha=".54"
+        android:text="0/600"
+        android:layout_below="@+id/additional_attributes"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
+
+    </ScrollView>
+</LinearLayout>

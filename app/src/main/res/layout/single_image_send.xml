@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/single_msg_main_layout"
+    android:layout_width="match_parent"
+    android:gravity="end"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/date_wrapper"
+        android:orientation="vertical">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="14dp" />
+
+        <TextView
+            android:id="@+id/date_view"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:background="@drawable/date_background"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="14dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/bgContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="75dp"
+        android:background="@drawable/send_image_selector"
+        >
+
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLargeInverse"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/message_shade"/>
+        <TextView
+            android:id="@+id/time"
+            android:textColor="#fff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:alpha=".56"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:layout_gravity="bottom"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            android:layout_toStartOf="@+id/check"
+            android:layout_alignParentBottom="true"
+            />
+
+        <ImageView
+            android:tint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_done_all_black_18dp"
+            android:paddingBottom="4dp"
+            android:paddingEnd="4dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/check"
+            />
+
+        <com.mybiz.views.SquareImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+</LinearLayout>

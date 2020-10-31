@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:alpha=".87"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="@string/for_best_use"
+        android:id="@+id/askTV"/>
+
+    <Button
+        android:layout_centerInParent="true"
+        android:layout_width="210dp"
+        android:layout_height="38dp"
+        android:background="@drawable/demi_tender_btn"
+        android:id="@+id/enable"
+        android:textAllCaps="false"
+        android:text="@string/enable_location_services"/>
+    <Button
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/enable"
+        android:background="@drawable/rounded_main_color_button"
+        android:layout_width="210dp"
+        android:layout_height="38dp"
+        android:layout_weight="1"
+        android:id="@+id/insert"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:text="@string/enter_manually"/>
+
+
+</RelativeLayout>

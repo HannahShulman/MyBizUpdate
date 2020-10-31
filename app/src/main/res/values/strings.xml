@@ -1,0 +1,236 @@
+<resources>
+    <string name="app_name">MyBizz</string>
+    <string name="private_user" translatable="true">If you would like to register as private user</string>
+    <string name="skip" translatable="true">skip</string>
+    <string name="create_account" translatable="true">create account</string>
+    <string name="service_user" translatable="true">register service</string>
+    <string name="service_description" translatable="true">if you are a service/ agency or profession register as ...</string>
+    <string name="create__mybiz_account" translatable="true">create mybiz account</string>
+    <string name="name" translatable="true">name</string>
+    <string name="address" translatable="true">street</string>
+    <string name="home_num" translatable="true">number</string>
+    <string name="owner" translatable="true">I own a business or am an agency</string>
+    <string name="service" translatable="true">I give a service</string>
+    <string name="log_in" translatable="true"><u>Log in</u></string>
+    <string name="have_account" translatable="true">Have an account?</string>
+    <string name="next" translatable="true">next</string>
+    <string name="back" translatable="true">back</string>
+    <string name="email" translatable="true">e-mail</string>
+    <string name="password" translatable="true">password</string>
+    <string name="create" translatable="true">create</string>
+    <string name="dont_have_account" translatable="true">Dont have an account?</string>
+    <string name="town" translatable="true">town</string>
+    <string name="phone_number" translatable="true">phone</string>
+    <string name="open_hours" translatable="true">openning hours</string>
+    <string name="short_description" translatable="true">short description</string>
+    <string name="limit_to_30_char" translatable="true">upto 18 characters</string>
+    <string name="additional_properties" translatable="true">additional properties</string>
+    <string name="add_image" translatable="true">add image</string>
+    <string name="add_image_for_recog">add image so that \n customers can identify you</string>
+    <string name="take_pic_camara" translatable="true">take picture</string>
+    <string name="choose_from_gallary" translatable="true">choose from gallary</string>
+    <string name="slogen" translatable="true">find. compare. save.</string>
+    <string name="google_sign_in" translatable="true">sign in using google</string>
+    <string name="fb_sign_in" translatable="true">sign in using Facebook</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="section_format" translatable="false">Hello World from section: %1$l</string>
+    <string name="chats" translatable="false">Chats</string>
+    <string name="title_activity_navigation" translatable="false">Navigation</string>
+
+    <string name="drawer_open" translatable="false">drawer open</string>
+    <string name="drawer_close" translatable="false">drawer close</string>
+    <string name="drawer_settings" translatable="true">settings</string>
+    <string name="drawer_about" translatable="true">About MyBizz</string>
+    <string name="drawer_timeline" translatable="false">time</string>
+    <string name="drawer_invite" translatable="true">invite friend</string>
+    <string name="drawe_ad" translatable="true">advertise sale</string>
+    <string name="drawer_groups" translatable="true">groups</string>
+    <string name="my_profile" translatable="true">my profile</string>
+    <string name="drawer_show_location">show my location</string>
+    <string name="drawer_earned_deals" translatable="true">earned deals</string>
+    <string name="plumber" translatable="false">plumber</string>
+    <string name="babysitter" translatable="false">babysitter</string>
+    <string name="chat" translatable="true">Chats</string>
+    <string name="tenders" translatable="true">tenders</string>
+    <string name="service_tab" translatable="true">service</string>
+    <string name="favourite" translatable="true">Favourite</string>
+    <string name="professionals" translatable="true">Professionals</string>
+    <string name="near_me" translatable="true">near by</string>
+    <string name="business" translatable="true">business</string>
+    <string name="type_msg" translatable="true">write your message</string>
+    <string name="title_activity_bc_cb" translatable="false">bc_cb</string>
+    <string name="info" translatable="true">info</string>
+    <string name="account_type" translatable="false">חשבון עסקי</string>
+    <string name="comment">הזמנתי את דרכי המלך אחרי הביקורות החיוביות שראיתי במייביז  והופתעתי לטובה מאיכות השירות ומהדיוק בזמנים . הנהג היה אדיב מאוד והמחיר היה הכי זול שאי פעם שמעתי בחברת הסעות ממליץ בחום החברה הכי אמינה בשוק מניסיון !!</string>
+    <string name="tchum_sheli" translatable="true">my offers</string>
+    <string name="firebase_error_login" translatable="false">error fb</string>
+
+    <string name="facebook_app_id" translatable="false">1630679980572317</string>
+
+
+    <string name="prev" translatable="false">Previous</string>
+    <string name="finish" translatable="false">Submit order</string>
+
+    <string name="submit_confirm_message" translatable="false">Place the order with the deli? You will receive an email
+        confirmation.</string>
+    <string name="submit_confirm_button" translatable="false">Place order</string>
+
+    <string name="label_your_name" translatable="false">Name</string>
+    <string name="hint_your_name" translatable="false">e.g. Larry</string>
+    <string name="label_your_email" translatable="false">Email</string>
+    <string name="hint_your_email" translatable="false">Optional</string>
+    <string name="phone_and_hours" translatable="true">phone and openning hours</string>
+    <string name="basic_info" translatable="true">basic info</string>
+    <string name="mail_password" translatable="true">email and password</string>
+    <string name="lastSeen" translatable="true">last seen</string>
+    <string name="service_account" translatable="true">Service provider account</string>
+    <string name="nextFragment">next</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="additional_info" translatable="true">additional info</string>
+    <string name="describe" translatable="true">describe your request</string>
+    <string name="public_offer">Advertise Offer</string>
+    <string name="title_activity_intro_create_special" translatable="false">IntroCreateSpecialActivity</string>
+    <string name="professions" translatable="true">professions</string>
+    <string name="title_activity_updates_from_server" translatable="false">UpdatesFromServer</string>
+    <string name="choose_category" translatable="true">Choose a category</string>
+    <string name="expiry">Expiry</string>
+    <string name="title_activity_service_registration_form" translatable="false">ServiceRegistrationActivityForm</string>
+    <string name="save" translatable="true">save</string>
+    <string name="steps_to_go" translatable="true">steps to creating account</string>
+    <string name="name_ctgr_description">choose your service category</string>
+    <string name="service_location" translatable="true">service location</string>
+    <string name="service_location_description" translatable="true">choose location of service</string>
+    <string name="typing" translatable="true">typing</string>
+    <string name="cancel" translatable="true">cancel</string>
+    <string name="complete_service_registring" translatable="true">complete service registration</string>
+    <string name="town_not_found" translatable="true">town was not found</string>
+    <string name="not_logged_in" translatable="true">you are not logged in</string>
+    <string name="days" translatable="true">days</string>
+    <string name="hours" translatable="true">hours</string>
+    <string name="log_in_account" translatable="true">Log in</string>
+    <string name="i_have_a_private_account" translatable="true">I have a private account</string>
+    <string name="i_have_a_business_account" translatable="true">I have a business account</string>
+    <string name="slogen2" translatable="true">find professions and services in your area</string>
+    <string name="slogen3" translatable="true">compare prices, and get the best value for you</string>
+    <string name="slogen4" translatable="true">save time and money</string>
+    <string name="slogen5" translatable="true">neeed to translate the string</string>
+    <string name="describe_experience" translatable="true">describe your experience with</string>
+    <string name="private_user_help" translatable="true">find businesses and professionals in your area, get prices, and choose the best option for you</string>
+    <string name="dialog_ok" translatable="true">understood</string>
+    <string name="service_user_help" translatable="true">register, so that people can find you, and give them suggested prices</string>
+    <string name="add_picture" translatable="true">Add a picture</string>
+    <string name="add_location" translatable="true">Add your location</string>
+    <string name="describe_your_service" translatable="true">Describe your service</string>
+    <string name="openning_hours" translatable="true">opening hours</string>
+    <string name="get_best_use" translatable="true">in order to get the best use, we need your location</string>
+    <string name="username" translatable="true">Username</string>
+    <string name="pub_offer" translatable="true">" Advertise Offer"</string>
+    <string name="confirm_agreement" translatable="true">By continuing you indicate you  have read and agreed \\n to the Terms of Service and Privacy Policy</string>
+    <string name="personal_account">Personal account</string>
+    <string name="capture" translatable="true">Capture</string>
+    <string name="sample_tender" translatable="true">sample tender</string>
+    <string name="about" translatable="true">About</string>
+    <string name="openning_hours_and_phone" translatable="true">openning hours and phone</string>
+    <string name="email_and_password" translatable="true">username and password</string>
+    <string name="about_text" translatable="true">here comes the about text translation</string>
+    <string name="guest_account">Guest Account</string>
+    <string name="name_and_category">service category</string>
+    <string name="payment">70 shekel payment</string>
+    <string name="personal_use" translatable="true">Personal Use</string>
+    <string name="service_provider" translatable="true">Service Provider</string>
+    <string name="my_business_account">open a service provider account for free</string>
+    <string name="expiry_in" translatable="true">expiry</string>
+    <string name="chat_must_reg" translatable="true">in order to chat you  must sign up</string>
+    <string name="publish" translatable="true">publish</string>
+    <string name="get_my_service" translatable="true">Check out my service</string>
+    <string name="download_app" translatable="true">if you don\'t have the app, you can download it here</string>
+    <string name="demo_tender_explanation" translatable="true">in order to try out a tender, this wont last for more then a few minutes</string>
+    <string name="clients_notification" translatable="true">clients that have marked you as their favorite will get a notification</string>
+    <string name="ishur" translatable="true">OK</string>
+    <string name="offers_third_slogen">looking for a service in any category?
+    \n open an auction easily, and get price offers, \n and you choose the best for you</string>
+
+    <string name="third_tender_fragment_slogen" translatable="true">מחפש שירות בכל תחום? פתח מכרז בקלות, תתחיל לקבל הצעות מחיר ובחר את המתאימה ביותר עבורך</string>
+    <string name="no_chat_history" translatable="true">you have no chat history</string>
+    <string name="about_mybizz_text" translatable="true"> מציאת עסקים ואנשי מקצוע מכל תחום באזורך, קבל בקלות הצעות מחיר ובחר את המשתלמת עבורך\n
+                "MyBizz נותנת לך אפשרות להציע ו/או לקבל שירות מכל סוג, החל ממורים פרטיים וחשמלאים ועד לחנויות אלקטרוניקה והלבשה\n"
+                "\n"
+                "אם אתם רוצים שירות כלשהו, לדוגמה חשמלאי או הסעות, עם MyBizz אתם יכולים לפרסם מכרז ולקבל הצעות מחיר עבור הדרישות המיוחדות שלכם, כך תוכלו לחסוך זמן וכסף באמצעות בחירת הצעת המחיר האופטימלית עבורכם. לדוגמה אם אתם מעוניינים לבצע רכישה של מספר מחשבים ניידים, פתחו מכרז? ובחרו\\n את הדיל הטוב ביותר.\n"
+                "\n"
+                "באמצעות MyBizz גם תוכלו להציע שירות אותו תרצו לתת, כך שהלקוחות ימצאו אתכם ויצרו עמכם קשר דרך צ'אט או טלפון. מספקי שירות יכולים לפרסם מבצעים באפליקציה כך שלקוחות מתעדכנים במבצעים. לדוגמה, אם אתם רוצים ללמד פרטי או שיש לכם עסק ואתם רוצים להיחשף ללקוחות נוספים, באמצעות MyBizz לקוחות ימצאו אתכם ויצרו אתכם קשר.";
+</string>
+    <string name="for_rating" translatable="true">in order to rate this service you must sign up</string>
+    <string name="sign_up" translatable="true">sign up</string>
+    <string name="public_offer_reason" translatable="true">advertising offers will highlight you</string>
+    <string name="demo_tender" translatable="true">demo tender</string>
+    <string name="delete_confirmation" translatable="true">delete confirmation</string>
+    <string name="delete_offer_dialog_text" translatable="true">are you sure you want to delete this offer?</string>
+    <string name="confirm_delete" translatable="true">Are you sure you want to delete this?</string>
+    <string name="enter_manually" translatable="true">Enter manually</string>
+    <string name="enable_location_services" translatable="true">Enable Location Services</string>
+    <string name="for_best_use" translatable="true">in order to enjoy this at most, you should enter your location</string>
+    <string name="no_ratings" translatable="true">there were no ratings for you yet..</string>
+    <string name="invite_friend" translatable="true">Invite a friend or service</string>
+    <string name="sign_in_as_private">Sign in as a private user</string>
+    <string name="sign_in_as_a_service" translatable="true">Sign in as a service</string>
+    <string name="share_your_service" translatable="true">Share your service</string>
+    <string name="ad_offer" translatable="true">advertise an offer</string>
+    <string name="no_favorites_yet" translatable="true">You has no favorites yet</string>
+    <string name="add_image_for_service_profile" translatable="true">add image</string>
+    <string name="name_hint_service" translatable="true">service title</string>
+    <string name="short_des_hint" translatable="true">short description</string>
+    <string name="add_attributes" translatable="true">additional attributes</string>
+    <string name="additional_attributes_opt" translatable="true">additional attributes  (optional)</string>
+    <string name="confirm_exit" translatable="true">Are you sure you want to leave?</string>
+    <string name="yes" translatable="true">yes</string>
+    <string name="no" translatable="true">no</string>
+    <string name="offer_title" translatable="true">offer\'s title</string>
+    <string name="offers_description" translatable="true">Offer\'s description</string>
+    <string name="add_image_optional" translatable="true">Add image (optional)</string>
+    <string name="create_auction" translatable="true">create auction</string>
+    <string name="give_price_offer" translatable="true">give offer</string>
+    <string name="to_account" translatable="true">steps to created account</string>
+    <string name="steps_to_account">steps to created account</string>
+    <string name="create_service_account" translatable="true">create service account</string>
+    <string name="for_empty_price_offer" translatable="true">in order to get price offers \\n click on the red button</string>
+    <string name="register_for_price_offers" translatable="true">in order to recieve price offers you must register</string>
+    <string name="register_for_favorites" translatable="true">inorder to add to favorites you must register</string>
+    <string name="register" translatable="true">register</string>
+    <string name="add_to_favorites" translatable="true">add to favorites</string>
+    <string name="share_my_service" translatable="true">share your service</string>
+    <string name="convince_share" translatable="true">In order to enlarge the amount of people, \n share your service</string>
+    <string name="by_signing" translatable="true">by continuing you agree</string>
+    <string name="terms_con" translatable="true"><u>Terms and Conditions</u></string>
+    <string name="privacy_policy" translatable="true"> and <u> Privacy Policy</u></string>
+    <string name="no_worry" translatable="true">dont worry, we will not publicize any of you info</string>
+    <string name="google_instruction" translatable="true">for security reasons, please sign in again using the same mail registered</string>
+    <string name="facebook_instruction" translatable="true">for security resons, please login again with your facebook</string>
+    <string name="end_reg" translatable="true">Complete Registration</string>
+    <string name="confirm_id" translatable="true">identification</string>
+    <string name="choose_location" translatable="true">choose loction</string>
+    <string name="service_added" translatable="true">service has been added</string>
+    <string name="service_removed" translatable="true">service has been removed</string>
+    <string name="invalid_email" translatable="true">invalid email</string>
+    <string name="wait_for_reg" translatable="true">please wait untill service has been registered</string>
+    <string name="service_will_see" translatable="true">this is how the service provider will see you request</string>
+    <string name="tender_must_register" translatable="true">In order to create a tender, you must register</string>
+    <string name="terms_and_conditions">terms and conditions</string>
+    <string name="full_privacy_policy">privacy policy</string>
+    <string name="image_recieved">Image</string>
+    <string name="t_n_c" translatable="true">Terms and condition</string>
+    <string name="priva_pol_title" translatable="true">Privacy Policy</string>
+    <string name="street_not_found" translatable="true">street not found</string>
+    <string name="title_activity_about3">About3</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="version">Version:</string>
+    <string name="business_name_title">שם העסק</string>
+</resources>

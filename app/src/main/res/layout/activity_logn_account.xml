@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_logn_account"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mybiz.Activities.LogInAccount"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:id="@+id/toolbar"
+        android:titleTextColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:title="@string/log_in_account"
+        android:elevation="4dp">
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+    <EditText
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        style="@style/MyEditTextStyle"
+        android:id="@+id/login_email"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <EditText
+        android:layout_marginTop="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/service_email_et"
+        style="@style/MyEditTextStyle"
+        android:id="@+id/login_password"
+        android:hint="@string/password"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="36dp"
+        android:alpha=".56"
+        android:background="@color/red_create_account"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/log_in"
+        android:id="@+id/login_btn"/>
+
+</LinearLayout>

@@ -1,0 +1,14 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<ripple android:color="#ffff0000">-->
+
+    <!--<item android:drawable="@drawable/services_image_selected"-->
+        <!--android:background="?android:attr/selectableItemBackground"-->
+        <!--android:state_selected="true" />-->
+    <!--</ripple>-->
+    <!--<item android:drawable="@drawable/services_image"-->
+        <!--/>-->
+
+
+</selector>

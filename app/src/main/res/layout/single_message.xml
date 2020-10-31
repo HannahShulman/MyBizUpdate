@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/single_msg_main_layout"
+    >
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/date_wrapper"
+        android:orientation="vertical">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="14dp" />
+
+        <TextView
+            android:id="@+id/date_view"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:background="@drawable/date_background"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="14dp" />
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sent_image"
+            android:visibility="gone"
+            android:layout_marginStart="14dp"
+            android:background="@drawable/receive_message_image"
+            >
+
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleLargeInverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" />
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:id="@+id/sent_image1"/>
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/receive_message"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="75dp"
+            android:visibility="visible"
+            android:id="@+id/linearReceive"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="abc"
+                android:textColor="#000"
+                android:paddingEnd="18dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:id="@+id/message_txt"
+                android:layout_weight="1"
+                android:paddingBottom="4px"
+                />
+
+            <TextView
+                android:id="@+id/time"
+                android:textColor="#000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="date"
+                android:alpha=".56"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:layout_gravity="bottom"
+                android:paddingEnd="4dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_done_all_black_18dp"
+                android:layout_gravity="bottom"
+                android:id="@+id/check"
+                />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/send_message"
+            android:layout_marginEnd="14dp"
+            android:id="@+id/linearSend"
+            android:layoutDirection="rtl"
+            android:layout_gravity="left"
+            android:layout_marginStart="75dp"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_marginRight="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="abc"
+                android:textColor="#000"
+                android:paddingEnd="10dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:id="@+id/message_txt_send"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/time_send"
+                android:textColor="#000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="date"
+                android:alpha=".56"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:layout_gravity="bottom"
+                android:paddingBottom="10px"
+                android:paddingEnd="18dp"
+                />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/receive_image"
+            android:visibility="gone"
+            android:paddingTop="5dp"
+            android:paddingRight="12dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/receive_message"
+            >
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyleLargeInverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" />
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:id="@+id/receive_image2"/>
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

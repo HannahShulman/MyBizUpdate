@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layoutDirection="rtl">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:id="@+id/profile"
+                android:layout_gravity="right"
+                android:layout_marginRight="16dp"
+                />
+
+            <LinearLayout
+                android:layout_marginStart="16dp"
+                android:layout_width="0dp"
+                android:layout_weight="8"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:alpha=".87"
+                        android:text="שלמה כהן"
+                        android:id="@+id/writer"
+                        android:textSize="16sp"
+                        android:layout_gravity="top"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
+
+                    >
+
+                    <RatingBar
+                        android:layout_gravity="center"
+                        android:id="@+id/ratingBar"
+                        android:rating="5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                        android:scaleX=".999"
+                        android:scaleY=".999"
+                        android:transformPivotX="0dp"
+                        android:transformPivotY="0dp"
+                        android:isIndicator="true"
+                        android:max="5"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="2dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:alpha=".56"
+                        android:text="date"
+                        android:id="@+id/review_date"
+                        android:layout_gravity="top"/>
+
+                    <Space
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="16dp"
+                android:background="?selectableItemBackground"
+                >
+
+
+
+                <ImageView
+                    android:layout_marginTop="3dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/edit_comment"
+                    android:background="@drawable/ic_create_black_24dp"
+                    />
+
+                <TextView
+
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ערוך"
+                    android:id="@+id/edit"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/my_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:textColor="#000"
+                android:textSize="14sp"
+                android:alpha=".87"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/my_review"
+                android:text="this is my comment of this service"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:id="@+id/rating_container">
+
+
+<ViewSwitcher
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/display_my_comment"
+    android:measureAllChildren="false">
+    <include layout="@layout/before_users_comment"/>
+    <include layout="@layout/after_users_comment" />
+
+
+</ViewSwitcher>
+
+    <View
+        android:layout_marginTop="5dp"
+        android:id="@+id/sixth_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="#000"
+        android:alpha=".12"
+        />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:id="@+id/total_comments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/sixth_view"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="end|center"
+            android:id="@+id/avrg_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-4dp"
+            android:background="@android:color/white"
+            android:gravity="end|center_vertical"
+            android:textSize="36sp"
+            android:text="4.2"
+            android:textColor="@color/colorPrimary"/>
+
+        <RatingBar
+            style="?android:attr/ratingBarStyleIndicator"
+            android:id="@+id/all_ratings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/white"
+            android:isIndicator="true" />
+
+        <TextView
+
+            android:layout_marginTop="-4dp"
+            android:id="@+id/no_ratings"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="32sp"
+            android:background="@android:color/white"
+            android:gravity="center_vertical|start"
+            android:text="(42)"
+            android:alpha=".56"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

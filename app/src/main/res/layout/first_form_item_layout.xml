@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#f8f8f8"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/first_layout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:clickable="true"
+            app:srcCompat="@drawable/default_service_profile"
+            android:id="@+id/profile_image_service"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/general_grey"/>
+
+        <TextView
+            android:clickable="true"
+            android:id="@+id/add_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_image_for_service_profile"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+           android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="bottom|start"
+            />
+
+        <CheckBox
+            android:theme="@style/MyCheckBox"
+            android:id="@+id/cb1"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/scrim_collapsing_bar"/>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:background="?selectableItemBackgroundBorderless"
+        android:id="@+id/second_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        >
+
+
+        <TextView
+            android:visibility="gone"
+            android:background="@color/tw__transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:alpha=".56"
+            android:text="sub text"
+            android:textSize="16sp"
+            android:id="@+id/subtitle_text"
+            android:layout_alignStart="@+id/title_text"
+            android:layout_toEndOf="@+id/title_text"
+            android:layout_below="@+id/title_text" />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red_create_account"
+            android:text="מיקום וווווו"
+            android:textSize="16sp"
+            android:alpha=".87"
+            android:background="@color/tw__transparent"
+            android:layout_marginStart="16dp" />
+
+        <CheckBox
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:focusable="false"
+            android:clickable="false"
+            android:id="@+id/is_complete_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp" />
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

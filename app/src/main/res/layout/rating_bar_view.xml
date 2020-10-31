@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:srcCompat="@drawable/star_selector"
+        android:id="@+id/start1"
+        />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></Space>
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:srcCompat="@drawable/star_selector"
+        android:id="@+id/start2"
+        />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></Space>
+
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:srcCompat="@drawable/star_selector"
+        android:id="@+id/start3"
+        />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></Space>
+
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:srcCompat="@drawable/star_selector"
+        android:id="@+id/start4"
+        />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></Space>
+
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:srcCompat="@drawable/star_selector"
+        android:id="@+id/start5"
+        />
+
+</LinearLayout>

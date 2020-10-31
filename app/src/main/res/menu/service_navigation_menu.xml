@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/share_w_friend"
+            android:icon="@drawable/ic_share_black_24dp"
+            android:title="@string/share_your_service"/>
+
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+
+
+
+        <item
+            android:checked="true"
+            android:id="@+id/add_offer"
+            android:icon="@drawable/ic_card_giftcard_black_24dp"
+            android:title="@string/ad_offer"/>
+
+
+
+
+        <item
+            android:id="@+id/favorite_service"
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:title="@string/favourite"/>
+
+
+        <item
+            android:id="@+id/drawer_service_profile"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="@string/my_profile"/>
+
+
+
+        <item
+            android:id="@+id/about_mybizz"
+            android:icon="@drawable/ic_info_black_24dp"
+            android:title="@string/drawer_about"/>
+
+
+    </group>
+
+
+
+</menu>
+
+
+    <!--<item-->
+    <!--android:id="@+id/log_in_out"-->
+    <!--android:icon="@drawable/ic_info_black_24dp"-->
+    <!--android:title="Log out"-->
+    <!--/>-->

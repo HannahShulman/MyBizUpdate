@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:background="@drawable/rounded_corner_background"
+        android:id="@+id/profile"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="16dp"
+        app:srcCompat="@color/authui_colorPrimary" />
+
+    <TextView
+        android:background="@color/white"
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:textSize="16sp"
+        android:textColor="@color/tw__composer_black"
+        android:layout_marginStart="12dp"
+        android:alpha=".87"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@+id/profile"
+        />
+
+    <TextView
+
+        android:background="@color/white"
+        android:layout_below="@id/name"
+        android:layout_alignStart="@id/name"
+        android:id="@+id/town"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="town"
+        android:alpha=".87"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:textColor="@color/red_create_account"/>
+
+
+    <TextView
+        android:background="@color/white"
+        android:layout_alignTop="@+id/name"
+        android:id="@+id/expiry_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/tw__composer_black"
+        android:alpha=".87"
+        android:layout_toStartOf="@+id/expiry_time_left"
+        android:text="@string/expiry" />
+
+    <TextView
+        android:background="@color/white"
+        android:layout_marginStart="4dp"
+        android:id="@+id/expiry_time_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expiry"
+        android:textColor="@color/tw__composer_black"
+        android:alpha=".87"
+        android:layout_alignTop="@+id/expiry_time"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"/>
+
+    <TextView
+        android:background="@color/white"
+        android:layout_marginTop="12.5dp"
+        android:layout_below="@+id/profile"
+        android:layout_alignStart="@+id/profile"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/request_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/tw__composer_black"
+        android:alpha=".87"
+        android:text="this is my personal request"
+        />
+
+    <View
+        android:background="#000000"
+        android:alpha=".12"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/request_description"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/seperator"/>
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_below="@+id/seperator"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancel_layout"
+            android:clickable="true"
+            android:background="?selectableItemBackgroundBorderless">
+
+            <ImageView
+
+                android:id="@+id/cancel_suggest_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:alpha=".54"
+                app:srcCompat="@drawable/sales" />
+
+            <TextView
+                android:layout_marginStart="4dp"
+                android:id="@+id/cancel_suggest_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="@string/give_price_offer" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <View
+
+        android:background="#dcdee3"
+        android:layout_below="@id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:id="@+id/seperator2"/>
+
+</RelativeLayout>

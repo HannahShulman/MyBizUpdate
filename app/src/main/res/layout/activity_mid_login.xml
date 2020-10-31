@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:id="@+id/my_toolbar"
+        android:background="@color/colorPrimary"
+        android:title="@string/log_in_account"
+        android:titleTextColor="@color/white"
+        android:navigationIcon="@drawable/right_arrow_w"
+        android:elevation="4dp">
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/private_reg_btn"
+        android:paddingBottom="2dp"
+        android:layout_marginTop="42dp"
+        android:id="@+id/service_reg_btn"
+        android:gravity="center"
+        android:background="@drawable/rounded_button"
+        android:layout_width="210dp"
+        android:layout_height="40dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="@string/i_have_a_business_account"
+        />
+
+    <Button
+        android:clickable="true"
+        android:gravity="center"
+        android:background="@drawable/private_btn_entry"
+        android:layout_width="210dp"
+        android:layout_height="40dp"
+        android:id="@+id/private_reg_btn"
+        android:text="@string/i_have_a_private_account"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:alpha=".87"
+        android:paddingBottom="2dp"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/service_reg_btn" />
+
+
+</RelativeLayout>
