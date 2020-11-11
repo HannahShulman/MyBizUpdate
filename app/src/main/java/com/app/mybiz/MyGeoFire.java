@@ -3,9 +3,6 @@ package com.app.mybiz;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by itzikalgrisi on 23/02/2017.
- */
 
 public class MyGeoFire implements Serializable{
     String g;

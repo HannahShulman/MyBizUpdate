@@ -1,18 +1,19 @@
 package com.app.mybiz.activities;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.app.mybiz.Constants;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.app.mybiz.Objects.Tenders;
+import com.app.mybiz.PreferenceKeys;
 import com.app.mybiz.R;
+import com.bumptech.glide.Glide;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,18 +24,15 @@ public class ShowSampleTender extends AppCompatActivity {
     LinearLayout cancelLayout;
     Toolbar toolbar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_sample_tender);
         sampleTender = (Tenders) getIntent().getSerializableExtra("sampleTender");
         initViews();
-        if (sampleTender!=null)
+        if (sampleTender != null)
             setInfo();
     }
-
-
 
     private void initViews() {
         profileImage = (ImageView) findViewById(R.id.profile);
@@ -67,16 +65,16 @@ public class ShowSampleTender extends AppCompatActivity {
 
     private void setInfo() {
         Glide.with(getBaseContext()).load(sampleTender.getProfileUrl()).into(profileImage);
-        name.setText(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.NAME, ""));
+        name.setText(getSharedPreferences(PreferenceKeys.INSTANCE.getPREFERENCES(), MODE_PRIVATE).getString(PreferenceKeys.INSTANCE.getNAME(), ""));
         town.setText(sampleTender.getTown());
         requestDescription.setText(sampleTender.getRequest());
 
-        long timeLeft = sampleTender.getExpiryTime()-System.currentTimeMillis();
-        int days = (int) (timeLeft / (1000*60*60*24));
-        int hours = (int) TimeUnit.HOURS.toHours(timeLeft-(days*(1000*60*60*24)));
-        if (days>=1)
-            expiryTimeLeft.setText((days+1)+" "+getString(R.string.days));
+        long timeLeft = sampleTender.getExpiryTime() - System.currentTimeMillis();
+        int days = (int) (timeLeft / (1000 * 60 * 60 * 24));
+        int hours = (int) TimeUnit.HOURS.toHours(timeLeft - (days * (1000 * 60 * 60 * 24)));
+        if (days >= 1)
+            expiryTimeLeft.setText((days + 1) + " " + getString(R.string.days));
         else
-            expiryTimeLeft.setText(1+"");
+            expiryTimeLeft.setText(1 + "");
     }
 }

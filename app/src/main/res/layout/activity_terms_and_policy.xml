@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.mybiz.Activities.TermsAndConditionsActivity">
+    tools:context="com.app.mybiz.activities.TermsAndConditionsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

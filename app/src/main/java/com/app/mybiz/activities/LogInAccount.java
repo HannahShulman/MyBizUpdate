@@ -15,6 +15,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.app.mybiz.CreateAccountChoiceActivity;
+import com.app.mybiz.LocationUtils;
+import com.app.mybiz.PreferenceKeys;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,9 +29,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.app.mybiz.Constants;
-import com.app.mybiz.CreateAccountChoiceActivity;
-import com.app.mybiz.LocationUtils;
 import com.app.mybiz.Objects.Service;
 import com.app.mybiz.R;
 import com.app.mybiz.TabsActivity;
@@ -49,13 +50,7 @@ public class LogInAccount extends AppCompatActivity implements View.OnClickListe
         toolbar.setNavigationIcon(R.drawable.right_arrow_w);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.log_in_account);
-//        getSupportActionBar().set
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
         loginBtn = (Button) findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(this);
         loginEmail = (EditText) findViewById(R.id.login_email);
@@ -79,7 +74,6 @@ public class LogInAccount extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
         loginPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -121,7 +115,6 @@ public class LogInAccount extends AppCompatActivity implements View.OnClickListe
     }
 
     private void signIn(final String email, String password){
-//        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -137,14 +130,14 @@ public class LogInAccount extends AppCompatActivity implements View.OnClickListe
                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                            Service myService = dataSnapshot.getValue(Service.class);
                            Log.d(TAG, "onDataChange: "+myService.toJson());
-                           getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).edit()
-                                   .putString(Constants.APP_ID, myService.getUserUid())
-                                   .putBoolean(Constants.IS_SERVICE, true)
-                                   .putString(Constants.NAME, myService.getTitle())
-                                   .putString(Constants.EMAIL, myService.getEmail())
-                                   .putString(Constants.MY_CATEGORY, myService.getCategory())
-                                   .putString(Constants.MY_SUB_CATEGORY, myService.getSubcategory())
-                                   .putString(Constants.MY_SERVICE, myService.toJson())
+                           getSharedPreferences(PreferenceKeys.INSTANCE.getPREFERENCES(), MODE_PRIVATE).edit()
+                                   .putString(PreferenceKeys.INSTANCE.getAPP_ID(), myService.getUserUid())
+                                   .putBoolean(PreferenceKeys.INSTANCE.getIS_SERVICE(), true)
+                                   .putString(PreferenceKeys.INSTANCE.getNAME(), myService.getTitle())
+                                   .putString(PreferenceKeys.INSTANCE.getEMAIL(), myService.getEmail())
+                                   .putString(PreferenceKeys.INSTANCE.getMY_CATEGORY(), myService.getCategory())
+                                   .putString(PreferenceKeys.INSTANCE.getMY_SUB_CATEGORY(), myService.getSubcategory())
+                                   .putString(PreferenceKeys.INSTANCE.getMY_SERVICE(), myService.toJson())
                                    .commit();
 
                            if(myService.l != null && myService.l.size() > 1){
@@ -215,6 +208,7 @@ public class LogInAccount extends AppCompatActivity implements View.OnClickListe
                                .setPositiveButton(getString(R.string.register), new DialogInterface.OnClickListener() {
                                    @Override
                                    public void onClick(DialogInterface dialog, int which) {
+
 
                                        Intent intent = new Intent(LogInAccount.this, CreateAccountChoiceActivity.class);
                                        startActivity(intent);

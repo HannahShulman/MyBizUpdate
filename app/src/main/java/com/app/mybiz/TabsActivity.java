@@ -141,7 +141,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ViewDialog().showDialog(TabsActivity.this, profileUrl);
+                ViewDialog.showDialog(TabsActivity.this, profileUrl);
             }
         });
     }

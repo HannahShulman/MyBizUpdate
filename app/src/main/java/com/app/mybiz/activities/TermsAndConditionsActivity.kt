@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.mybiz.R
 import kotlinx.android.synthetic.main.activity_terms_and_policy.*
 
-//frorm 43 lines
+//from 43 lines
 class TermsAndConditionsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

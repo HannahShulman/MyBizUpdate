@@ -2,24 +2,20 @@ package com.app.mybiz.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
-
-import com.google.firebase.auth.FirebaseAuth;
 import com.app.mybiz.Fragments.PrivateInsertAddressFragment;
 import com.app.mybiz.Fragments.RequestLocationPermissions;
 import com.app.mybiz.R;
 import com.app.mybiz.TabsActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
-/**
- * Created by itzikalgrisi on 21/02/2017.
- */
 
-public class PrivateRegisterLocation extends AppCompatActivity implements  RequestLocationPermissions.OnLocationOptionsListener {
+public class PrivateRegisterLocation extends AppCompatActivity implements RequestLocationPermissions.OnLocationOptionsListener {
 
     String TAG = "PrivateRegisterLocation";
     Toolbar toolbar;
@@ -43,9 +39,9 @@ public class PrivateRegisterLocation extends AppCompatActivity implements  Reque
 //        findViewById(R.id.useLocation).setOnClickListener(this);
 
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container,requestLocationPermissions = new RequestLocationPermissions().setListener(this)).commit();
+                    .add(R.id.container, requestLocationPermissions = new RequestLocationPermissions().setListener(this)).commit();
         }
 //        if(savedInstanceState == null){
 //            requestLocationPermissions = new RequestLocationPermissions().setListener(this);
@@ -54,6 +50,7 @@ public class PrivateRegisterLocation extends AppCompatActivity implements  Reque
     }
 
     RequestLocationPermissions requestLocationPermissions;
+
     protected void onStart() {
 //        mGoogleApiClient.connect();
         super.onStart();
@@ -65,14 +62,9 @@ public class PrivateRegisterLocation extends AppCompatActivity implements  Reque
         super.onStop();
     }
 
-
-
-
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 1000 && requestLocationPermissions != null)
+        if (requestCode == 1000 && requestLocationPermissions != null)
             requestLocationPermissions.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -98,14 +90,14 @@ public class PrivateRegisterLocation extends AppCompatActivity implements  Reque
 //            fragment.dismiss();
 
             fragment.getLastLocation();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void onLocationUpdate(com.app.mybiz.Objects.Location location, RequestLocationPermissions fragment) {
-        if(FirebaseAuth.getInstance().getCurrentUser()!= null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
 //            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             Intent intent = new Intent(this, TabsActivity.class);
@@ -114,15 +106,4 @@ public class PrivateRegisterLocation extends AppCompatActivity implements  Reque
         }
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.useLocation:
-//
-//                break;
-//            case R.id.insert:
-//
-//                break;
-//        }
-//    }
 }

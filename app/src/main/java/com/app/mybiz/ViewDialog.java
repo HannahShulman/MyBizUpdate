@@ -10,10 +10,10 @@ import com.bumptech.glide.Glide;
 
 public class ViewDialog {
 
-    com.app.mybiz.Objects.TouchImageView a;
+    static com.app.mybiz.Objects.TouchImageView a;
 
     //dialog for info
-    public ViewDialog showDialog( Context ctx, String uri) {
+    public static ViewDialog showDialog( Context ctx, String uri) {
         final Dialog dialog = new Dialog(ctx);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);

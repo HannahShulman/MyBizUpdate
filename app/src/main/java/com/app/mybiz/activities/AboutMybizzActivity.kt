@@ -14,8 +14,10 @@ class AboutMybizzActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_mybizz)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.let {
+            it.setDisplayShowTitleEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
         about_info_tv.text = resources.getString(R.string.about_mybizz_text)
         val version = packageManager.getPackageInfo(packageName, 0).versionName
         version_tv.append(version.toString())

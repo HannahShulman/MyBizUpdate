@@ -86,7 +86,6 @@ public class CreateAccountChoiceActivity extends AppCompatActivity implements Vi
         skip.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

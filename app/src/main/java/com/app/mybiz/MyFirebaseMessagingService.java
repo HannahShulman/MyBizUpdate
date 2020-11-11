@@ -28,8 +28,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationsManager = MybizzNotificationManager.getInstance(this.getApplicationContext());
     }
 
-
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);

@@ -57,16 +57,10 @@ public class FakeService {
                 geoFire.setLocation(service.getUserUid(), new GeoLocation(lat1, lon1));
 
 
-                FirebaseDatabase.getInstance().getReference().getRoot().child("Services").child("PublicData").child(service.getUserUid()).setValue(service, new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    }
+                FirebaseDatabase.getInstance().getReference().getRoot().child("Services").child("PublicData").child(service.getUserUid()).setValue(service, (databaseError, databaseReference) -> {
                 });
 
-                FirebaseDatabase.getInstance().getReference().getRoot().child("Services").child("PrivateData").child(service.getUserUid()).setValue(service, new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    }
+                FirebaseDatabase.getInstance().getReference().getRoot().child("Services").child("PrivateData").child(service.getUserUid()).setValue(service, (databaseError, databaseReference) -> {
                 });
                 FirebaseDatabase.getInstance().getReference().getRoot().child("Services").child("Geo").child(service.getUserUid()).addValueEventListener(new ValueEventListener() {
                     @Override
