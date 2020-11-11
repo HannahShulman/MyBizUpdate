@@ -7,8 +7,8 @@
         android:angle="-45"
         android:centerY="0.83"
         android:centerX="0.63"
-        android:startColor="@color/tw__transparent"
-        android:centerColor="@color/tw__transparent"
+        android:startColor="@color/tw__composer_transparent"
+        android:centerColor="@color/tw__composer_transparent"
         android:endColor="#4d000000"
         android:type="linear"/>
 

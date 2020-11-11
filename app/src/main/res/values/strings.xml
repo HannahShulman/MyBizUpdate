@@ -29,7 +29,7 @@
     <string name="add_image_for_recog">add image so that \n customers can identify you</string>
     <string name="take_pic_camara" translatable="true">take picture</string>
     <string name="choose_from_gallary" translatable="true">choose from gallary</string>
-    <string name="slogen" translatable="true">find. compare. save.</string>
+    <string name="slogen" translatable="true">Find. Compare. Save.</string>
     <string name="google_sign_in" translatable="true">sign in using google</string>
     <string name="fb_sign_in" translatable="true">sign in using Facebook</string>
     <string name="title_activity_main" translatable="false">MainActivity</string>
@@ -62,7 +62,7 @@
     <string name="title_activity_bc_cb" translatable="false">bc_cb</string>
     <string name="info" translatable="true">info</string>
     <string name="account_type" translatable="false">חשבון עסקי</string>
-    <string name="comment">הזמנתי את דרכי המלך אחרי הביקורות החיוביות שראיתי במייביז  והופתעתי לטובה מאיכות השירות ומהדיוק בזמנים . הנהג היה אדיב מאוד והמחיר היה הכי זול שאי פעם שמעתי בחברת הסעות ממליץ בחום החברה הכי אמינה בשוק מניסיון !!</string>
+    <string name="comment" translatable="false">הזמנתי את דרכי המלך אחרי הביקורות החיוביות שראיתי במייביז  והופתעתי לטובה מאיכות השירות ומהדיוק בזמנים . הנהג היה אדיב מאוד והמחיר היה הכי זול שאי פעם שמעתי בחברת הסעות ממליץ בחום החברה הכי אמינה בשוק מניסיון !!</string>
     <string name="tchum_sheli" translatable="true">my offers</string>
     <string name="firebase_error_login" translatable="false">error fb</string>
 
@@ -218,19 +218,13 @@
     <string name="service_will_see" translatable="true">this is how the service provider will see you request</string>
     <string name="tender_must_register" translatable="true">In order to create a tender, you must register</string>
     <string name="terms_and_conditions">terms and conditions</string>
-    <string name="full_privacy_policy">privacy policy</string>
+    <string name="full_privacy_policy" translatable="false">privacy policy</string>
     <string name="image_recieved">Image</string>
-    <string name="t_n_c" translatable="true">Terms and condition</string>
+    <string name="t_n_c" translatable="false">Terms and condition</string>
     <string name="priva_pol_title" translatable="true">Privacy Policy</string>
     <string name="street_not_found" translatable="true">street not found</string>
-    <string name="title_activity_about3">About3</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="version">Version:</string>
-    <string name="business_name_title">שם העסק</string>
+    <string name="business_name_title">Business Name</string>
 </resources>

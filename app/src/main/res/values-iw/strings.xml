@@ -179,4 +179,7 @@
     <string name="terms_and_conditions">תנאי השימוש</string>
     <string name="priva_pol_title">מדניות פרטיות</string>
     <string name="street_not_found">שם הרחוב לא נמצא</string>
+    <string name="version">גרסא</string>
+    <string name="business_name_title">שם העסק</string>
+    <string name="steps_to_account">צעדים ליצירת חשבון</string>
 </resources>

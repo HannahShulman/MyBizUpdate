@@ -50,7 +50,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp" />
 
-        <com.mybiz.views.SquareImageView
+        <com.app.mybiz.views.SquareImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

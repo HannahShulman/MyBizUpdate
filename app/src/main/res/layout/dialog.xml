@@ -17,7 +17,7 @@
             android:background="@android:color/transparent"
             android:orientation="vertical">
 
-            <com.mybiz.Objects.TouchImageView
+            <com.app.mybiz.Objects.TouchImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/a"

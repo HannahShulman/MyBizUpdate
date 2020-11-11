@@ -4,7 +4,7 @@
         <shape
             android:shape="ring"
             android:useLevel="false">
-            <solid android:color="@color/tw__transparent"/>
+            <solid android:color="@color/tw__composer_transparent"/>
 
         </shape>
     </item>

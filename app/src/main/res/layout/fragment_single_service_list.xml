@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:dividerHeight="16dp"
-        android:divider="@drawable/tw__transparent"
+        android:divider="@color/tw__transparent"
         android:id="@+id/single_services"/>
 
         <LinearLayout

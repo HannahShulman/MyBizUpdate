@@ -89,7 +89,7 @@
 
 
 
-        <com.mybiz.views.MyBizzRatingBar
+        <com.app.mybiz.views.MyBizzRatingBar
             android:layout_below="@id/circleImageView"
             android:id="@+id/ratingBar"
             android:rating="1"

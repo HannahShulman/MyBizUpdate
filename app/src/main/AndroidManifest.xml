@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mybiz">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.app.mybiz">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -43,7 +44,8 @@
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value"/>
 
         <activity
             android:name=".TabsActivity"
@@ -135,10 +137,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".UpdatesFromServer"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyMaterialTheme" />
+
         <activity
             android:name=".ServiceRegistrationActivityForm"
             android:screenOrientation="portrait"

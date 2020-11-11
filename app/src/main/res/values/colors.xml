@@ -5,6 +5,10 @@
     <color name="colorAccent">#007078</color>
     <color name="main_color">#007078</color>
     <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="tw__composer_black">#000</color>
+    <color name="tw__composer_transparent">@android:color/transparent</color>
+    <color name="tw__transparent">@android:color/transparent</color>
     <color name="red_create_account">#ff5a5e</color>
     <color name="yellow_star">#e7ae01</color>
     <color name="review_green">#607f0e</color>

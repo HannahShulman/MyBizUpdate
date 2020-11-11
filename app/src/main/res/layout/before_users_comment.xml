@@ -77,7 +77,7 @@
             <!--android:layout_height="wrap_content"-->
             <!--android:gravity="center">-->
 
-        <com.mybiz.views.MyBizzRatingBar
+        <com.app.mybiz.views.MyBizzRatingBar
             android:layout_marginEnd="34dp"
             android:layout_marginStart="34dp"
             android:alpha=".56"

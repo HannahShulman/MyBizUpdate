@@ -7,7 +7,7 @@
         android:bottom="0dp">
 
         <shape android:shape="oval">
-            <solid android:color="@color/tw__transparent"/>
+            <solid android:color="@color/tw__composer_transparent"/>
             <stroke
                 android:width="2dp"
                 android:color="#000"/>
