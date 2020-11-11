@@ -55,8 +55,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.app.mybiz.Activities.PrivateRegisterLocation;
-import com.app.mybiz.Activities.ShareMyService;
+import com.app.mybiz.activities.PrivateRegisterLocation;
+import com.app.mybiz.activities.ShareMyService;
 import com.app.mybiz.Objects.Service;
 import com.app.mybiz.Objects.User;
 

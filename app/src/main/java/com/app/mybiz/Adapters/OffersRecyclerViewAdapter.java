@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.app.mybiz.Activities.AllServiceInfo;
+import com.app.mybiz.activities.AllServiceInfo;
 import com.app.mybiz.ChatActivity;
 import com.app.mybiz.Objects.Service;
 import com.app.mybiz.Objects.Specials;

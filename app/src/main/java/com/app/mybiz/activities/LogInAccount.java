@@ -1,4 +1,4 @@
-package com.app.mybiz.Activities;
+package com.app.mybiz.activities;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;

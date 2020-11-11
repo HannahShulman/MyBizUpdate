@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.app.mybiz.Activities.IntroTendersActivity;
+import com.app.mybiz.activities.IntroTendersActivity;
 import com.app.mybiz.Adapters.TenderRecyclerAdapter;
 import com.app.mybiz.Objects.Tenders;
 

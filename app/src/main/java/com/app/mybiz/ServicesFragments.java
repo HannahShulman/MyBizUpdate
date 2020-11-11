@@ -20,7 +20,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.app.mybiz.Activities.SingleServicesActivity;
+import com.app.mybiz.activities.SingleServicesActivity;
 import com.app.mybiz.Fragments.FavoriteServiceListFragment;
 import com.app.mybiz.views.FooterBehavior;
 

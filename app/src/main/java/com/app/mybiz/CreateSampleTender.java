@@ -31,7 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-import com.app.mybiz.Activities.ShowSampleTender;
+import com.app.mybiz.activities.ShowSampleTender;
 import com.app.mybiz.Objects.Tenders;
 import com.app.mybiz.Objects.User;
 

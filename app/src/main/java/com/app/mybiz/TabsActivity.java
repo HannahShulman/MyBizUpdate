@@ -31,10 +31,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.app.mybiz.Activities.AboutMybizzActivity;
-import com.app.mybiz.Activities.AllServiceInfo;
-import com.app.mybiz.Activities.IntroCreateSpecialActivity;
-import com.app.mybiz.Activities.IntroTendersActivity;
+import com.app.mybiz.activities.AboutMybizzActivity;
+import com.app.mybiz.activities.AllServiceInfo;
+import com.app.mybiz.activities.IntroCreateSpecialActivity;
+import com.app.mybiz.activities.IntroTendersActivity;
 import com.app.mybiz.Objects.Service;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -200,15 +200,11 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setTabTextColors(Color.parseColor("#54cdcccc"), Color.parseColor("#ffffff"));
     }
 
-
     private void initInfo() {
         prefs = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
         uid = prefs.getString(Constants.APP_ID, Constants.RANDOM_STRING);
         isAnonymous = prefs.getBoolean(Constants.IS_ANONYMOUS, false);
     }
-
-
-
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -335,8 +331,6 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
         return false;
     }
-
-
 
     @Override
     public void onClick(View v) {

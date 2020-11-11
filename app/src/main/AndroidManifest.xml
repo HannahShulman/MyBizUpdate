@@ -59,10 +59,10 @@
         </service>
 
         <activity
-            android:name=".Activities.ShareMyService"
+            android:name=".activities.ShareMyService"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.AllServiceInfo"
+            android:name=".activities.AllServiceInfo"
             android:theme="@style/AppTheme_noActionBar"
             android:screenOrientation="portrait" />
 
@@ -91,7 +91,7 @@
 
         </activity>
         <activity
-            android:name=".Activities.AddCommentActivity"
+            android:name=".activities.AddCommentActivity"
             android:theme="@style/AppTheme_noActionBar"
             android:screenOrientation="portrait" />
         <activity
@@ -102,7 +102,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Activities.AboutMybizzActivity"
+            android:name=".activities.AboutMybizzActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme_noActionBar" />
         <activity
@@ -112,7 +112,7 @@
             android:name=".CreateSpecial"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.LogInAccount"
+            android:name=".activities.LogInAccount"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
@@ -122,18 +122,18 @@
             android:exported="true" />
 
         <activity
-            android:name=".Activities.ServiceOffersList"
+            android:name=".activities.ServiceOffersList"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.IntroTendersActivity"
+            android:name=".activities.IntroTendersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.IntroCreateSpecialActivity"
+            android:name=".activities.IntroCreateSpecialActivity"
             android:label="@string/title_activity_intro_create_special"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme" />
         <activity
-            android:name=".Activities.PrivateRegisterLocation"
+            android:name=".activities.PrivateRegisterLocation"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme"
             android:windowSoftInputMode="adjustResize" />
@@ -149,7 +149,7 @@
             android:name=".MidLoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.SingleServicesActivity"
+            android:name=".activities.SingleServicesActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CreateSampleTender"
@@ -158,9 +158,9 @@
             android:name=".tests.CameraActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".RegistrationConfirmationActivity" />
-        <activity android:name=".Activities.ShowSampleTender" />
+        <activity android:name=".activities.ShowSampleTender" />
         <activity
-            android:name=".Activities.TermsAndConditionsActivity"
+            android:name=".activities.TermsAndConditionsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme_noActionBar" />
     </application>

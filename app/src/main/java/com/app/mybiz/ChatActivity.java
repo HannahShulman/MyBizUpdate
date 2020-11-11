@@ -43,7 +43,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.app.mybiz.Activities.AllServiceInfo;
+import com.app.mybiz.activities.AllServiceInfo;
 import com.app.mybiz.Managers.FavoriteServiceManager;
 import com.app.mybiz.Objects.Message;
 import com.app.mybiz.Objects.Service;
