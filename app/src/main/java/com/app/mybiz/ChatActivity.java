@@ -45,8 +45,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.app.mybiz.activities.AllServiceInfo;
 import com.app.mybiz.Managers.FavoriteServiceManager;
-import com.app.mybiz.Objects.Message;
-import com.app.mybiz.Objects.Service;
+import com.app.mybiz.objects.Message;
+import com.app.mybiz.objects.Service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -154,7 +154,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "onCreate: ");
         setContentView(R.layout.activity_chat);
         density = getResources().getDisplayMetrics().density;
-        isAnonymous = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getBoolean(Constants.IS_ANONYMOUS, false);
+        isAnonymous = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getBoolean(PreferenceKeys.IS_ANONYMOUS, false);
         i = getIntent();
         if (!isAnonymous)
             myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -358,7 +358,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         //setting data to views;
         toolbar.setTitle(otherName);
         //when send button is clicked the message is pushed into the ChatStream message array.
-        myName = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.NAME, Constants.RANDOM_STRING);
+        myName = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.NAME, PreferenceKeys.RANDOM_STRING);
         sendIcon.setOnClickListener(this);
         takePic.setOnClickListener(this);
         //here we retrieve all messages between the two pple comunicating
@@ -526,7 +526,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (!isAnonymous) {
-                            final String myID = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING);
+                            final String myID = getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
                             //1.
                             FirebaseDatabase.getInstance().getReference().child("AllUsers").child("PublicData")
                                     .child(myID).child("favorites").child(otherService.getKey()).addValueEventListener(new ValueEventListener() {
@@ -553,7 +553,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                                 }
                             });
                         }else {
-                            if (isAnonymous || getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)){
+                            if (isAnonymous || getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING)){
                                 final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(ChatActivity.this);
                                 builder.setMessage(getString(R.string.register_for_favorites));
                                 builder.setCancelable(true);
@@ -590,7 +590,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.take_pic_chat:
-                if (!isAnonymous && !myId.equals(Constants.RANDOM_STRING)) {
+                if (!isAnonymous && !myId.equals(PreferenceKeys.RANDOM_STRING)) {
                     Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (takePic.resolveActivity(getPackageManager()) != null) {
                         if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.CAMERA)
@@ -631,7 +631,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.send_icon:
-                if (!isAnonymous && !myId.equals(Constants.RANDOM_STRING)) {
+                if (!isAnonymous && !myId.equals(PreferenceKeys.RANDOM_STRING)) {
                     Intent intent1 = new Intent(ChatActivity.this, SendMessageService.class);
                     //send info
                     intent1.putExtra("isContactService", otherService != null);

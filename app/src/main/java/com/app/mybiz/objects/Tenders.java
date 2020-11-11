@@ -1,4 +1,4 @@
-package com.app.mybiz.Objects;
+package com.app.mybiz.objects;
 
 import com.firebase.geofire.GeoLocation;
 

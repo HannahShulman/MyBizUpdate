@@ -19,7 +19,6 @@ public class ServiceRegistrationFragmentContainer extends AppCompatActivity impl
     static String userState = "";
     String TAG = "fragmentContainer";
 
-
     ServiceProfileImageFragment profileImageFragment;
     ServiceCategoryAndNameFragment categoryInfo;
     ServiceRegistrationLocationFragment locationInfo;
@@ -122,8 +121,6 @@ public class ServiceRegistrationFragmentContainer extends AppCompatActivity impl
     public void onBackPressed() {
         super.onBackPressed();
     }
-
-
 
     @Override
     public void onClick(View v) {

@@ -19,7 +19,7 @@ import com.bumptech.glide.Priority;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.app.mybiz.Objects.Category;
+import com.app.mybiz.objects.Category;
 
 /**
  * Created by hannashulmah on 02/02/2017.
@@ -39,7 +39,8 @@ public class ServiceListFragment  extends Fragment {
         listRef = FirebaseDatabase.getInstance().getReferenceFromUrl(getArguments().getString("ref"));
         View rootView = inflater.inflate(R.layout.service_list_fragment, container, false);
 
-        serviceAdapter = new FirebaseRecyclerAdapter<Category, CategoryHolder>(Category.class, R.layout.category_layout, CategoryHolder.class, listRef) {
+        serviceAdapter = new FirebaseRecyclerAdapter<Category, CategoryHolder>(Category.class,
+                R.layout.category_layout, CategoryHolder.class, listRef) {
             @Override
             protected void populateViewHolder(CategoryHolder viewHolder, final Category model, int position) {
                 Log.d(TAG, "populateViewHolder: " + position);
@@ -48,23 +49,13 @@ public class ServiceListFragment  extends Fragment {
                 viewHolder.text.setText(model.getTitle());
                 Glide.with(getContext()).load(model.getProfileImage()).priority(Priority.IMMEDIATE).into(viewHolder.image);
 
-                viewHolder.text.setOnClickListener(new View.OnClickListener() {
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 //                        Toast.makeText(getContext(), model.getTitle(), Toast.LENGTH_SHORT).show();
                         ((ServicesFragments) getActivity().getSupportFragmentManager().findFragmentByTag(TabsActivity.adapter.getItem(1).getTag())).showSingleServices(model.getTitle());
                     }
                 });
-
-                viewHolder.container.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-//                        Toast.makeText(getContext(), model.getTitle(), Toast.LENGTH_SHORT).show();
-                        ((ServicesFragments) getActivity().getSupportFragmentManager().findFragmentByTag(TabsActivity.adapter.getItem(1).getTag())).showSingleServices(model.getTitle());
-                    }
-                });
-
             }
         };
 

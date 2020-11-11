@@ -110,9 +110,9 @@ public class CreateAccountChoiceActivity extends AppCompatActivity implements Vi
                 break;
 
             case R.id.skip:
-                    getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).edit()
-                            .putString(Constants.NAME, getResources().getString(R.string.guest_account))
-                            .putBoolean(Constants.IS_ANONYMOUS, true)
+                    getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).edit()
+                            .putString(PreferenceKeys.NAME, getResources().getString(R.string.guest_account))
+                            .putBoolean(PreferenceKeys.IS_ANONYMOUS, true)
                             .commit();
                     startActivity(new Intent(getBaseContext(), TabsActivity.class));
                     pb.setVisibility(View.GONE);

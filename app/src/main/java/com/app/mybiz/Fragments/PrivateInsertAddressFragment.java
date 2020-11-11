@@ -27,7 +27,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.app.mybiz.Interface.RequiredFields;
 import com.app.mybiz.LocationUtils;
-import com.app.mybiz.Objects.Location;
+import com.app.mybiz.objects.Location;
 import com.app.mybiz.R;
 //import com.app.mybiz.ServiceRegistrationActivity;
 import com.app.mybiz.TabsActivity;

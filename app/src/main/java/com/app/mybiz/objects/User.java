@@ -1,8 +1,8 @@
-package com.app.mybiz.Objects;
+package com.app.mybiz.objects;
 
 
-import com.app.mybiz.ChatSummary;
-import com.app.mybiz.Constants;
+
+import com.app.mybiz.PreferenceKeys;
 
 import java.util.HashMap;
 
@@ -16,7 +16,7 @@ public class User {
     public String mUid = " ";
     public boolean containsService = false;
     public boolean online = true;
-    public String profileUrl = Constants.PERSONAL_DEFAULT_PROFILE_URL;
+    public String profileUrl = PreferenceKeys.PERSONAL_DEFAULT_PROFILE_URL;
     public String openedAs = "service";
     public Location location = new Location();
     public Location locationGps = new Location();

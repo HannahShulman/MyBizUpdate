@@ -29,7 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.app.mybiz.Objects.Service;
+import com.app.mybiz.objects.Service;
 import com.app.mybiz.R;
 import com.app.mybiz.TabsActivity;
 
@@ -130,14 +130,14 @@ public class LogInAccount extends AppCompatActivity implements View.OnClickListe
                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                            Service myService = dataSnapshot.getValue(Service.class);
                            Log.d(TAG, "onDataChange: "+myService.toJson());
-                           getSharedPreferences(PreferenceKeys.INSTANCE.getPREFERENCES(), MODE_PRIVATE).edit()
-                                   .putString(PreferenceKeys.INSTANCE.getAPP_ID(), myService.getUserUid())
-                                   .putBoolean(PreferenceKeys.INSTANCE.getIS_SERVICE(), true)
-                                   .putString(PreferenceKeys.INSTANCE.getNAME(), myService.getTitle())
-                                   .putString(PreferenceKeys.INSTANCE.getEMAIL(), myService.getEmail())
-                                   .putString(PreferenceKeys.INSTANCE.getMY_CATEGORY(), myService.getCategory())
-                                   .putString(PreferenceKeys.INSTANCE.getMY_SUB_CATEGORY(), myService.getSubcategory())
-                                   .putString(PreferenceKeys.INSTANCE.getMY_SERVICE(), myService.toJson())
+                           getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).edit()
+                                   .putString(PreferenceKeys.APP_ID, myService.getUserUid())
+                                   .putBoolean(PreferenceKeys.IS_SERVICE, true)
+                                   .putString(PreferenceKeys.NAME, myService.getTitle())
+                                   .putString(PreferenceKeys.EMAIL, myService.getEmail())
+                                   .putString(PreferenceKeys.MY_CATEGORY, myService.getCategory())
+                                   .putString(PreferenceKeys.MY_SUB_CATEGORY, myService.getSubcategory())
+                                   .putString(PreferenceKeys.MY_SERVICE, myService.toJson())
                                    .commit();
 
                            if(myService.l != null && myService.l.size() > 1){

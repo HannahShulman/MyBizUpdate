@@ -1,4 +1,4 @@
-package com.app.mybiz.Objects;
+package com.app.mybiz.objects;
 
 import android.annotation.TargetApi;
 import android.content.Context;

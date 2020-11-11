@@ -12,10 +12,10 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.mybiz.objects.Service;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.app.mybiz.Objects.Service;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,8 +42,8 @@ public class MybizzNotificationManager extends AppCompatActivity {
     HashMap<String, String> sendersUid = new HashMap<>();//stores ids of senders for indicating no of senders
     JsonObject unseenMessages = new JsonObject();
     JsonObject chatsUnseen = new JsonObject();
-    String UNSEEN_F_N= "unseen.json";
-    String UNSEEN_CHATS_F_N= "chats.json";
+    String UNSEEN_F_N = "unseen.json";
+    String UNSEEN_CHATS_F_N = "chats.json";
     File unseen, chats;
 
     private MybizzNotificationManager(Context context) {
@@ -67,7 +67,6 @@ public class MybizzNotificationManager extends AppCompatActivity {
         return getUnseenMessages().length();
     }
 
-
     //set notification builder style and info
     public Notification.Builder setNotificationBuilder() throws JSONException {
         Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -75,24 +74,24 @@ public class MybizzNotificationManager extends AppCompatActivity {
         notifiBuilder.setSmallIcon(R.drawable.splash_icon);
         notifiBuilder.setSound(notificationSound);
         Notification.InboxStyle style = new Notification.InboxStyle(notifiBuilder);
-        style.setBigContentTitle("you have "+getUnseenCount()+" messages");
+        style.setBigContentTitle("you have " + getUnseenCount() + " messages");
         style.setSummaryText("you have " + getUnseenCount() + " messages");
         boolean sameUser = true;
 
         //adds lines to notification, and checks if all messages are from same user.
-        JSONArray allMyNotifications = new JSONArray(context.getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_NOTIFICATIONS, Constants.DEFAULT_NOTIFICATION));
-        Log.d(TAG, "setNotificationBuilder: "+allMyNotifications.toString());
+        JSONArray allMyNotifications = new JSONArray(context.getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_NOTIFICATIONS, PreferenceKeys.DEFAULT_NOTIFICATION));
+        Log.d(TAG, "setNotificationBuilder: " + allMyNotifications.toString());
         for (int i = 0; i < allMyNotifications.length(); i++) {
             JSONObject currentNotification = allMyNotifications.getJSONObject(i);
             sendersUid.put(currentNotification.getString("fromUid"), currentNotification.getString("fromUid"));
-                if (i>0 && sameUser){
-                    JSONObject recentNotification = allMyNotifications.getJSONObject(i-1);
-                    if (!currentNotification.getString("fromUid").equals(recentNotification.getString("fromUid")))
-                        sameUser=false;
-                }
-                if (i>allMyNotifications.length()-7) {
-                    style.addLine(currentNotification.getString("senderName")+": "+currentNotification.getString("content"));
-                }
+            if (i > 0 && sameUser) {
+                JSONObject recentNotification = allMyNotifications.getJSONObject(i - 1);
+                if (!currentNotification.getString("fromUid").equals(recentNotification.getString("fromUid")))
+                    sameUser = false;
+            }
+            if (i > allMyNotifications.length() - 7) {
+                style.addLine(currentNotification.getString("senderName") + ": " + currentNotification.getString("content"));
+            }
         }
 
         //set the intents of notification (if from same user and if from multiple users
@@ -102,13 +101,13 @@ public class MybizzNotificationManager extends AppCompatActivity {
         final Intent singleIntent = new Intent(context, ChatActivity.class);
         //sending info for activity
         JSONObject object = allMyNotifications.getJSONObject(0);
-        Log.d(TAG, "setNotificationBuilder: "+object.toString());
-        Log.d(TAG, "setNotificationBuilder1: "+object.optString("amIService"));
-        Log.d(TAG, "setNotificationBuilder12: "+object.optString("senderService"));
+        Log.d(TAG, "setNotificationBuilder: " + object.toString());
+        Log.d(TAG, "setNotificationBuilder1: " + object.optString("amIService"));
+        Log.d(TAG, "setNotificationBuilder12: " + object.optString("senderService"));
         singleIntent.putExtra("isService", object.optBoolean("amIService"));
 //        if (object.optBoolean("amIService")){
-            Log.d(TAG, "setNotificationBuilder: "+object.optString("senderService"));
-            Gson gson = new Gson();
+        Log.d(TAG, "setNotificationBuilder: " + object.optString("senderService"));
+        Gson gson = new Gson();
         if (!object.optString("senderService").isEmpty()) {
             JSONObject obj = new JSONObject(object.optString("senderService"));
             Service senderService = gson.fromJson(obj.toString(), Service.class);
@@ -137,16 +136,16 @@ public class MybizzNotificationManager extends AppCompatActivity {
 //        notifiBuilder.setSound(notificationSound);
         if (sameUser) {//if all from one user
 
-        //check if is service
+            //check if is service
 //            Log.d(TAG, "setNotificationBuilder1: "+object.getString("senderService"));
             style.setBigContentTitle(object.getString("senderName"));
             notifiBuilder.setContentIntent(singleUserPendingIntent);
             notifiBuilder.setAutoCancel(true);
             notifiBuilder.setStyle(style);
-            notifiBuilder.setContentText(getUnseenCount()+"  from "+object.getString("senderName"));
+            notifiBuilder.setContentText(getUnseenCount() + "  from " + object.getString("senderName"));
         } else {
             style.setBigContentTitle("you have " + getUnseenCount() + " messages");
-            notifiBuilder.setContentText(getUnseenCount()+"  from "+sendersUid.size()+" senders");
+            notifiBuilder.setContentText(getUnseenCount() + "  from " + sendersUid.size() + " senders");
             notifiBuilder.setContentIntent(multipleUserPendingIntent);
         }
         notifiBuilder.setContentTitle("MyBizz");
@@ -166,12 +165,12 @@ public class MybizzNotificationManager extends AppCompatActivity {
     //this method adds the received message to array in file containing other unseen messages
     public void setUnseenMessagesFile(String messageData) throws JSONException {
         JSONObject messageDetailsJsonObject = new JSONObject(messageData);
-        Log.d(TAG, "onMessageReceived: "+messageData.toString());
-        String myNotifications =  context.getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_NOTIFICATIONS, Constants.DEFAULT_NOTIFICATION);
+        Log.d(TAG, "onMessageReceived: " + messageData.toString());
+        String myNotifications = context.getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_NOTIFICATIONS, PreferenceKeys.DEFAULT_NOTIFICATION);
         JSONArray myNotificationArray = new JSONArray(myNotifications);
         myNotificationArray.put(messageDetailsJsonObject);
-        Log.d(TAG, "onMessageReceived: "+myNotificationArray);
-        context.getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).edit().putString(Constants.MY_NOTIFICATIONS, myNotificationArray.toString()).commit();
+        Log.d(TAG, "onMessageReceived: " + myNotificationArray);
+        context.getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).edit().putString(PreferenceKeys.MY_NOTIFICATIONS, myNotificationArray.toString()).commit();
         updateNotification();
     }
 
@@ -184,17 +183,17 @@ public class MybizzNotificationManager extends AppCompatActivity {
         JSONArray notificationArray = null;
         try {
             notificationArray = getUnseenMessages();
-            Log.d(TAG, "removeSeenMessagesFile1: "+notificationArray.toString()+"__"+notificationArray.length());
+            Log.d(TAG, "removeSeenMessagesFile1: " + notificationArray.toString() + "__" + notificationArray.length());
             for (int i = 0; i < notificationArray.length(); i++) {
                 JSONObject currentNotification = notificationArray.getJSONObject(i);
-                if (!currentNotification.getString("fromUid").equals(id)){
+                if (!currentNotification.getString("fromUid").equals(id)) {
                     messages.add(currentNotification.toString());
                 }
             }
             notificationArray = new JSONArray(messages);
-            Log.d(TAG, "removeSeenMessagesFile2: "+messages.toString());
-            Log.d(TAG, "removeSeenMessagesFile3: "+notificationArray.toString());
-            context.getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).edit().putString(Constants.MY_NOTIFICATIONS, messages.toString()).commit();
+            Log.d(TAG, "removeSeenMessagesFile2: " + messages.toString());
+            Log.d(TAG, "removeSeenMessagesFile3: " + notificationArray.toString());
+            context.getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).edit().putString(PreferenceKeys.MY_NOTIFICATIONS, messages.toString()).commit();
             updateNotification();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -203,22 +202,22 @@ public class MybizzNotificationManager extends AppCompatActivity {
 
     //this method returns the content of file holding array, containing unseen messages
     public JSONArray getUnseenMessages() throws JSONException {
-        String notificationFromPrefrences = context.getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_NOTIFICATIONS, Constants.DEFAULT_NOTIFICATION);
+        String notificationFromPrefrences = context.getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_NOTIFICATIONS, PreferenceKeys.DEFAULT_NOTIFICATION);
         JSONArray notificationArray = new JSONArray(notificationFromPrefrences);
         return notificationArray;
     }
 
 
-    private void saveInFiles(){
+    private void saveInFiles() {
 
     }
 
     public void setUnseenMessagesFile(String messageDetails, String messageId) {
-        try{
+        try {
             JsonObject message = new JsonParser().parse(new StringReader(messageDetails)).getAsJsonObject();
             unseenMessages.add(messageId, message);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

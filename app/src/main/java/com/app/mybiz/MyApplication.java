@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.app.mybiz.Managers.FavoriteServiceManager;
+import com.app.mybiz.objects.Service;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.firebase.geofire.GeoFire;
@@ -19,9 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-//import com.google.firebase.iid.FirebaseInstanceId;
-import com.app.mybiz.Managers.FavoriteServiceManager;
-import com.app.mybiz.Objects.Service;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +28,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+//import com.google.firebase.iid.FirebaseInstanceId;
 
 /**
  * Created by hannashulmah on 11/12/2016.
@@ -42,7 +43,7 @@ public class MyApplication extends Application {
     private static Context mContext;
 
 
-    public static Context getAppContext(){
+    public static Context getAppContext() {
         return mContext;
     }
 
@@ -58,78 +59,79 @@ public class MyApplication extends Application {
         UpdatesFromServer.updateCategoriesFromServer();
         mContext = this.getApplicationContext();
 
-        MybizzNotificationManager.getInstance(this).manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).edit().putString(Constants.MY_NOTIFICATIONS, Constants.DEFAULT_NOTIFICATION).commit();
+        MybizzNotificationManager.getInstance(mContext).manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).edit().putString(PreferenceKeys.MY_NOTIFICATIONS, PreferenceKeys.DEFAULT_NOTIFICATION).commit();
         DatabaseReference sub_ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/");
-        getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).edit().putString(Constants.FIRST_TIME_DEVICE, "firstTime").commit();
+        getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).edit().putString(PreferenceKeys.FIRST_TIME_DEVICE, "firstTime").commit();
         //remove device from other uids
-        if (!getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)){
+        if (!getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING)) {
 
-        }else{
+        } else {
             FirebaseDatabase.getInstance().getReference().child("Devices").child(Settings.Secure.getString(getContentResolver(),
                     Settings.Secure.ANDROID_ID))
                     .addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()){
-                        Log.d(TAG, "onDataChange: "+dataSnapshot.getValue());
-                        Device d = dataSnapshot.getValue(Device.class);
-                        String uid = d.getUid();
-                        if (uid!=null) {
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("AllUsers").child("PublicData").child(uid).child("devices");
-                            Map<String, Object> map = new HashMap<String, Object>();
-                            map.put(Settings.Secure.getString(getContentResolver(),
-                                    Settings.Secure.ANDROID_ID), null);
-                            ref.updateChildren(map);
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                Log.d(TAG, "onDataChange: " + dataSnapshot.getValue());
+                                Device d = ((Device)dataSnapshot.getValue());
+//                                Device d = dataSnapshot.getValue(Device.class);
+                                String uid = d.getUid();
+                                if (uid != null) {
+                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("AllUsers").child("PublicData").child(uid).child("devices");
+                                    Map<String, Object> map = new HashMap<String, Object>();
+                                    map.put(Settings.Secure.getString(getContentResolver(),
+                                            Settings.Secure.ANDROID_ID), null);
+                                    ref.updateChildren(map);
+                                }
+
+                                FirebaseDatabase.getInstance().getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/Devices/" + Settings.Secure.getString(getContentResolver(),
+                                        Settings.Secure.ANDROID_ID) + "/uid").setValue(null);
+
+                            } else {
+
+                            }
                         }
 
-                        FirebaseDatabase.getInstance().getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/Devices/"+Settings.Secure.getString(getContentResolver(),
-                                Settings.Secure.ANDROID_ID)+"/uid").setValue(null);
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }else{
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+                        }
+                    });
         }
 
 //            if (FirebaseAuth.getInstance().getCurrentUser() != null && FirebaseAuth.getInstance().getCurrentUser().getUid() != null) {
-        String userUid = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING);
-                if (!userUid.equals(Constants.RANDOM_STRING)){
-                sub_ref.child("AllUsers").child("PrivateData").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Device").setValue(android_id);
-            }
-            FacebookSdk.sdkInitialize(getApplicationContext());
-            AppEventsLogger.activateApp(this);
-
-
-      if (FirebaseAuth.getInstance().getCurrentUser()!=null && getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getBoolean(Constants.IS_SERVICE, false)){
-        //get my service
-        try {
-          JSONObject myService = new JSONObject(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING));
-          FirebaseDatabase.getInstance().getReference().child("Services").child("PrivateData")
-                  .child(myService.getString("key")).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-              Service service = dataSnapshot.getValue(Service.class);
-              getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).edit().putString(Constants.MY_SERVICE, service.toString()).commit();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-          });
-        } catch (JSONException e) {
-          e.printStackTrace();
+        String userUid = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
+        if (!userUid.equals(PreferenceKeys.RANDOM_STRING)) {
+            sub_ref.child("AllUsers").child("PrivateData").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Device").setValue(android_id);
         }
-        //get service and update info
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
-      }
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null && getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getBoolean(PreferenceKeys.IS_SERVICE, false)) {
+            //get my service
+            try {
+                JSONObject myService = new JSONObject(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING));
+                FirebaseDatabase.getInstance().getReference().child("Services").child("PrivateData")
+                        .child(myService.getString("key")).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Service service = dataSnapshot.getValue(Service.class);
+                        getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).edit().putString(PreferenceKeys.MY_SERVICE, service.toString()).commit();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //get service and update info
+
+        }
 
 //        add categories
 //        Category one = new Category("furniture", "https://firebasestorage.googleapis.com/v0/b/mybizz-3bbe5.appspot.com/o/Category%20Profile%2F081416-furniture-thumbnail-bedroom.jpg?alt=media&token=e044b81f-1ee2-4cd3-90a8-6f5ace2702e5");
@@ -338,18 +340,16 @@ public class MyApplication extends Application {
 //        profRef.child(cleaners.getTitle()).setValue(cleaners);
 
 
-
-
         //set user is online
-        final String uid = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING);
-        if (!getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getBoolean(Constants.IS_ANONYMOUS, true) && !uid.equals(Constants.RANDOM_STRING)) {
+        final String uid = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
+        if (!getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getBoolean(PreferenceKeys.IS_ANONYMOUS, true) && !uid.equals(PreferenceKeys.RANDOM_STRING)) {
             addListener(uid);
 
         }
         FirebaseDatabase.getInstance().getReference().child("AllUsers").child("PrivateData").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     addListener(uid);
                 }
             }
@@ -359,7 +359,6 @@ public class MyApplication extends Application {
 
             }
         });
-
 
 
 //        FakeService.create(this);
@@ -375,13 +374,13 @@ public class MyApplication extends Application {
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
-                Log.d(TAG, "onKeyEntered: "+key);
-                Log.d(TAG, "onKeyEntered: "+location);
+                Log.d(TAG, "onKeyEntered: " + key);
+                Log.d(TAG, "onKeyEntered: " + location);
             }
 
             @Override
             public void onKeyExited(String key) {
-                Log.d(TAG, "onKeyExited: "+key);
+                Log.d(TAG, "onKeyExited: " + key);
             }
 
             @Override
@@ -401,16 +400,16 @@ public class MyApplication extends Application {
         });
     }
 
-    public static  void addListener(String uid){//online offline
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/AllUsers/PublicData/" + uid + "/online");
-            ref.setValue(true);
-            //should go to database only when entering app dont think any need for more than this.
-            UpdatesFromServer.updateCategoriesFromServer();
-            ref.addValueEventListener(listener);
-            ref.onDisconnect().setValue(false);
+    public static void addListener(String uid) {//online offline
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/AllUsers/PublicData/" + uid + "/online");
+        ref.setValue(true);
+        //should go to database only when entering app dont think any need for more than this.
+        UpdatesFromServer.updateCategoriesFromServer();
+        ref.addValueEventListener(listener);
+        ref.onDisconnect().setValue(false);
     }
 
-    static ValueEventListener listener  = new ValueEventListener() {
+    static ValueEventListener listener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -422,12 +421,12 @@ public class MyApplication extends Application {
         }
     };
 
-    public static void shareService( String serviceKey){
+    public static void shareService(String serviceKey) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, "https://mybizz.application.to/allInfo_" + serviceKey);
-        intent.putExtra(Intent.EXTRA_TEXT, mContext.getResources().getString(R.string.get_my_service)+"https://mybizz.application.to/allInfo_" + serviceKey+"  "
-                +mContext.getResources().getString(R.string.download_app)+" https://play.google.com/store/apps/details?id=com.app.mybiz"
+        intent.putExtra(Intent.EXTRA_TEXT, mContext.getResources().getString(R.string.get_my_service) + "https://mybizz.application.to/allInfo_" + serviceKey + "  "
+                + mContext.getResources().getString(R.string.download_app) + " https://play.google.com/store/apps/details?id=com.app.mybiz"
 
         );
         intent.putExtra(Intent.EXTRA_SUBJECT, "Check out this site!");

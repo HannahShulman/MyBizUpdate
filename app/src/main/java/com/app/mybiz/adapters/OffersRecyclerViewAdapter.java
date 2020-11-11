@@ -1,4 +1,4 @@
-package com.app.mybiz.Adapters;
+package com.app.mybiz.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,8 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.app.mybiz.activities.AllServiceInfo;
 import com.app.mybiz.ChatActivity;
-import com.app.mybiz.Objects.Service;
-import com.app.mybiz.Objects.Specials;
+import com.app.mybiz.objects.Service;
+import com.app.mybiz.objects.Specials;
 import com.app.mybiz.R;
 
 import java.util.ArrayList;

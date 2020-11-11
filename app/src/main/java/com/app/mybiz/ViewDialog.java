@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
 
 public class ViewDialog {
 
-    static com.app.mybiz.Objects.TouchImageView a;
+    static com.app.mybiz.objects.TouchImageView a;
 
     //dialog for info
     public static ViewDialog showDialog( Context ctx, String uri) {
@@ -18,7 +18,7 @@ public class ViewDialog {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog);
-        a = (com.app.mybiz.Objects.TouchImageView) dialog.findViewById(R.id.a);
+        a = (com.app.mybiz.objects.TouchImageView) dialog.findViewById(R.id.a);
         a.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Glide.with(ctx).load(uri).into(a);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {

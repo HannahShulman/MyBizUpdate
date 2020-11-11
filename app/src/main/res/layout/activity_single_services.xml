@@ -2,29 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_single_services"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dcdee3"
-    tools:context="com.mybiz.Activities.SingleServicesActivity">
+    android:orientation="vertical"
+    tools:context="com.app.mybiz.activities.SingleServicesActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:elevation="4dp"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/colorPrimary"
-        android:titleTextColor="@color/white"
-        android:id="@+id/toolbar"/>
+        android:elevation="4dp"
+        android:titleTextColor="@color/white" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="@drawable/elevation"/>
+        android:background="@drawable/elevation" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/single_services"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#dcdee3"
-        android:id="@+id/single_services"/>
+        android:background="#dcdee3" />
 
 </LinearLayout>

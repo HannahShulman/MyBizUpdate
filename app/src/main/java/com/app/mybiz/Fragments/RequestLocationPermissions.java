@@ -69,11 +69,11 @@ public class RequestLocationPermissions extends DialogFragment implements View.O
 
 
 
-    private com.app.mybiz.Objects.Location getLocation(double lat, double lon){
+    private com.app.mybiz.objects.Location getLocation(double lat, double lon){
         Geocoder geocoder = new Geocoder(mc, new Locale("iw"));
         try {
             List<Address> list = geocoder.getFromLocation(lat, lon, 3);
-            com.app.mybiz.Objects.Location location = new com.app.mybiz.Objects.Location();
+            com.app.mybiz.objects.Location location = new com.app.mybiz.objects.Location();
             Log.d(TAG, "getLocation: "+list);
             if(list != null && list.size() > 0){
                 Address add = list.get(0);
@@ -153,7 +153,7 @@ public class RequestLocationPermissions extends DialogFragment implements View.O
         void tryEnableLocation(RequestLocationPermissions fragment);
         void requestPermission(boolean per, RequestLocationPermissions fragment);
         void onEnable(RequestLocationPermissions fragment);
-        void onLocationUpdate(com.app.mybiz.Objects.Location location, RequestLocationPermissions fragment);
+        void onLocationUpdate(com.app.mybiz.objects.Location location, RequestLocationPermissions fragment);
     }
 
     private OnLocationOptionsListener listener;

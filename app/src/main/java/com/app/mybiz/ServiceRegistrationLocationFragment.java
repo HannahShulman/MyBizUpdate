@@ -6,9 +6,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,6 +17,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.app.mybiz.Interface.RequiredFields;
+import com.app.mybiz.objects.Service;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.database.ChildEventListener;
@@ -30,8 +33,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.app.mybiz.Interface.RequiredFields;
-import com.app.mybiz.Objects.Service;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,14 +48,15 @@ import java.util.List;
  * Created by hannashulmah on 01/03/2017.
  */
 
-public class ServiceRegistrationLocationFragment extends Fragment  implements GoogleApiClient.OnConnectionFailedListener,
+public class ServiceRegistrationLocationFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks, RequiredFields, View.OnClickListener, View.OnFocusChangeListener {
 
     EditText serviceHomeNumber;
     AutoCompleteTextView serviceTown, serviceAddress;
     ArrayList<String> cities, list;
-            TextView errorMsgTxt, errorMsgTxt1;
+    TextView errorMsgTxt, errorMsgTxt1;
     String TAG = "ServiceRegistration";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.service_registration_location, container, false);
@@ -70,7 +72,7 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
         serviceHomeNumber = (EditText) rootView.findViewById(R.id.home_number);
         serviceHomeNumber.setOnFocusChangeListener(this);
         serviceTown = (AutoCompleteTextView) rootView.findViewById(R.id.town_ed);
-        new AsyncTask(){
+        new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
                 cities = getCities();
@@ -151,14 +153,13 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
         serviceTown.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
-                    if (!cities.contains(serviceTown.getText().toString())){
+                if (!hasFocus) {
+                    if (!cities.contains(serviceTown.getText().toString())) {
                         errorMsgTxt.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         errorMsgTxt.setVisibility(View.GONE);
                     }
-                }
-                else{
+                } else {
                     errorMsgTxt.setVisibility(View.GONE);
                 }
             }
@@ -171,7 +172,7 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
         try {
             JsonArray jsonArray = new JsonParser().parse(new InputStreamReader(getContext().getAssets().open("cs.txt"))).getAsJsonArray();
             for (int i = 0; i < jsonArray.size(); i++) {
-                Log.d("testcs", "getCities: "+jsonArray.get(i));
+                Log.d("testcs", "getCities: " + jsonArray.get(i));
                 list.add(jsonArray.get(i).getAsString());
             }
         } catch (IOException e) {
@@ -184,13 +185,14 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause: ");
-        if (ServiceRegistrationFragmentContainer.saveVsBack==ServiceRegistrationFragmentContainer.SAVE) {
+        if (ServiceRegistrationFragmentContainer.saveVsBack == ServiceRegistrationFragmentContainer.SAVE) {
             ServiceRegistrationActivityForm.newService.setAddress(serviceAddress.getText().toString());
             ServiceRegistrationActivityForm.newService.setTown(serviceTown.getText().toString());
             ServiceRegistrationActivityForm.newService.setServiceHomeNumber(serviceHomeNumber.getText().toString());
             new AsyncTask() {
                 String town = serviceTown.getText().toString();
-                String address = serviceAddress.getText().toString()+" "+serviceHomeNumber.getText().toString();
+                String address = serviceAddress.getText().toString() + " " + serviceHomeNumber.getText().toString();
+
                 @Override
                 protected Object doInBackground(Object[] objects) {
                     getLocation("ישראל", town, address);
@@ -200,22 +202,22 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
                 @Override
                 protected void onPostExecute(Object o) {
                     super.onPostExecute(o);
-                    ServiceRegistrationFragmentContainer.map.put("address",serviceAddress.getText().toString());
-                    ServiceRegistrationFragmentContainer.map.put("town",serviceTown.getText().toString());
+                    ServiceRegistrationFragmentContainer.map.put("address", serviceAddress.getText().toString());
+                    ServiceRegistrationFragmentContainer.map.put("town", serviceTown.getText().toString());
                     ServiceRegistrationFragmentContainer.map.put("serviceHomeNumber", serviceHomeNumber.getText().toString());
-                    Log.d(TAG, "1122onPause: "+ServiceRegistrationActivityForm.newService.getL());
+                    Log.d(TAG, "1122onPause: " + ServiceRegistrationActivityForm.newService.getL());
                     ServiceRegistrationFragmentContainer.map.put("l", ServiceRegistrationActivityForm.newService.getL());
 
-                    if (ServiceRegistrationFragmentContainer.userState.equals("isEdit")){
+                    if (ServiceRegistrationFragmentContainer.userState.equals("isEdit")) {
                         //update all fields in database
-                        String service = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
+                        String service = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
                         Gson gson = new Gson();
                         try {
                             JSONObject obj = new JSONObject(service);
                             final Service s = gson.fromJson(obj.toString(), Service.class);
                             String serviceKey = s.getKey();
-                            Log.d(TAG, "onPause: "+serviceKey);
-                            Log.d(TAG, "onPause: "+ ServiceRegistrationFragmentContainer.map.size());
+                            Log.d(TAG, "onPause: " + serviceKey);
+                            Log.d(TAG, "onPause: " + ServiceRegistrationFragmentContainer.map.size());
                             //all references to service
                             FirebaseDatabase.getInstance().getReference().child("AllUsers").child("PublicData")
                                     .child(s.getUserUid()).child("services").child(s.getKey()).updateChildren(ServiceRegistrationFragmentContainer.map);
@@ -226,7 +228,7 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
                                 @Override
                                 public void onChildAdded(DataSnapshot dataSnapshot, String st) {
                                     String userKey = dataSnapshot.getValue(String.class);
-                                    Log.d(TAG, "onChildAdded: "+userKey);
+                                    Log.d(TAG, "onChildAdded: " + userKey);
                                     FirebaseDatabase.getInstance().getReference().child("AllUsers").child("PrivateData").child(userKey)
                                             .child("favorites").child(s.getKey()).updateChildren(ServiceRegistrationFragmentContainer.map);
 
@@ -266,15 +268,19 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
                                             .child(key).child("chats").child(s.getUserUid()).child("otherContactService").updateChildren(ServiceRegistrationFragmentContainer.map);
                                     dataSnapshot.getRef().removeEventListener(this);
                                 }
+
                                 @Override
                                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                                 }
+
                                 @Override
                                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                                 }
+
                                 @Override
                                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                                 }
+
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
 
@@ -284,9 +290,9 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
 
                             FirebaseDatabase.getInstance().getReference().child("Services").child("PrivateData").child(serviceKey).updateChildren(ServiceRegistrationFragmentContainer.map);
                             FirebaseDatabase.getInstance().getReference().child("Services").child("PublicData").child(serviceKey).updateChildren(ServiceRegistrationFragmentContainer.map);
-                            Log.d(TAG, "onPause: "+ServiceRegistrationActivityForm.newService.toString());
-                            getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).edit().putString(Constants.MY_SERVICE, ServiceRegistrationActivityForm.newService.toJson()).commit();
-                            Log.d(TAG, "onPause: "+getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING));
+                            Log.d(TAG, "onPause: " + ServiceRegistrationActivityForm.newService.toString());
+                            getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).edit().putString(PreferenceKeys.MY_SERVICE, ServiceRegistrationActivityForm.newService.toJson()).commit();
+                            Log.d(TAG, "onPause: " + getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -296,9 +302,8 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
             }.execute();
 
 
-
-            }
-        Log.d(TAG, "onPause: "+ServiceRegistrationActivityForm.newService.toJson());
+        }
+        Log.d(TAG, "onPause: " + ServiceRegistrationActivityForm.newService.toJson());
     }
 
     @Override
@@ -318,169 +323,167 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
         //fil fields data from newUser object.
     }
 
-            @Override
-            public void onConnected(@Nullable Bundle bundle) {
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
 
-            }
+    }
 
-            @Override
-            public void onConnectionSuspended(int i) {
+    @Override
+    public void onConnectionSuspended(int i) {
 
-            }
+    }
 
-            @Override
-            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-            }
+    }
 
     @Override
     public boolean isComplete() {
         if (
-            serviceAddress.getText().toString().length() != 0 &&
-            serviceTown.getText().toString().length() != 0
-            )
+                serviceAddress.getText().toString().length() != 0 &&
+                        serviceTown.getText().toString().length() != 0
+        )
             return true;
         return false;
-            }
+    }
 
     @Override
     public boolean toSave() {
-        Log.d(TAG, "toSave: "+serviceTown.getListSelection());
-        Log.d(TAG, "toSave1: "+ServiceRegistrationActivityForm.newService.getTown()+"__"+serviceTown.getEditableText().toString());
-        Log.d(TAG, "toSave2: "+ServiceRegistrationActivityForm.newService.getAddress()+"__"+serviceAddress.getEditableText().toString());
-        Log.d(TAG, "toSave3: "+ServiceRegistrationActivityForm.newService.getServiceHomeNumber()+"__"+serviceHomeNumber.getText().toString());
+        Log.d(TAG, "toSave: " + serviceTown.getListSelection());
+        Log.d(TAG, "toSave1: " + ServiceRegistrationActivityForm.newService.getTown() + "__" + serviceTown.getEditableText().toString());
+        Log.d(TAG, "toSave2: " + ServiceRegistrationActivityForm.newService.getAddress() + "__" + serviceAddress.getEditableText().toString());
+        Log.d(TAG, "toSave3: " + ServiceRegistrationActivityForm.newService.getServiceHomeNumber() + "__" + serviceHomeNumber.getText().toString());
         if (ServiceRegistrationActivityForm.newService.getTown().equals(serviceTown.getText().toString())
-                && ServiceRegistrationActivityForm.newService.getAddress().equals(serviceAddress.getText().toString())){
+                && ServiceRegistrationActivityForm.newService.getAddress().equals(serviceAddress.getText().toString())) {
             return false;
         }
-        if (isValid(cities,serviceTown.getText().toString()) && isValid(list, serviceAddress.getText().toString()))
+        if (isValid(cities, serviceTown.getText().toString()) && isValid(list, serviceAddress.getText().toString()))
             return true;
 
         return false;
     }
 
-    private boolean isValid(ArrayList <String> list ,String location){
+    private boolean isValid(ArrayList<String> list, String location) {
         if (list.contains(location))
             return true;
         return false;
     }
 
     @Override
-            public void onClick(View v) {
-                switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
 
+        }
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        switch (v.getId()) {
+            case R.id.town_ed:
+                Log.d(TAG, "onFocusChange: " + hasFocus + "__" + v.getId());
+                if (!hasFocus) {
+                    validateText();
+                } else {
+                    errorMsgTxt1.setVisibility(View.GONE);
                 }
-            }
 
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                switch (v.getId()){
-                    case R.id.town_ed:
-                        Log.d(TAG, "onFocusChange: "+hasFocus+"__"+v.getId());
-                        if(! hasFocus) {
-                            validateText();
-                        }else{
-                            errorMsgTxt1.setVisibility(View.GONE);
-                        }
-
-                        break;
-                    case R.id.address_et:
-                        if(hasFocus) {
-                            errorMsgTxt1.setVisibility(View.GONE);
-                            if(validateTown()){
-                                Log.d(TAG, "onFocusChange: setadapter");
-                                setStreetsAdapter();
-                            }
-                        }else{
-                            if (!hasFocus){
-                                //check that street is ok
-                                if (serviceHomeNumber.hasFocus()) {
-                                    String street = serviceAddress.getText().toString();
-                                    if (!list.contains(street)) {
-                                        errorMsgTxt1.setVisibility(View.VISIBLE);
-                                        serviceHomeNumber.requestFocus();
-                                    }
-                                    else
-                                        errorMsgTxt1.setVisibility(View.GONE);
-                                    if (street.isEmpty() || list == null)
-                                        return;
-                                    if (validateStreet())
-                                        return;
-                                }
-                            }
-                        }
-                        break;
-                    case R.id.home_number:
-                        if(! hasFocus){
-                            getLocation("ישראל", serviceTown.getText().toString(), serviceAddress.getText().toString()+" "+serviceHomeNumber.getText().toString());
-                        }
-                }
-            }
-
-
-            private void setStreetsAdapter() {
-                 list= getStreetsCity(serviceTown.getText().toString());
-                Log.d("Test city", "setStreetsAdapter: "+list);
-                serviceAddress.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, list));
-            }
-
-            private ArrayList<String> getStreetsCity(String s) {
-                ArrayList<String> list = new ArrayList<>();
-                String firstC = s.substring(0, 1);
-                if(firstC.isEmpty()) return list;
-                try {
-                    JsonObject jsonObject = new JsonParser().parse(new InputStreamReader(getContext().getAssets().open("cities/"+firstC))).getAsJsonObject();
-                    if(jsonObject.has(s)){
-                        JsonArray jsonArray = jsonObject.get(s).getAsJsonArray();
-                        for (int i = 0; i < jsonArray.size(); i++) {
-                            list.add(jsonArray.get(i).getAsString());
+                break;
+            case R.id.address_et:
+                if (hasFocus) {
+                    errorMsgTxt1.setVisibility(View.GONE);
+                    if (validateTown()) {
+                        Log.d(TAG, "onFocusChange: setadapter");
+                        setStreetsAdapter();
+                    }
+                } else {
+                    if (!hasFocus) {
+                        //check that street is ok
+                        if (serviceHomeNumber.hasFocus()) {
+                            String street = serviceAddress.getText().toString();
+                            if (!list.contains(street)) {
+                                errorMsgTxt1.setVisibility(View.VISIBLE);
+                                serviceHomeNumber.requestFocus();
+                            } else
+                                errorMsgTxt1.setVisibility(View.GONE);
+                            if (street.isEmpty() || list == null)
+                                return;
+                            if (validateStreet())
+                                return;
                         }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }catch (Exception e){
-                    e.printStackTrace();
                 }
-                return list;
-            }
-
-            private void validateText() {
-                String town = serviceTown.getText().toString();
-                if(town.isEmpty() || cities == null) return;
-                if(validateTown())
-                    return;
-
-            }
-
-            private boolean validateTown() {
-                String town = serviceTown.getText().toString();
-                if(cities.contains(town)) {
-                    errorMsgTxt.setVisibility(View.GONE);
-                    return true;
+                break;
+            case R.id.home_number:
+                if (!hasFocus) {
+                    getLocation("ישראל", serviceTown.getText().toString(), serviceAddress.getText().toString() + " " + serviceHomeNumber.getText().toString());
                 }
-                serviceTown.setText("");
-                errorMsgTxt.setVisibility(View.GONE);
+        }
+    }
+
+    private void setStreetsAdapter() {
+        list = getStreetsCity(serviceTown.getText().toString());
+        Log.d("Test city", "setStreetsAdapter: " + list);
+        serviceAddress.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, list));
+    }
+
+    private ArrayList<String> getStreetsCity(String s) {
+        ArrayList<String> list = new ArrayList<>();
+        String firstC = s.substring(0, 1);
+        if (firstC.isEmpty()) return list;
+        try {
+            JsonObject jsonObject = new JsonParser().parse(new InputStreamReader(getContext().getAssets().open("cities/" + firstC))).getAsJsonObject();
+            if (jsonObject.has(s)) {
+                JsonArray jsonArray = jsonObject.get(s).getAsJsonArray();
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    list.add(jsonArray.get(i).getAsString());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    private void validateText() {
+        String town = serviceTown.getText().toString();
+        if (town.isEmpty() || cities == null) return;
+        if (validateTown())
+            return;
+
+    }
+
+    private boolean validateTown() {
+        String town = serviceTown.getText().toString();
+        if (cities.contains(town)) {
+            errorMsgTxt.setVisibility(View.GONE);
+            return true;
+        }
+        serviceTown.setText("");
+        errorMsgTxt.setVisibility(View.GONE);
 //        serviceAddress.clearFocus();
-                serviceTown.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(getActivity()!=null && getActivity().getCurrentFocus() != null)
-                            getActivity().getCurrentFocus().clearFocus();
+        serviceTown.post(new Runnable() {
+            @Override
+            public void run() {
+                if (getActivity() != null && getActivity().getCurrentFocus() != null)
+                    getActivity().getCurrentFocus().clearFocus();
 //                        serviceTown.requestFocus();
-                        serviceTown.getBackground().mutate().setColorFilter(getResources().getColor(R.color.red_create_account), PorterDuff.Mode.SRC_ATOP);
-                    }
-                });
-                errorMsgTxt.setVisibility(View.VISIBLE);
                 serviceTown.getBackground().mutate().setColorFilter(getResources().getColor(R.color.red_create_account), PorterDuff.Mode.SRC_ATOP);
-                serviceTown.setActivated(true);
+            }
+        });
+        errorMsgTxt.setVisibility(View.VISIBLE);
+        serviceTown.getBackground().mutate().setColorFilter(getResources().getColor(R.color.red_create_account), PorterDuff.Mode.SRC_ATOP);
+        serviceTown.setActivated(true);
 //                errorMsgTxt.setText(getString(R.string.));
 //                Toast.makeText(getContext(), "No validation city name", Toast.LENGTH_SHORT).show();
-                return false;
-            }
+        return false;
+    }
 
     private boolean validateStreet() {
         String street = serviceAddress.getText().toString();
-        if(list.contains(street)) {
+        if (list.contains(street)) {
             errorMsgTxt.setVisibility(View.GONE);
             return true;
         }
@@ -490,7 +493,7 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
         serviceAddress.post(new Runnable() {
             @Override
             public void run() {
-                if(getActivity()!=null && getActivity().getCurrentFocus() != null)
+                if (getActivity() != null && getActivity().getCurrentFocus() != null)
                     getActivity().getCurrentFocus().clearFocus();
 //                        serviceTown.requestFocus();
                 serviceAddress.getBackground().mutate().setColorFilter(getResources().getColor(R.color.red_create_account), PorterDuff.Mode.SRC_ATOP);
@@ -505,49 +508,48 @@ public class ServiceRegistrationLocationFragment extends Fragment  implements Go
         return false;
     }
 
-            static double lat, lon;
-            private void getLocation(String state, String city, String address){
-                Geocoder geocoder = new Geocoder(getContext());
-                try {
-                    List<Address> list = geocoder.getFromLocationName(state+", "+city+" "+address, 1);
-                    if(list != null && list.size() > 0){
-                        Address add = list.get(0);
-                        Log.d(TAG, "getLocation: lat: " + add.getLatitude());
-                        Log.d(TAG, "getLocation: long: " + add.getLongitude());
-                        lat = add.getLatitude();
-                        lon = add.getLongitude();
-                        Log.d(TAG, "getLocation: "+add.getLocality());
-                        Log.d(TAG, "getLocation: "+add);
-                        LocationUtils.setLocationReg(lat, lon);
-                        if (!ServiceRegistrationFragmentContainer.userState.equals("isEdit")) {
-                            ServiceRegistrationActivityForm.newService.l.add(lat);
-                            ServiceRegistrationActivityForm.newService.l.add(lon);
-                        }
+    static double lat, lon;
 
-                        if (ServiceRegistrationFragmentContainer.userState.equals("isEdit")) {
-                        //update location in correct places.
-                            if (ServiceRegistrationActivityForm.newService.l.size()>=1) {
-                                ServiceRegistrationActivityForm.newService.l.set(0, lat);
-                                ServiceRegistrationActivityForm.newService.l.set(1, lon);
-                            }else{
-                                ServiceRegistrationActivityForm.newService.l.add(lat);
-                                ServiceRegistrationActivityForm.newService.l.add(lon);
-                            }
-                            ArrayList<Double> listAdd = new ArrayList();
-                            listAdd.add(lat);
-                            listAdd.add(lon);
-                            HashMap<String, Object> map = new HashMap<>();
-                            map.put("l", listAdd);
-                            FirebaseDatabase.getInstance().getReference().child("AllUsers").child("PublicData")
-                                    .child(ServiceRegistrationActivityForm.newService.getUserUid()).child("services").child(ServiceRegistrationActivityForm.newService.getKey()).updateChildren(map);
-                        }
-
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+    private void getLocation(String state, String city, String address) {
+        Geocoder geocoder = new Geocoder(getContext());
+        try {
+            List<Address> list = geocoder.getFromLocationName(state + ", " + city + " " + address, 1);
+            if (list != null && list.size() > 0) {
+                Address add = list.get(0);
+                Log.d(TAG, "getLocation: lat: " + add.getLatitude());
+                Log.d(TAG, "getLocation: long: " + add.getLongitude());
+                lat = add.getLatitude();
+                lon = add.getLongitude();
+                Log.d(TAG, "getLocation: " + add.getLocality());
+                Log.d(TAG, "getLocation: " + add);
+                LocationUtils.setLocationReg(lat, lon);
+                if (!ServiceRegistrationFragmentContainer.userState.equals("isEdit")) {
+                    ServiceRegistrationActivityForm.newService.l.add(lat);
+                    ServiceRegistrationActivityForm.newService.l.add(lon);
                 }
+
+                if (ServiceRegistrationFragmentContainer.userState.equals("isEdit")) {
+                    //update location in correct places.
+                    if (ServiceRegistrationActivityForm.newService.l.size() >= 1) {
+                        ServiceRegistrationActivityForm.newService.l.set(0, lat);
+                        ServiceRegistrationActivityForm.newService.l.set(1, lon);
+                    } else {
+                        ServiceRegistrationActivityForm.newService.l.add(lat);
+                        ServiceRegistrationActivityForm.newService.l.add(lon);
+                    }
+                    ArrayList<Double> listAdd = new ArrayList();
+                    listAdd.add(lat);
+                    listAdd.add(lon);
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("l", listAdd);
+                    FirebaseDatabase.getInstance().getReference().child("AllUsers").child("PublicData")
+                            .child(ServiceRegistrationActivityForm.newService.getUserUid()).child("services").child(ServiceRegistrationActivityForm.newService.getKey()).updateChildren(map);
+                }
+
             }
-
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

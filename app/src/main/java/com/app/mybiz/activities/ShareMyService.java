@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.mybiz.PreferenceKeys;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -24,7 +25,6 @@ import com.facebook.share.model.ShareContent;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.firebase.database.FirebaseDatabase;
-import com.app.mybiz.Constants;
 import com.app.mybiz.R;
 import com.app.mybiz.TabsActivity;
 
@@ -70,7 +70,7 @@ public class ShareMyService extends AppCompatActivity {
 //                shareOnFacebook();
                 d = new ShareDialog(ShareMyService.this);
                 ShareContent content = new ShareLinkContent.Builder()
-                        .setContentTitle("Check out  "+getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.NAME, "")+" on this amazing app!!")
+                        .setContentTitle("Check out  "+getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.NAME, "")+" on this amazing app!!")
                         .setContentDescription("aaa")
                         .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.app.mybiz"))
                         .build();
@@ -157,14 +157,10 @@ public class ShareMyService extends AppCompatActivity {
                         Log.d(TAG, "onError1: "+error.getMessage().toString());
                         Toast.makeText(getBaseContext(), error.getMessage().toString(), Toast.LENGTH_SHORT).show();
                         FirebaseDatabase.getInstance().getReference().child("Facebook exception")
-                                .child(getSharedPreferences(Constants.PREFERENCES,Context.MODE_PRIVATE)
-                                        .getString(Constants.APP_ID, Constants.RANDOM_STRING)).setValue(error);
+                                .child(getSharedPreferences(PreferenceKeys.PREFERENCES,Context.MODE_PRIVATE)
+                                        .getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING)).setValue(error);
                     }
                 });
-
-
-
-
             }
 
             @Override
@@ -182,7 +178,9 @@ public class ShareMyService extends AppCompatActivity {
                 Log.d(TAG, "onError: ");
                 Log.d(TAG, "onError179:40: "+error.getMessage().toString());
                 Toast.makeText(getBaseContext(), error.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                FirebaseDatabase.getInstance().getReference().child("Facebook exception").child(getSharedPreferences(Constants.PREFERENCES,Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING)).setValue(error);
+                FirebaseDatabase.getInstance().getReference().child("Facebook exception")
+                        .child(getSharedPreferences(PreferenceKeys.PREFERENCES,Context.MODE_PRIVATE)
+                                .getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING)).setValue(error);
 
 
             }

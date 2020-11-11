@@ -1,4 +1,4 @@
-package com.app.mybiz.Adapters;
+package com.app.mybiz.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.app.mybiz.ChatActivity;
-import com.app.mybiz.Objects.Tenders;
+import com.app.mybiz.objects.Tenders;
 import com.app.mybiz.R;
 
 import java.util.ArrayList;

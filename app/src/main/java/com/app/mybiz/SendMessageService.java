@@ -12,6 +12,7 @@ import android.os.IBinder;
 import androidx.annotation.NonNull;
 import android.util.Log;
 
+import com.app.mybiz.objects.ChatSummary;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +25,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.app.mybiz.Objects.Message;
+import com.app.mybiz.objects.Message;
 import com.app.mybiz.tests.FixOrientation;
 
 import org.json.JSONException;
@@ -53,7 +54,7 @@ public class SendMessageService extends android.app.Service {
     String msgContent;
     DatabaseReference databaseReference;
     String TAG = "SendMessageService";
-    com.app.mybiz.Objects.Service otherService;
+    com.app.mybiz.objects.Service otherService;
     ValueEventListener AddMessageListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,7 +87,7 @@ public class SendMessageService extends android.app.Service {
         msgContent = intent.getStringExtra("msgContent");
         myId = intent.getStringExtra("myId");
         otherId = intent.getStringExtra("otherId");
-        otherService = (com.app.mybiz.Objects.Service) intent.getSerializableExtra("currentService");
+        otherService = (com.app.mybiz.objects.Service) intent.getSerializableExtra("currentService");
         if (otherService != null)
             Log.d("idddddsss", otherService.getUserUid() + "__" + otherService.getTitle());
         else
@@ -95,13 +96,13 @@ public class SendMessageService extends android.app.Service {
         otherName = intent.getStringExtra("otherName");
         Log.d(TAG, "onStartCommand: "+otherName);
         message = new Message();
-        if (getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getBoolean(Constants.IS_SERVICE, false)){
+        if (getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getBoolean(PreferenceKeys.IS_SERVICE, false)){
             message.setAmIService(true);
             Gson gson = new Gson();
             try {
-                String s = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
+                String s = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
                 JSONObject obj = new JSONObject(s);
-                com.app.mybiz.Objects.Service myService = gson.fromJson(obj.toString(), com.app.mybiz.Objects.Service.class);
+                com.app.mybiz.objects.Service myService = gson.fromJson(obj.toString(), com.app.mybiz.objects.Service.class);
                 message.setSenderService(myService);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -272,16 +273,16 @@ public class SendMessageService extends android.app.Service {
 
             }
         });
-        com.app.mybiz.Objects.Service myService = new com.app.mybiz.Objects.Service();
+        com.app.mybiz.objects.Service myService = new com.app.mybiz.objects.Service();
         final long time = System.currentTimeMillis();
-        final boolean amService = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getBoolean(Constants.IS_SERVICE, false);
+        final boolean amService = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getBoolean(PreferenceKeys.IS_SERVICE, false);
         if (amService) {
-            String s = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
-            if (!s.equals(Constants.RANDOM_STRING)) {
+            String s = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
+            if (!s.equals(PreferenceKeys.RANDOM_STRING)) {
                 Gson gson = new Gson();
                 try {
                     JSONObject obj = new JSONObject(s);
-                    myService= gson.fromJson(obj.toString(), com.app.mybiz.Objects.Service.class);
+                    myService= gson.fromJson(obj.toString(), com.app.mybiz.objects.Service.class);
                     allUsersPublicDataRef.child(otherId).child("chats").child(myId).child("otherContactService").setValue(myService);
                 } catch (IllegalStateException | JsonSyntaxException exception) {
                     Log.d(TAG, "sendMessage: " + exception.getMessage());

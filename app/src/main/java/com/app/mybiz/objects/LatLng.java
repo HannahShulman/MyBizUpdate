@@ -1,4 +1,4 @@
-package com.app.mybiz.Objects;
+package com.app.mybiz.objects;
 
 /**
  * Created by itzikalgrisi on 25/02/2017.

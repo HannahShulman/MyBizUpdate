@@ -30,8 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-import com.app.mybiz.Objects.Tenders;
-import com.app.mybiz.Objects.User;
+import com.app.mybiz.objects.Tenders;
+import com.app.mybiz.objects.User;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -61,7 +61,7 @@ public class CreateTender extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_tender);
-        isAnonymous = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getBoolean(Constants.IS_ANONYMOUS, false);
+        isAnonymous = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getBoolean(PreferenceKeys.IS_ANONYMOUS, false);
         error_msg_txt = (TextView) findViewById(R.id.error_msg_txt);
         textCounter = (TextView) findViewById(R.id.text_counter);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -74,7 +74,7 @@ public class CreateTender extends AppCompatActivity implements View.OnClickListe
             }
         });
         initViews();
-        if (isAnonymous || getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)){
+        if (isAnonymous || getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys .RANDOM_STRING)){
             androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(CreateTender.this);
             builder.setMessage("על מנת לקבל הצעות מחיר יש להירשם תחילה");
             builder.setPositiveButton("הרשם", new DialogInterface.OnClickListener() {
@@ -98,14 +98,12 @@ public class CreateTender extends AppCompatActivity implements View.OnClickListe
             profileUrl();
             setListeners();
         }
-
-
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (isAnonymous || getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)) {
+        if (isAnonymous || getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING)) {
             androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(CreateTender.this);
             builder.setTitle("do you want to sign up?")
                     .setPositiveButton("yes", new DialogInterface.OnClickListener() {
@@ -278,7 +276,7 @@ public class CreateTender extends AppCompatActivity implements View.OnClickListe
 
     private void profileUrl() {
         FirebaseDatabase.getInstance()
-                .getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/AllUsers/PublicData/"+getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING))
+                .getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/AllUsers/PublicData/"+getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -357,7 +355,7 @@ public class CreateTender extends AppCompatActivity implements View.OnClickListe
         t.setRequest(request.getText().toString());
         t.setSubCategory(t.getCategory());
         t.setTown(town.getText().toString());
-        t.setUid(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING));
+        t.setUid(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING));
         String tenderKey = FirebaseDatabase.getInstance().getReference().child("Tenders").child(t.getCategory()).child(t.getSubCategory()).push().getKey();
         t.setKey(tenderKey);
         FirebaseDatabase.getInstance().getReference().child("Tenders").child(t.getCategory()).child(t.getSubCategory()).child(tenderKey).setValue(t);

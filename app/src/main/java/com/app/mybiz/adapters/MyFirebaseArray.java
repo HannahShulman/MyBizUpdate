@@ -1,4 +1,4 @@
-package com.app.mybiz.Adapters;
+package com.app.mybiz.adapters;
 
 /**
  * Created by itzikalgrisi on 04/03/2017.
@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * This class implements an array-like collection on top of a Firebase location.
  */
-class FirebaseArray implements ChildEventListener {
+class MyFirebaseArray implements ChildEventListener {
     public interface OnChangedListener {
         enum EventType {ADDED, CHANGED, REMOVED, MOVED}
 
@@ -44,7 +44,7 @@ class FirebaseArray implements ChildEventListener {
     private OnChangedListener mListener;
     private List<DataSnapshot> mSnapshots = new ArrayList<>();
 
-    public FirebaseArray(Query ref) {
+    public MyFirebaseArray(Query ref) {
         mQuery = ref;
         mQuery.addChildEventListener(this);
     }

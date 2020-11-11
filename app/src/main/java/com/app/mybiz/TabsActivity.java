@@ -35,7 +35,7 @@ import com.app.mybiz.activities.AboutMybizzActivity;
 import com.app.mybiz.activities.AllServiceInfo;
 import com.app.mybiz.activities.IntroCreateSpecialActivity;
 import com.app.mybiz.activities.IntroTendersActivity;
-import com.app.mybiz.Objects.Service;
+import com.app.mybiz.objects.Service;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if (ServicesFragments.footerContainer.getVisibility() == View.GONE)
             ServicesFragments.footerContainer.setVisibility(View.VISIBLE);
-        if (isAnonymous && uid.equals(Constants.RANDOM_STRING)){
+        if (isAnonymous && uid.equals(PreferenceKeys.RANDOM_STRING)){
             Log.d(TAG, "onBackPressed: unknown user");
             super.onBackPressed();
 
@@ -98,15 +98,15 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         TextView userEmailView = (TextView) navigationHeader.findViewById(R.id.user_email);
         TextView accountTypeView = (TextView) navigationHeader.findViewById(R.id.account_type);
         final CircleImageView profileImage = (CircleImageView) navigationHeader.findViewById(R.id.profile_image);
-        boolean isService = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getBoolean(Constants.IS_SERVICE, false);
+        boolean isService = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getBoolean(PreferenceKeys.IS_SERVICE, false);
         if (!isService) {//private user
-            if (isAnonymous || uid.equals(Constants.RANDOM_STRING)){
+            if (isAnonymous || uid.equals(PreferenceKeys.RANDOM_STRING)){
                 Log.d(TAG, "onCreate: i am a guest");
                 navigationView.inflateMenu(R.menu.guest_user_navigation_drawer);
                 accountTypeView.setText(getString(R.string.guest_account));
                 userEmailView.setVisibility(View.GONE);
                 profileImage.setImageResource(R.drawable.guest_profile);
-                Glide.with(getBaseContext()).load(Constants.PERSONAL_DEFAULT_PROFILE_URL).into(profileImage);
+                Glide.with(getBaseContext()).load(PreferenceKeys.PERSONAL_DEFAULT_PROFILE_URL).into(profileImage);
             }else {//registered private user
                 navigationView.inflateMenu(R.menu.private_user_navigation_drawer);
                 accountTypeView.setText(getString(R.string.personal_account));
@@ -115,13 +115,13 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
             navigationView.inflateMenu(R.menu.service_navigation_menu);
             accountTypeView.setText(getString(R.string.service_account));
         }
-        String email = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.EMAIL, Constants.RANDOM_STRING);
+        String email = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.EMAIL, PreferenceKeys.RANDOM_STRING);
         if(email.endsWith("@mybizzgmail.com")) {
             email = email.replace("@mybizzgmail.com","@gmail.com");
         }
         userEmailView.setText(email);
-        userNameView.setText(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.NAME, Constants.RANDOM_STRING));
-        if (!isAnonymous || !uid.equals(Constants.RANDOM_STRING)) {
+        userNameView.setText(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.NAME, PreferenceKeys.RANDOM_STRING));
+        if (!isAnonymous || !uid.equals(PreferenceKeys.RANDOM_STRING)) {
             ref1 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/AllUsers/PublicData/" + uid + "/profileUrl");
             ref1.addValueEventListener(profileUpdate = new ValueEventListener() {
                 @Override
@@ -201,9 +201,9 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initInfo() {
-        prefs = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
-        uid = prefs.getString(Constants.APP_ID, Constants.RANDOM_STRING);
-        isAnonymous = prefs.getBoolean(Constants.IS_ANONYMOUS, false);
+        prefs = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
+        uid = prefs.getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
+        isAnonymous = prefs.getBoolean(PreferenceKeys.IS_ANONYMOUS, false);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -252,11 +252,11 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.drawer_service_profile:
-                final boolean amService = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getBoolean(Constants.IS_SERVICE, false);
+                final boolean amService = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getBoolean(PreferenceKeys.IS_SERVICE, false);
                 if (amService) {
-                    String s = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
+                    String s = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
                     Log.d(TAG, "onNavigationItemSelected: "+s);
-                    if (!s.equals(Constants.RANDOM_STRING)) {
+                    if (!s.equals(PreferenceKeys.RANDOM_STRING)) {
                         Gson gson = new Gson();
                         try {
                             JSONObject obj = new JSONObject(s);
@@ -289,9 +289,8 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.share_w_friend:
-                String s = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
-                Log.d(TAG, "onNavigationItemSelected: "+s);
-                if (!s.equals(Constants.RANDOM_STRING)) {
+                String s = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
+                if (!s.equals(PreferenceKeys.RANDOM_STRING)) {
                     Gson gson = new Gson();
 
                     try {

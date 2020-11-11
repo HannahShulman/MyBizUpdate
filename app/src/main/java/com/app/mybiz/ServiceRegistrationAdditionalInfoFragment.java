@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.app.mybiz.Interface.RequiredFields;
-import com.app.mybiz.Objects.Service;
+import com.app.mybiz.objects.Service;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,7 +97,7 @@ public class ServiceRegistrationAdditionalInfoFragment extends Fragment implemen
 
             if (ServiceRegistrationFragmentContainer.userState.equals("isEdit")){
                 //update all fields in database
-                String service = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
+                String service = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
                 Gson gson = new Gson();
                 try {
                     JSONObject obj = new JSONObject(service);
@@ -174,8 +174,8 @@ public class ServiceRegistrationAdditionalInfoFragment extends Fragment implemen
                     FirebaseDatabase.getInstance().getReference().child("Services").child("PrivateData").child(serviceKey).updateChildren(ServiceRegistrationFragmentContainer.map);
                     FirebaseDatabase.getInstance().getReference().child("Services").child("PublicData").child(serviceKey).updateChildren(ServiceRegistrationFragmentContainer.map);
                     Log.d(TAG, "onPause: "+ServiceRegistrationActivityForm.newService.toString());
-                    getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).edit().putString(Constants.MY_SERVICE, ServiceRegistrationActivityForm.newService.toJson()).commit();
-                    Log.d(TAG, "onPause: "+getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING));
+                    getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).edit().putString(PreferenceKeys.MY_SERVICE, ServiceRegistrationActivityForm.newService.toJson()).commit();
+                    Log.d(TAG, "onPause: "+getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

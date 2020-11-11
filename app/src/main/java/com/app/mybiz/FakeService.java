@@ -9,10 +9,9 @@ import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.app.mybiz.Objects.Service;
+import com.app.mybiz.objects.Service;
 
 import java.io.IOException;
 import java.util.HashMap;

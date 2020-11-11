@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.FirebaseDatabase;
-import com.app.mybiz.Objects.Service;
+import com.app.mybiz.objects.Service;
 
 /**
  * Created by hannashulmah on 19/03/2017.

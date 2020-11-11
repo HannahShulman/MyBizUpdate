@@ -1,11 +1,9 @@
-package com.app.mybiz.Adapters;
+package com.app.mybiz.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import androidx.appcompat.widget.AppCompatRatingBar;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +13,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatRatingBar;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.app.mybiz.ChatActivity;
+import com.app.mybiz.CreateAccountChoiceActivity;
+import com.app.mybiz.Managers.FavoriteServiceManager;
+import com.app.mybiz.objects.Service;
+import com.app.mybiz.objects.User;
+import com.app.mybiz.PreferenceKeys;
+import com.app.mybiz.R;
+import com.app.mybiz.activities.AllServiceInfo;
+import com.app.mybiz.activities.ServiceOffersList;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,15 +32,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.app.mybiz.activities.AllServiceInfo;
-import com.app.mybiz.activities.ServiceOffersList;
-import com.app.mybiz.ChatActivity;
-import com.app.mybiz.Constants;
-import com.app.mybiz.CreateAccountChoiceActivity;
-import com.app.mybiz.Managers.FavoriteServiceManager;
-import com.app.mybiz.Objects.Service;
-import com.app.mybiz.Objects.User;
-import com.app.mybiz.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
     public SingleServiceListAdapterV2(Context ctx, ArrayList<Service> list) {
         this.ctx = ctx;
         this.list = list;
-        isAnonymous = ctx.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getBoolean(Constants.IS_ANONYMOUS, false);
+        isAnonymous = ctx.getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getBoolean(PreferenceKeys.IS_ANONYMOUS, false);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Service service = list.get(position);
-        Log.d(TAG, "onBindViewHolder: "+service.toJson());
+        Log.d(TAG, "onBindViewHolder: " + service.toJson());
         Glide.with(ctx).load(service.getProfileUrl()).into(holder.image);
 //        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(service.getUserUid())){
 //            holder.chatLayout.setEnabled(false);
@@ -76,17 +77,17 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
         holder.service_title.setText(service.getTitle());
 
         String homeNumber = service.getServiceHomeNumber();
-        if (homeNumber==null){
+        if (homeNumber == null) {
             homeNumber = "";
         }
-        String address = service.getAddress() + "  "+homeNumber+"   " + "<b>" + service.getTown() + "</b> ";
+        String address = service.getAddress() + "  " + homeNumber + "   " + "<b>" + service.getTown() + "</b> ";
         holder.service_address.setText(Html.fromHtml(address));
 
         holder.service_description.setText(service.getShortDescription());
 
 
         if (service.getAverageRating() != 0)
-            holder.num_reviews.setText("("+service.getNoReviewers() + ")");
+            holder.num_reviews.setText("(" + service.getNoReviewers() + ")");
         else
             holder.num_reviews.setVisibility(View.GONE);
 
@@ -97,12 +98,12 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
         } else {
             holder.avrg_reviewers.setVisibility(View.INVISIBLE);
         }
-        if (service.getUserUid().equals(ctx.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING))) {
+        if (service.getUserUid().equals(ctx.getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING))) {
             holder.chatLayout.setAlpha(.12f);
             holder.chatLayout.setEnabled(false);
             holder.favoriteIcon.setVisibility(View.GONE);
 
-        }else{
+        } else {
             holder.chatLayout.setAlpha(.80f);
             holder.chatLayout.setEnabled(true);
             holder.favoriteIcon.setVisibility(View.VISIBLE);
@@ -112,8 +113,8 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
         holder.chatLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!service.getUserUid().equals(ctx.getSharedPreferences(Constants.PREFERENCES, ctx.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING)))
-                goToChat(service);
+                if (!service.getUserUid().equals(ctx.getSharedPreferences(PreferenceKeys.PREFERENCES, ctx.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING)))
+                    goToChat(service);
             }
         });
 
@@ -125,15 +126,15 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
             }
         });
 
-            if (service.getOffers().size() == 0) {
-                holder.offersLayout.setEnabled(false);
-                holder.offersLayout.setAlpha(.20f);
-            } else {
-                holder.sales.setColorFilter(Color.RED);
-                holder.salesText.setTextColor(Color.RED);
-                holder.offersLayout.setEnabled(true);
-                holder.offersLayout.setAlpha(1.0f);
-            }
+        if (service.getOffers().size() == 0) {
+            holder.offersLayout.setEnabled(false);
+            holder.offersLayout.setAlpha(.20f);
+        } else {
+            holder.sales.setColorFilter(Color.RED);
+            holder.salesText.setTextColor(Color.RED);
+            holder.offersLayout.setEnabled(true);
+            holder.offersLayout.setAlpha(1.0f);
+        }
 
 
         holder.offersLayout.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +148,6 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
         float averageRating = service.getAverageRating();
         holder.ratingBar.setStepSize(0.5f);
         holder.ratingBar.setRating(averageRating);
-
 
 
         if (!isAnonymous) {
@@ -175,12 +175,12 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
         }
 
 
-            //adding to favorite list
-            holder.favoriteIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!isAnonymous) {
-                    final String myID = ctx.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING);
+        //adding to favorite list
+        holder.favoriteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isAnonymous) {
+                    final String myID = ctx.getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
 
                     final String serviceKey = list.get(position).getKey();
                     //1.
@@ -204,32 +204,30 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
 
                         }
                     });
-                }else {
-                        if (isAnonymous || ctx.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)){
-                            final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(ctx);
-                            builder.setMessage(ctx.getString(R.string.register_for_favorites));
-                            builder.setCancelable(true);
-                            builder .setPositiveButton(ctx.getString(R.string.register), new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Intent intent = new Intent(ctx, CreateAccountChoiceActivity.class);
-                                            ctx.startActivity(intent);
+                } else {
+                    if (isAnonymous || ctx.getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING)) {
+                        final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(ctx);
+                        builder.setMessage(ctx.getString(R.string.register_for_favorites));
+                        builder.setCancelable(true);
+                        builder.setPositiveButton(ctx.getString(R.string.register), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(ctx, CreateAccountChoiceActivity.class);
+                                ctx.startActivity(intent);
 
-                                        }
-                                    }).setNegativeButton(ctx.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }).setNegativeButton(ctx.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                                }
-                            });
-                            builder.setCancelable(false);
-                            builder.create().show();
-                        }
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.create().show();
                     }
                 }
-            });
-
-
+            }
+        });
 
 
         holder.shareService.setOnClickListener(new View.OnClickListener() {
@@ -238,8 +236,8 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
 
-                intent.putExtra(Intent.EXTRA_TEXT, ctx.getResources().getString(R.string.get_my_service)+"https://mybizz.application.to/allInfo_" + list.get(position).getKey()+"  "
-                        +ctx.getResources().getString(R.string.download_app)+" https://play.google.com/store/apps/details?id=com.app.mybiz"
+                intent.putExtra(Intent.EXTRA_TEXT, ctx.getResources().getString(R.string.get_my_service) + "https://mybizz.application.to/allInfo_" + list.get(position).getKey() + "  "
+                        + ctx.getResources().getString(R.string.download_app) + " https://play.google.com/store/apps/details?id=com.app.mybiz"
 
                 );
 //                intent.putExtra(Intent.EXTRA_TEXT, "https://mybizz.application.to/allInfo_" + list.get(position).getKey());
@@ -257,38 +255,37 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
         return list.size();
     }
 
-    public void goToChat(Service service){
-            Intent i = new Intent(ctx, ChatActivity.class);
-            i.putExtra("otherID", service.getUserUid());
-            i.putExtra("otherName", service.getTitle());
-            i.putExtra("isService", true);
-            i.putExtra("currentService", service);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ctx.startActivity(i);
+    public void goToChat(Service service) {
+        Intent i = new Intent(ctx, ChatActivity.class);
+        i.putExtra("otherID", service.getUserUid());
+        i.putExtra("otherName", service.getTitle());
+        i.putExtra("isService", true);
+        i.putExtra("currentService", service);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        ctx.startActivity(i);
     }
 
-    public void showAllInfo(Service service){
+    public void showAllInfo(Service service) {
         Intent allInfo = new Intent(ctx, AllServiceInfo.class);
         allInfo.putExtra("currentService", service);
         allInfo.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ctx.startActivity(allInfo);
     }
 
-    public  void showOffers(Service service){
+    public void showOffers(Service service) {
         Intent i = new Intent(ctx, ServiceOffersList.class);
         i.putExtra("currentService", service);
         Log.d(TAG, service.getTitle());
         Log.d(TAG, service.getUserUid());
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ctx.startActivity(i);
-
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image, favoriteIcon, shareService, sales;
-        TextView service_title, service_address, service_description, num_reviews,avrg_reviewers, salesText;
+        TextView service_title, service_address, service_description, num_reviews, avrg_reviewers, salesText;
         androidx.appcompat.widget.AppCompatRatingBar ratingBar;
         LinearLayout chatLayout, additional_info, offersLayout;
         View topLayout;
@@ -298,7 +295,7 @@ public class SingleServiceListAdapterV2 extends RecyclerView.Adapter<SingleServi
             topLayout = itemView.findViewById(R.id.top_layout);
             image = (ImageView) itemView.findViewById(R.id.single_profile_image);
             service_title = (TextView) itemView.findViewById(R.id.service_title);
-            service_address= (TextView) itemView.findViewById(R.id.service_address);
+            service_address = (TextView) itemView.findViewById(R.id.service_address);
             service_description = (TextView) itemView.findViewById(R.id.service_description);
             ratingBar = (AppCompatRatingBar) itemView.findViewById(R.id.ratingBar);
             num_reviews = (TextView) itemView.findViewById(R.id.num_reviews);

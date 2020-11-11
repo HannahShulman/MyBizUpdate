@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.app.mybiz.Objects.Comment
-import com.app.mybiz.Objects.Service
+import com.app.mybiz.objects.Comment
+import com.app.mybiz.objects.Service
 import com.app.mybiz.PreferenceKeys
 import com.app.mybiz.R
 import com.app.mybiz.extensions.setupToolbar
@@ -23,7 +23,7 @@ class AddCommentActivity : AppCompatActivity() {
 
     }
 
-    val mServiceRootRef = FirebaseDatabase.getInstance().getReference().child("Services");
+    val mServiceRootRef = FirebaseDatabase.getInstance().reference.child("Services");
     val service: Service by lazy {
         intent.getSerializableExtra("currentService") as Service
     }
@@ -38,7 +38,7 @@ class AddCommentActivity : AppCompatActivity() {
         vote_title.text = service.title
         toolbar.title = service.title
         serviceRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/Services/PublicData/" + service.key)
-        FirebaseDatabase.getInstance().getReference().child("AllUsers").child("PublicData").child(FirebaseAuth.getInstance().currentUser?.uid
+        FirebaseDatabase.getInstance().reference.child("AllUsers").child("PublicData").child(FirebaseAuth.getInstance().currentUser?.uid
             ?: "").child("profileUrl").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val value = snapshot.value as String

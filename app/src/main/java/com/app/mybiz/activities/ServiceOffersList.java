@@ -15,9 +15,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.app.mybiz.Adapters.OffersRecyclerViewAdapter;
-import com.app.mybiz.Objects.Service;
-import com.app.mybiz.Objects.Specials;
+import com.app.mybiz.adapters.OffersRecyclerViewAdapter;
+import com.app.mybiz.objects.Service;
+import com.app.mybiz.objects.Specials;
 import com.app.mybiz.R;
 
 import java.util.ArrayList;

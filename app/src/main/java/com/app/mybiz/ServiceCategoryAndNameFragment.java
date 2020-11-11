@@ -117,7 +117,7 @@ public class ServiceCategoryAndNameFragment extends Fragment implements Required
             }
         });
 
-        if (!ServiceRegistrationActivityForm.newService.getTitle().equals("") && !ServiceRegistrationActivityForm.newService.getTitle().equals(Constants.DEFAULT_SERVICE_TITLE) ){
+        if (!ServiceRegistrationActivityForm.newService.getTitle().equals("") && !ServiceRegistrationActivityForm.newService.getTitle().equals(PreferenceKeys.DEFAULT_SERVICE_TITLE) ){
             serviceTitle.setText(ServiceRegistrationActivityForm.newService.getTitle());
         }
         return rootView;

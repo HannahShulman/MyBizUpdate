@@ -96,7 +96,7 @@ public class PrivateRegisterLocation extends AppCompatActivity implements Reques
     }
 
     @Override
-    public void onLocationUpdate(com.app.mybiz.Objects.Location location, RequestLocationPermissions fragment) {
+    public void onLocationUpdate(com.app.mybiz.objects.Location location, RequestLocationPermissions fragment) {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
 //            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();

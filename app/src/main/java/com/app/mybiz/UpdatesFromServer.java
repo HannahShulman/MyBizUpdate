@@ -6,7 +6,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.app.mybiz.Objects.User;
+import com.app.mybiz.objects.User;
 
 import java.util.ArrayList;
 
@@ -39,8 +39,8 @@ public class UpdatesFromServer {
     }
 
     public static void accountUpdates(Context ctx) {
-        String appID = ctx.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING);
-        boolean amService = ctx.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getBoolean(Constants.IS_SERVICE, false);
+        String appID = ctx.getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
+        boolean amService = ctx.getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getBoolean(PreferenceKeys.IS_SERVICE, false);
         FirebaseDatabase.getInstance().getReference().child("AllUsers").child("PrivateData").child(appID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

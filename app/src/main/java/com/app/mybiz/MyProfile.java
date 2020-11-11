@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.app.mybiz.Objects.User;
+import com.app.mybiz.objects.User;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -28,13 +28,12 @@ public class MyProfile extends AppCompatActivity {
         myProfilePicture = (CircleImageView) findViewById(R.id.private_profile);
         camera = (ImageView) findViewById(R.id.camera);
         gallery = (ImageView) findViewById(R.id.gallery);
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
-        myId = preferences.getString(Constants.APP_ID, Constants.RANDOM_STRING);
-        myName = preferences.getString(Constants.NAME, Constants.RANDOM_STRING);
-        myEmail = preferences.getString(Constants.EMAIL, Constants.RANDOM_STRING);
+        SharedPreferences preferences = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
+        myId = preferences.getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
+        myName = preferences.getString(PreferenceKeys.NAME, PreferenceKeys.RANDOM_STRING);
+        myEmail = preferences.getString(PreferenceKeys.EMAIL, PreferenceKeys.RANDOM_STRING);
 
-
-        if(!myId.equals(Constants.RANDOM_STRING)){
+        if(!myId.equals(PreferenceKeys.RANDOM_STRING)){
             myProfileRef.child(myId).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

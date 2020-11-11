@@ -30,14 +30,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.app.mybiz.CreateSpecial;
+import com.app.mybiz.PreferenceKeys;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.app.mybiz.Constants;
-import com.app.mybiz.CreateSpecial;
 import com.app.mybiz.Interface.RequiredFields;
 import com.app.mybiz.R;
 import com.app.mybiz.tests.FixOrientation;
@@ -128,7 +128,7 @@ public class CreateOfferOneFragment extends Fragment  implements RequiredFields,
 
     @Override
     public boolean isComplete() {
-        Log.d(TAG, "isComplete: "+CreateSpecial.offers.getImageUrl()+"");
+        Log.d(TAG, "isComplete: "+ CreateSpecial.offers.getImageUrl()+"");
         if ((CreateSpecial.offers.getImageUrl().equals("")||CreateSpecial.offers.getImageUrl()==null))
             return false;
         return true;
@@ -305,8 +305,8 @@ public class CreateOfferOneFragment extends Fragment  implements RequiredFields,
         super.onStop();
         CreateSpecial.offers.setOfferTitle(special_title.getText().toString());
         CreateSpecial.offers.setDescription(offer_description.getText().toString());
-        CreateSpecial.offers.setServiceKey(getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING));
-        CreateSpecial.offers.setServiceUid(getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING));
+        CreateSpecial.offers.setServiceKey(getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING));
+        CreateSpecial.offers.setServiceUid(getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING));
 
 
 

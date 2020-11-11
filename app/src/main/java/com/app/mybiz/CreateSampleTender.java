@@ -32,8 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.app.mybiz.activities.ShowSampleTender;
-import com.app.mybiz.Objects.Tenders;
-import com.app.mybiz.Objects.User;
+import com.app.mybiz.objects.Tenders;
+import com.app.mybiz.objects.User;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -71,7 +71,7 @@ public class CreateSampleTender extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_sample_tender);
         pb = (ProgressBar) findViewById(R.id.pb);
-        isAnonymous = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getBoolean(Constants.IS_ANONYMOUS, false);
+        isAnonymous = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getBoolean(PreferenceKeys.IS_ANONYMOUS, false);
         textCounter = (TextView) findViewById(R.id.text_counter);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         createTenderToolbar = (Toolbar) findViewById(R.id.create_tender_toolbar);
@@ -83,7 +83,7 @@ public class CreateSampleTender extends AppCompatActivity implements View.OnClic
             }
         });
         initViews();
-        if (isAnonymous || getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)){
+        if (isAnonymous || getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING)){
             androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(CreateSampleTender.this);
             builder.setTitle(getString(R.string.tender_must_register))
                     .setPositiveButton(getString(R.string.register), new DialogInterface.OnClickListener() {
@@ -116,24 +116,18 @@ public class CreateSampleTender extends AppCompatActivity implements View.OnClic
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (isAnonymous || getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)) {
+        if (isAnonymous || getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING)) {
             androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(CreateSampleTender.this);
             builder.setTitle("do you want to sign up?")
-                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                    .setPositiveButton("yes", (dialog, which) -> {
 
-                            Intent intent = new Intent(CreateSampleTender.this, CreateAccountChoiceActivity.class);
-                            startActivity(intent);
+                        Intent intent = new Intent(CreateSampleTender.this, CreateAccountChoiceActivity.class);
+                        startActivity(intent);
 
-                        }
-                    }).setNegativeButton("no", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    onBackPressed();
-                    finish();
-                }
-            });
+                    }).setNegativeButton("no", (dialog, which) -> {
+                        onBackPressed();
+                        finish();
+                    });
             builder.setCancelable(true);
             builder.create().show();
 
@@ -266,7 +260,7 @@ public class CreateSampleTender extends AppCompatActivity implements View.OnClic
 
     private void profileUrl() {
         FirebaseDatabase.getInstance()
-                .getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/AllUsers/PublicData/"+getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING))
+                .getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/AllUsers/PublicData/"+getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -343,7 +337,7 @@ public class CreateSampleTender extends AppCompatActivity implements View.OnClic
         t.setRequest(request.getText().toString());
         t.setSubCategory(t.getCategory());
         t.setTown(town.getText().toString());
-        t.setUid(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING));
+        t.setUid(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING));
         String tenderKey = FirebaseDatabase.getInstance().getReference().child("Tenders").child(t.getCategory()).child(t.getSubCategory()).push().getKey();
         t.setKey(tenderKey);
         FirebaseDatabase.getInstance().getReference().child("Tenders").child(t.getCategory()).child(t.getSubCategory()).child(tenderKey).setValue(t);
@@ -361,10 +355,10 @@ public class CreateSampleTender extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.publish_tender:
-                Log.d(TAG, "onClick: "+getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING));
+                Log.d(TAG, "onClick: "+getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING));
                 pb.setVisibility(View.VISIBLE);
                 t.setProfileUrl(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
-                t.setRequester(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.NAME, " "));
+                t.setRequester(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.NAME, " "));
                 t.setRequest(request.getText().toString());
                 t.setSubCategory(t.getCategory());
                 t.setTown(town.getText().toString());

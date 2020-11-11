@@ -22,6 +22,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.app.mybiz.objects.Service;
+import com.app.mybiz.objects.User;
+import com.app.mybiz.activities.PrivateRegisterLocation;
+import com.app.mybiz.activities.ShareMyService;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -51,14 +55,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-//import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.app.mybiz.activities.PrivateRegisterLocation;
-import com.app.mybiz.activities.ShareMyService;
-import com.app.mybiz.Objects.Service;
-import com.app.mybiz.Objects.User;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -70,6 +69,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+//import com.google.firebase.iid.FirebaseInstanceId;
 
 
 public class RegistrationConfirmationActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -111,7 +111,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
             }
         });
         pb = (ProgressBar) findViewById(R.id.pb);
-        ref = FirebaseDatabase.getInstance().getReferenceFromUrl(Constants.FIREBASE_URL);
+        ref = FirebaseDatabase.getInstance().getReferenceFromUrl(PreferenceKeys.FIREBASE_URL);
         mAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -119,8 +119,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d("AUTH", "user logged in  " + user.getEmail());
-                }
-                else
+                } else
                     Log.d("AUTH", "user logged out");
             }
         };
@@ -152,8 +151,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
             google_sign_in_btn.setVisibility(View.GONE);
 //            instruction.setText(R.string.facebook_instruction);
             facebookCoverBtn.performClick();
-        }
-        else if (getIntent().getBooleanExtra("google", false)) {
+        } else if (getIntent().getBooleanExtra("google", false)) {
             facebook_reg_layout.setVisibility(View.GONE);
             facebookCoverBtn.setVisibility(View.GONE);
 //            instruction.setText(R.string.google_instruction);
@@ -184,7 +182,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                 Log.d(TAG, "facebook:onCancel");
                 FirebaseDatabase.getInstance().getReference().child("Exceptions")
                         .child("FacebookLoginSignIn").child(Settings.Secure.getString(getContentResolver(),
-                        Settings.Secure.ANDROID_ID)).setValue("PersonalRegistrationActivity/154:99"+"facebook canceled: ");
+                        Settings.Secure.ANDROID_ID)).setValue("PersonalRegistrationActivity/154:99" + "facebook canceled: ");
             }
 
             @Override
@@ -192,7 +190,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                 Log.d(TAG, "facebook:onError", error);
                 FirebaseDatabase.getInstance().getReference().child("Exceptions")
                         .child("FacebookLoginSignIn").child(Settings.Secure.getString(getContentResolver(),
-                        Settings.Secure.ANDROID_ID)).setValue("PersonalRegistrationActivity/159:99"+"facebook error: "+error);
+                        Settings.Secure.ANDROID_ID)).setValue("PersonalRegistrationActivity/159:99" + "facebook error: " + error);
             }
         });
 
@@ -215,7 +213,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                             mAuth = FirebaseAuth.getInstance();
                             FirebaseDatabase.getInstance().getReference().child("Exceptions")
                                     .child("FacebookLoginSignIn").child(Settings.Secure.getString(getContentResolver(),
-                                    Settings.Secure.ANDROID_ID)).setValue("PersonalRegistrationActivity/184:99"+"facebook reg error: "+task.getException().getMessage());
+                                    Settings.Secure.ANDROID_ID)).setValue("PersonalRegistrationActivity/184:99" + "facebook reg error: " + task.getException().getMessage());
 
                         }
                     }
@@ -249,35 +247,35 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
 //                        FirebaseDatabase.getInstance().getReference().child("Exception").child("RegistratioConfirmationActivity").child();
 
                         if (task.isSuccessful()) {
-//                            if (task.getResult().getUser().getUid().equals(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING))) {
-                                String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                DatabaseReference usersRef = mRootRef.child("AllUsers").child("PrivateData").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                addServiceKey = usersRef.child("services").push().getKey();
-                                ServiceRegistrationActivityForm.newService.setKey(addServiceKey);
-                                ServiceRegistrationActivityForm.newService.setUserUid(myUid);
-                                ServiceRegistrationActivityForm.newService.setSubcategory(ServiceRegistrationActivityForm.newService.getCategory());
+//                            if (task.getResult().getUser().getUid().equals(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING))) {
+                            String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            DatabaseReference usersRef = mRootRef.child("AllUsers").child("PrivateData").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            addServiceKey = usersRef.child("services").push().getKey();
+                            ServiceRegistrationActivityForm.newService.setKey(addServiceKey);
+                            ServiceRegistrationActivityForm.newService.setUserUid(myUid);
+                            ServiceRegistrationActivityForm.newService.setSubcategory(ServiceRegistrationActivityForm.newService.getCategory());
 
-                                //add to user containsService
-                                usersRef.child("containsService").setValue(true);
-                                usersRef.child("services").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
-                                mRootRef.child("AllUsers").child("PublicData").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("services").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
-                                mRootRef.child("AllUsers").child("PublicData").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("containsService").setValue(true);
-                                mRootRef.child("Services").child("PrivateData").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
-                                mRootRef.child("Services").child("PublicData").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
-                                try {
-                                    endRegistration(myUid);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                    FirebaseDatabase.getInstance().getReference().child("Exception").child("RegistratioConfirmationActivity").child(e.getMessage().toString());
-                                }
+                            //add to user containsService
+                            usersRef.child("containsService").setValue(true);
+                            usersRef.child("services").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
+                            mRootRef.child("AllUsers").child("PublicData").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("services").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
+                            mRootRef.child("AllUsers").child("PublicData").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("containsService").setValue(true);
+                            mRootRef.child("Services").child("PrivateData").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
+                            mRootRef.child("Services").child("PublicData").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
+                            try {
+                                endRegistration(myUid);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                FirebaseDatabase.getInstance().getReference().child("Exception").child("RegistratioConfirmationActivity").child(e.getMessage().toString());
+                            }
                             pb.setVisibility(View.GONE);
 
                         }
 
                         //if linking doesn't work
-                        else{
+                        else {
 
-                            if (task.getException().getMessage().toString().contains("CREDENTIAL_TOO_OLD_LOGIN_AGAIN")){
+                            if (task.getException().getMessage().toString().contains("CREDENTIAL_TOO_OLD_LOGIN_AGAIN")) {
 //                                FirebaseAuth.getInstance().getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
 //                                    @Override
 //                                    public void onComplete(@NonNull Task<Void> task) {
@@ -311,11 +309,11 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
 
                                 //re-authenticate user,
                                 AuthCredential credential = null;
-                                if (FirebaseAuth.getInstance().getCurrentUser().getProviderId().contains("google.com")){
+                                if (FirebaseAuth.getInstance().getCurrentUser().getProviderId().contains("google.com")) {
 //                                if (FirebaseAuth.getInstance().getCurrentUser().getProviders().contains("google.com")){
                                     //demi google login
-                                    credential = GoogleAuthProvider.getCredential(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString("googleToken", ""), null);
-                                }else{//user signed in with facebook
+                                    credential = GoogleAuthProvider.getCredential(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString("googleToken", ""), null);
+                                } else {//user signed in with facebook
 
                                 }
                                 FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential)
@@ -328,7 +326,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                                                     FirebaseAuth.getInstance().getCurrentUser().updateEmail(ServiceRegistrationActivityForm.newService.getEmail()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            Log.d(TAG, "User re-authenticated2: "+FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                                                            Log.d(TAG, "User re-authenticated2: " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
                                                             FirebaseAuth.getInstance().getCurrentUser().updatePassword(ServiceRegistrationActivityForm.newService.getPassword()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void aVoid) {
@@ -344,15 +342,15 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                                                         }
                                                     });
                                                     //endRegistration
-                                                }else{// if re-authentication failed
-                                                    Log.d(TAG, "User re-authenticated3. "+task.getException().getMessage());
+                                                } else {// if re-authentication failed
+                                                    Log.d(TAG, "User re-authenticated3. " + task.getException().getMessage());
 
                                                 }
                                             }
 
                                         });
 
-                            }else {
+                            } else {
 
                                 Toast.makeText(getBaseContext(), "task un-successful", Toast.LENGTH_SHORT).show();
                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegistrationConfirmationActivity.this);
@@ -376,7 +374,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                 });
             }
 
-            if (result.getStatus().isCanceled()){
+            if (result.getStatus().isCanceled()) {
                 Toast.makeText(getBaseContext(), "task un-successful", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegistrationConfirmationActivity.this);
                 alertDialogBuilder.setTitle(getString(R.string.demo_tender));
@@ -394,7 +392,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
 
             }
 
-            if (result.getStatus().isInterrupted()){
+            if (result.getStatus().isInterrupted()) {
                 Toast.makeText(getBaseContext(), "task un-successful", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegistrationConfirmationActivity.this);
                 alertDialogBuilder.setTitle(getString(R.string.demo_tender));
@@ -418,27 +416,26 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
     }
 
 
-
     private void endRegistration(String mUid) throws IOException {
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(Constants.APP_ID, mUid);
-        editor.putString(Constants.NAME, ServiceRegistrationActivityForm.newService.getTitle());
-        editor.putString(Constants.EMAIL, ServiceRegistrationActivityForm.newService.getEmail());
-        editor.putBoolean(Constants.IS_SERVICE, true);
-        editor.putString(Constants.MY_CATEGORY, ServiceRegistrationActivityForm.newService.getCategory());
-        editor.putString(Constants.MY_SUB_CATEGORY, ServiceRegistrationActivityForm.newService.getSubcategory());
-        editor.putString(Constants.MY_SERVICE, ServiceRegistrationActivityForm.newService.toJson());
-        editor.putBoolean(Constants.IS_ANONYMOUS, false);
+        editor.putString(PreferenceKeys.APP_ID, mUid);
+        editor.putString(PreferenceKeys.NAME, ServiceRegistrationActivityForm.newService.getTitle());
+        editor.putString(PreferenceKeys.EMAIL, ServiceRegistrationActivityForm.newService.getEmail());
+        editor.putBoolean(PreferenceKeys.IS_SERVICE, true);
+        editor.putString(PreferenceKeys.MY_CATEGORY, ServiceRegistrationActivityForm.newService.getCategory());
+        editor.putString(PreferenceKeys.MY_SUB_CATEGORY, ServiceRegistrationActivityForm.newService.getSubcategory());
+        editor.putString(PreferenceKeys.MY_SERVICE, ServiceRegistrationActivityForm.newService.toJson());
+        editor.putBoolean(PreferenceKeys.IS_ANONYMOUS, false);
         editor.commit();
 
         //upload profile and update fields
-        uploadFile(loadImageFromStorage(getBaseContext().getFilesDir()+"/profile.jpg"));
+        uploadFile(loadImageFromStorage(getBaseContext().getFilesDir() + "/profile.jpg"));
         FileOutputStream fileOutputStream = null;
 
-            fileOutputStream = openFileOutput("myService.json", MODE_PRIVATE);
-            fileOutputStream.write(ServiceRegistrationActivityForm.newService.toString().getBytes());
-            fileOutputStream.close();
+        fileOutputStream = openFileOutput("myService.json", MODE_PRIVATE);
+        fileOutputStream.write(ServiceRegistrationActivityForm.newService.toString().getBytes());
+        fileOutputStream.close();
         Log.d(TAG, "endRegistration: " + ServiceRegistrationActivityForm.newService.toString());
 
         MyApplication.addListener(mUid);
@@ -480,7 +477,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                 Uri downloadUrl = taskSnapshot.getUploadSessionUri();//.getDownloadUrl();
                 ServiceRegistrationActivityForm.newService.setProfileUrl(downloadUrl.toString());
 //                sendMsg("" + downloadUrl, 2);
-                Log.d(TAG , "downloadUrl-->" + downloadUrl);
+                Log.d(TAG, "downloadUrl-->" + downloadUrl);
                 final HashMap<String, Object> updateProfileUrl = new HashMap();
                 updateProfileUrl.put("profileUrl", downloadUrl.toString());
                 //set the profile url ini all needed places
@@ -504,7 +501,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                 ref2.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
+                        if (dataSnapshot.exists()) {
                             //if saved already in private data, update url in private data
                             ref1.updateChildren(updateProfileUrl);
                             ref2.updateChildren(updateProfileUrl);
@@ -521,7 +518,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                 ref4.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
+                        if (dataSnapshot.exists()) {
                             //if saved already in private data, update url in private data
                             ref3.updateChildren(updateProfileUrl);
                             ref4.updateChildren(updateProfileUrl);
@@ -537,7 +534,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                 ref5.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
+                        if (dataSnapshot.exists()) {
                             dataSnapshot.getRef().updateChildren(updateProfileUrl);
                         }
                     }
@@ -552,7 +549,7 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                 ref6.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
+                        if (dataSnapshot.exists()) {
                             dataSnapshot.getRef().updateChildren(updateProfileUrl);
                         }
                     }
@@ -573,27 +570,24 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
         });
     }
 
-    private Bitmap loadImageFromStorage(String path)
-    {
-        Log.d(TAG, "loadImageFromStorage: "+ path);
+    private Bitmap loadImageFromStorage(String path) {
+        Log.d(TAG, "loadImageFromStorage: " + path);
         Bitmap b = null;
 
         try {
-            File f=new File(path);
+            File f = new File(path);
             b = BitmapFactory.decodeStream(new FileInputStream(f));
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return b;
     }
 
     private void signInAndContinue(Task<AuthResult> task) {
-        Log.d(TAG, "signInAndContinue: "+task.getResult().getUser().getUid());
-        Log.d(TAG, "signInAndContinue: "+task.getResult().getUser().getDisplayName());
-        Log.d(TAG, "signInAndContinue: "+task.getResult().getUser().getEmail());
-        Log.d(TAG, "signInAndContinue: "+task.getResult().getUser().getPhotoUrl().toString());
+        Log.d(TAG, "signInAndContinue: " + task.getResult().getUser().getUid());
+        Log.d(TAG, "signInAndContinue: " + task.getResult().getUser().getDisplayName());
+        Log.d(TAG, "signInAndContinue: " + task.getResult().getUser().getEmail());
+        Log.d(TAG, "signInAndContinue: " + task.getResult().getUser().getPhotoUrl().toString());
         //basic info into
         final String uid = task.getResult().getUser().getUid();
         String name = task.getResult().getUser().getDisplayName();
@@ -602,12 +596,12 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
         //user is online..
 
 
-        SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
-        prefs.edit().putString(Constants.APP_ID, uid)
-                .putString(Constants.EMAIL, email)
-                .putBoolean(Constants.IS_SERVICE, false)
-                .putBoolean(Constants.IS_ANONYMOUS, false)
-                .putString(Constants.NAME, name).commit();
+        SharedPreferences prefs = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
+        prefs.edit().putString(PreferenceKeys.APP_ID, uid)
+                .putString(PreferenceKeys.EMAIL, email)
+                .putBoolean(PreferenceKeys.IS_SERVICE, false)
+                .putBoolean(PreferenceKeys.IS_ANONYMOUS, false)
+                .putString(PreferenceKeys.NAME, name).commit();
 
         final User user = new User(name, email, uid, Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID));
@@ -620,45 +614,45 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //check change
                 boolean hasAddress = false;
-                Log.d(TAG, "onDataChange: "+dataSnapshot.getValue());
-                if (!dataSnapshot.exists() || ! dataSnapshot.hasChild("mName")) {
-                    Log.d(TAG, "onDataChange: "+user.toString());
+                Log.d(TAG, "onDataChange: " + dataSnapshot.getValue());
+                if (!dataSnapshot.exists() || !dataSnapshot.hasChild("mName")) {
+                    Log.d(TAG, "onDataChange: " + user.toString());
                     mRootRef.child("AllUsers").child("PublicData").child(uid).setValue(user);
                     mRootRef.child("AllUsers").child("PrivateData").child(uid).setValue(user);
-                }else{
+                } else {
                     User user1 = dataSnapshot.getValue(User.class);
-                    hasAddress= true;
-                    Log.d(TAG, "onDataChange: "+user1);
-                    if (user1.getServices().size()!=0){
+                    hasAddress = true;
+                    Log.d(TAG, "onDataChange: " + user1);
+                    if (user1.getServices().size() != 0) {
 
                         Iterator it = user1.getServices().values().iterator();
                         Service service = (Service) user1.getServices().values().toArray()[0];
 
 //                        Service service = user1.getServices().get(user1.getServices().values().iterator().next());
-                        getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).edit()
-                                .putBoolean(Constants.IS_ANONYMOUS, false)
-                                .putString(Constants.NAME, service.getTitle())
-                                .putString(Constants.MY_SERVICE, service.toJson())
-                                .putString(Constants.MY_CATEGORY, service.getCategory())
-                                .putString(Constants.MY_SUB_CATEGORY, service.getSubcategory())
-                                .putString(Constants.EMAIL, service.getEmail())
-                                .putBoolean(Constants.IS_SERVICE, true).commit();
+                        getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).edit()
+                                .putBoolean(PreferenceKeys.IS_ANONYMOUS, false)
+                                .putString(PreferenceKeys.NAME, service.getTitle())
+                                .putString(PreferenceKeys.MY_SERVICE, service.toJson())
+                                .putString(PreferenceKeys.MY_CATEGORY, service.getCategory())
+                                .putString(PreferenceKeys.MY_SUB_CATEGORY, service.getSubcategory())
+                                .putString(PreferenceKeys.EMAIL, service.getEmail())
+                                .putBoolean(PreferenceKeys.IS_SERVICE, true).commit();
 
-                        if(service.l != null && service.l.size() > 1){
+                        if (service.l != null && service.l.size() > 1) {
                             LocationUtils.setLocationReg(service.l.get(0), service.l.get(1));
-                        }else {
-                            if(user1.getLocation() != null && user1.getLocation().getLatitude() != 0){
+                        } else {
+                            if (user1.getLocation() != null && user1.getLocation().getLatitude() != 0) {
                                 LocationUtils.setLocationReg(user1.getLocation().getLatitude(), user1.getLocation().getLongitude());
                             }
                         }
 
-                    }else {
-                        if(user1.getLocation() != null && user1.getLocation().getLatitude() != 0){
+                    } else {
+                        if (user1.getLocation() != null && user1.getLocation().getLatitude() != 0) {
                             LocationUtils.setLocationReg(user1.getLocation().getLatitude(), user1.getLocation().getLongitude());
                         }
                     }
-                    Log.d(TAG, "onDataChange: "+user1.toString());
-                    Map<String,Object> taskMap = new HashMap<String,Object>();
+                    Log.d(TAG, "onDataChange: " + user1.toString());
+                    Map<String, Object> taskMap = new HashMap<String, Object>();
                     taskMap.put(Settings.Secure.getString(getContentResolver(),
                             Settings.Secure.ANDROID_ID), Settings.Secure.getString(getContentResolver(),
                             Settings.Secure.ANDROID_ID));
@@ -676,12 +670,12 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                     FirebaseDatabase.getInstance().getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/").child("Devices").child(android_id).setValue(device);
                 }
 
-                if(hasAddress) {
+                if (hasAddress) {
                     Intent i = new Intent(RegistrationConfirmationActivity.this, TabsActivity.class);
                     startActivity(i);
 //                    finish();
 
-                }else {
+                } else {
                     Intent intent = new Intent(RegistrationConfirmationActivity.this, PrivateRegisterLocation.class);
                     startActivity(intent);
 //                    finish();
@@ -697,8 +691,6 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
         });
 
 
-
-
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
@@ -708,13 +700,13 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                     @Override
                     public void onComplete(@NonNull final Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            if (getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.EMAIL, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING))//if this is first time signing in with google
+                            if (getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.EMAIL, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING))//if this is first time signing in with google
                                 signInAndContinue(task);
-                            else{
+                            else {
                                 //if has already registered, can continue only if is same email
-                                if (task.getResult().getUser().getEmail().equals(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.EMAIL, Constants.RANDOM_STRING)))
+                                if (task.getResult().getUser().getEmail().equals(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.EMAIL, PreferenceKeys.RANDOM_STRING)))
                                     signInAndContinue(task);
-                                else{//user is signning in with other email.
+                                else {//user is signning in with other email.
                                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegistrationConfirmationActivity.this);
                                     alertDialogBuilder
                                             .setMessage("You must sign in with the same email you signed in previously. ")
@@ -732,9 +724,8 @@ public class RegistrationConfirmationActivity extends AppCompatActivity implemen
                             //
                             FirebaseDatabase.getInstance().getReference().child("Exceptions")
                                     .child("GoogleSignIn").child(Settings.Secure.getString(getContentResolver(),
-                                    Settings.Secure.ANDROID_ID)).setValue("PersonalRegistrationActivity/340/108"+task.getException().getMessage().toString());
+                                    Settings.Secure.ANDROID_ID)).setValue("PersonalRegistrationActivity/340/108" + task.getException().getMessage().toString());
                         }
-
                     }
                 });
     }

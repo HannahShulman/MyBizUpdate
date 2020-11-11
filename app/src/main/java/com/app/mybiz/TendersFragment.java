@@ -22,8 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.app.mybiz.activities.IntroTendersActivity;
-import com.app.mybiz.Adapters.TenderRecyclerAdapter;
-import com.app.mybiz.Objects.Tenders;
+import com.app.mybiz.adapters.TenderRecyclerAdapter;
+import com.app.mybiz.objects.Tenders;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -74,8 +74,8 @@ public class TendersFragment extends Fragment implements View.OnClickListener {
     }
 
     private boolean isService(){
-        if (getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getBoolean(Constants.IS_SERVICE, false)){
-            String str = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.MY_SERVICE, "");
+        if (getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getBoolean(PreferenceKeys.IS_SERVICE, false)){
+            String str = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, "");
             Log.d(TAG, "isService: str: "+str);
             if(str != null && ! str.isEmpty()){
                 try{
@@ -100,9 +100,9 @@ public class TendersFragment extends Fragment implements View.OnClickListener {
 
     public void getList() {
 
-        final String myId = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING);
-        final String myCategory = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.MY_CATEGORY, Constants.RANDOM_STRING);
-        final String mySubCategory = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.MY_SUB_CATEGORY, Constants.RANDOM_STRING);
+        final String myId = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
+        final String myCategory = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.MY_CATEGORY, PreferenceKeys.RANDOM_STRING);
+        final String mySubCategory = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.MY_SUB_CATEGORY, PreferenceKeys.RANDOM_STRING);
         //1. first my tenders from AllUsers-->privateData-->myId-->myTenders
         //2. if i am a service get relevant tenders from Services-->PublicData-->MyCategory -->mySubCategory... query if town matches and tenders key is not in hash map
 
@@ -111,7 +111,7 @@ public class TendersFragment extends Fragment implements View.OnClickListener {
         //tenders reference
 
 
-        if (isService() && !myCategory.equals(Constants.RANDOM_STRING) && !mySubCategory.equals(Constants.RANDOM_STRING)){
+        if (isService() && !myCategory.equals(PreferenceKeys.RANDOM_STRING) && !mySubCategory.equals(PreferenceKeys.RANDOM_STRING)){
             DatabaseReference tendersRef = FirebaseDatabase.getInstance().getReference().child("Tenders").child(myCategory).child(mySubCategory);
             Log.d(TAG, "getList: "+ tendersRef.toString());
             Log.d(TAG, "getList: "+town);

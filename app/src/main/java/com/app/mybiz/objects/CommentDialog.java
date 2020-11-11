@@ -1,4 +1,4 @@
-package com.app.mybiz.Objects;
+package com.app.mybiz.objects;
 
 import android.app.Activity;
 import android.app.Dialog;

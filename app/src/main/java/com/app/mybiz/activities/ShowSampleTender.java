@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.app.mybiz.Objects.Tenders;
+import com.app.mybiz.objects.Tenders;
 import com.app.mybiz.PreferenceKeys;
 import com.app.mybiz.R;
 import com.bumptech.glide.Glide;
@@ -65,7 +65,7 @@ public class ShowSampleTender extends AppCompatActivity {
 
     private void setInfo() {
         Glide.with(getBaseContext()).load(sampleTender.getProfileUrl()).into(profileImage);
-        name.setText(getSharedPreferences(PreferenceKeys.INSTANCE.getPREFERENCES(), MODE_PRIVATE).getString(PreferenceKeys.INSTANCE.getNAME(), ""));
+        name.setText(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.NAME, ""));
         town.setText(sampleTender.getTown());
         requestDescription.setText(sampleTender.getRequest());
 

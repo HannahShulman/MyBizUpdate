@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.app.mybiz.objects.ChatSummary;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.app.mybiz.Objects.Service;
+import com.app.mybiz.objects.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,7 +54,7 @@ public class RecentChatStreams extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.activity_recent_chats, container, false);
 
-        myId = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING);
+        myId = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
         recentMsg = (RecyclerView) rootview.findViewById(R.id.recent_msg_list);
         empty_chats_layout = (LinearLayout) rootview.findViewById(R.id.empty_chats_layout);
         RecyclerView.LayoutManager manager  = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -219,8 +220,8 @@ public class RecentChatStreams extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //
-        SharedPreferences preferences = getActivity().getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
-        myId = preferences.getString(Constants.APP_ID, Constants.RANDOM_STRING);
+        SharedPreferences preferences = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
+        myId = preferences.getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
     }
 
     public static class RecentChatViewHolder extends RecyclerView.ViewHolder{

@@ -1,4 +1,4 @@
-package com.app.mybiz.Adapters
+package com.app.mybiz.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.app.mybiz.Objects.Comment
+import com.app.mybiz.objects.Comment
 import com.app.mybiz.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -34,13 +34,15 @@ class CommentRecyclerAdapter constructor(val ctx: Context, val list: ArrayList<C
         holder.reviewerDate.text = formatter.format(Date(date))
 
         holder.ratingBar.rating = currentComment.review.toFloat()
-        Glide.with(ctx).load(currentComment.url).into(holder.profileImage)
+        Glide.with(ctx)
+                .load(currentComment.url)
+                .into(holder.profileImage)
     }
 
     override fun getItemCount(): Int = list.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val profileImage = itemView.findViewById<ImageView>(R.id.profile_image)
+        val profileImage = itemView.findViewById<ImageView>(R.id.profile)
         val reviewerName = itemView.findViewById<TextView>(R.id.reviewer_name)
         val reviewerDate = itemView.findViewById<TextView>(R.id.review_date)
         val reviewerDescription = itemView.findViewById<TextView>(R.id.review_description)

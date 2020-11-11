@@ -15,7 +15,7 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.app.mybiz.Objects.LatLng;
+import com.app.mybiz.objects.LatLng;
 
 /**
  * Created by itzikalgrisi on 25/02/2017.

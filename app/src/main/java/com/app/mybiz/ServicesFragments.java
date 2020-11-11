@@ -132,10 +132,10 @@ public class ServicesFragments extends Fragment implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefs = getActivity().getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
-        myEmail = prefs.getString(Constants.EMAIL, Constants.RANDOM_STRING);
-        myId = prefs.getString(Constants.APP_ID, Constants.RANDOM_STRING);
-        myName = prefs.getString(Constants.NAME, Constants.RANDOM_STRING);
+        SharedPreferences prefs = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
+        myEmail = prefs.getString(PreferenceKeys.EMAIL, PreferenceKeys.RANDOM_STRING);
+        myId = prefs.getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
+        myName = prefs.getString(PreferenceKeys.NAME, PreferenceKeys.RANDOM_STRING);
         serviceListFragment = new ServiceListFragment();
         Bundle businessBundle = new Bundle();
         businessBundle.putString("ref", "https://mybizz-3bbe5.firebaseio.com/Categories/Professional");

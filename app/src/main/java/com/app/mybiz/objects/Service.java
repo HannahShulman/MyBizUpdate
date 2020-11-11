@@ -1,6 +1,7 @@
-package com.app.mybiz.Objects;
+package com.app.mybiz.objects;
 
-import com.app.mybiz.Constants;
+
+import com.app.mybiz.PreferenceKeys;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,19 +16,19 @@ import java.util.HashMap;
 public class Service implements Serializable {
 
 
-    public String title = Constants.DEFAULT_SERVICE_TITLE,
-            userUid = Constants.DEFAULT_SERVICE_TITLE,
-            address = Constants.DEFAULT_SERVICE_TITLE,
-            town = Constants.DEFAULT_SERVICE_TITLE,
+    public String title = PreferenceKeys.DEFAULT_SERVICE_TITLE,
+            userUid = PreferenceKeys.DEFAULT_SERVICE_TITLE,
+            address = PreferenceKeys.DEFAULT_SERVICE_TITLE,
+            town = PreferenceKeys.DEFAULT_SERVICE_TITLE,
             serviceHomeNumber,
-            phoneNumber = Constants.DEFAULT_SERVICE_TITLE,
-            openingHours = Constants.DEFAULT_SERVICE_TITLE,
-            email = Constants.DEFAULT_SERVICE_TITLE,
-            password = Constants.DEFAULT_SERVICE_TITLE,
-            category = Constants.DEFAULT_SERVICE_TITLE,
-            subcategory = Constants.DEFAULT_SERVICE_TITLE,
-            additionalInfo = Constants.DEFAULT_SERVICE_TITLE,
-            shortDescription = Constants.DEFAULT_SERVICE_TITLE;
+            phoneNumber = PreferenceKeys.DEFAULT_SERVICE_TITLE,
+            openingHours = PreferenceKeys.DEFAULT_SERVICE_TITLE,
+            email = PreferenceKeys.DEFAULT_SERVICE_TITLE,
+            password = PreferenceKeys.DEFAULT_SERVICE_TITLE,
+            category = PreferenceKeys.DEFAULT_SERVICE_TITLE,
+            subcategory = PreferenceKeys.DEFAULT_SERVICE_TITLE,
+            additionalInfo = PreferenceKeys.DEFAULT_SERVICE_TITLE,
+            shortDescription = PreferenceKeys.DEFAULT_SERVICE_TITLE;
 
 
     public boolean isApproved = false;
@@ -35,7 +36,7 @@ public class Service implements Serializable {
     public float averageRating = 0.0f;
     public double avarageQualityService = 0.0, avarageReliability = 0.0, avaragePunctuality = 0.0;
     public HashMap<String, String> devices = new HashMap<>();
-    public String profileUrl = Constants.DEFAULT_SERVICE_PROFILE;
+    public String profileUrl = PreferenceKeys.DEFAULT_SERVICE_PROFILE;
     public String key = "";
     public boolean service = false;
     public HashMap<String, Comment> reviews;

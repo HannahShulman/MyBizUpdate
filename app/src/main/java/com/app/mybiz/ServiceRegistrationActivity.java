@@ -24,8 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 //import com.google.firebase.iid.FirebaseInstanceId;
-import com.app.mybiz.Objects.Service;
-import com.app.mybiz.Objects.User;
+import com.app.mybiz.objects.Service;
+import com.app.mybiz.objects.User;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -140,12 +140,12 @@ public class ServiceRegistrationActivity extends AppCompatActivity implements Vi
                 break;
 
             case R.id.finish_btn:
-                Log.d(TAG, "onClick: "+getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING));
-                if (!getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)){
+                Log.d(TAG, "onClick: "+getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING));
+                if (!getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING)){
                     Log.d(TAG, "onClick: "+111);
                     addServiceToUser();
                 }
-                if (getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)) {//first time, registering as service
+                if (getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING)) {//first time, registering as service
                     Log.d(TAG, "onClick: "+222);
                     registerBusiness();
                 }
@@ -354,15 +354,15 @@ public class ServiceRegistrationActivity extends AppCompatActivity implements Vi
     }
 
     private void endRegistration(String mUid) throws IOException {
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(Constants.APP_ID, mUid);
-        editor.putString(Constants.NAME, newService.getTitle());
-        editor.putString(Constants.EMAIL, newService.getEmail());
-        editor.putBoolean(Constants.IS_SERVICE, true);
-        editor.putString(Constants.MY_CATEGORY, newService.getCategory());
-        editor.putString(Constants.MY_SUB_CATEGORY, newService.getSubcategory());
-        editor.putString(Constants.MY_SERVICE, newService.toJson());
+        editor.putString(PreferenceKeys.APP_ID, mUid);
+        editor.putString(PreferenceKeys.NAME, newService.getTitle());
+        editor.putString(PreferenceKeys.EMAIL, newService.getEmail());
+        editor.putBoolean(PreferenceKeys.IS_SERVICE, true);
+        editor.putString(PreferenceKeys.MY_CATEGORY, newService.getCategory());
+        editor.putString(PreferenceKeys.MY_SUB_CATEGORY, newService.getSubcategory());
+        editor.putString(PreferenceKeys.MY_SERVICE, newService.toJson());
         editor.commit();
 //        FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
 //        ObjectOutputStream o = new ObjectOutputStream(f);

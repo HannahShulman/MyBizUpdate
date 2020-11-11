@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.app.mybiz.Fragments.CreateOfferOneFragment;
 import com.app.mybiz.Fragments.CreateOfferSecondFragment;
-import com.app.mybiz.Objects.Specials;
+import com.app.mybiz.objects.Specials;
 
 public class CreateSpecial extends AppCompatActivity implements View.OnClickListener {
     String TAG = "createSpecial";

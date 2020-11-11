@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.app.mybiz.PreferenceKeys;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -32,10 +33,9 @@ import com.facebook.share.model.ShareOpenGraphObject;
 import com.facebook.share.widget.ShareDialog;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
-import com.app.mybiz.Constants;
 import com.app.mybiz.CreateSpecial;
-import com.app.mybiz.Objects.Service;
-import com.app.mybiz.Objects.Specials;
+import com.app.mybiz.objects.Service;
+import com.app.mybiz.objects.Specials;
 import com.app.mybiz.R;
 
 import java.util.Arrays;
@@ -70,7 +70,7 @@ public class CreateOfferSecondFragment extends Fragment {
             Log.d(TAG, "publicizeOffer: ");
 //            shareOnFacebook();
             ShareContent content = new ShareLinkContent.Builder()
-                    .setContentTitle("Check out  " + getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.NAME, "") + " on this amazing app!!")
+                    .setContentTitle("Check out  " + getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.NAME, "") + " on this amazing app!!")
                     .setContentDescription("aaa")
                     .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.app.mybiz"))
                     .build();
@@ -143,11 +143,11 @@ public class CreateOfferSecondFragment extends Fragment {
                     public void onSuccess(Sharer.Result result) {
                         Log.d(TAG, "onSuccess1: " + result.getPostId());
                         Gson gson = new Gson();
-                        String serviceJson = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
-                        if (!serviceJson.equals(Constants.RANDOM_STRING)) {
+                        String serviceJson = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
+                        if (!serviceJson.equals(PreferenceKeys.RANDOM_STRING)) {
                             Log.d(TAG, "onSuccess: " + serviceJson.toString());
                             Service s = gson.fromJson(serviceJson, Service.class);
-                            FirebaseDatabase.getInstance().getReference().child("Facebook exception 102:109").child(getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING)).setValue(s.getTitle());
+                            FirebaseDatabase.getInstance().getReference().child("Facebook exception 102:109").child(getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING)).setValue(s.getTitle());
                             CreateSpecial.offers.setOfferCreator(s);
                             CreateSpecial.offers.setServiceKey(s.getKey());
                             String offerKey = FirebaseDatabase.getInstance().getReference().child("Offers").child(s.getCategory()).child(s.getSubcategory()).push().getKey();
@@ -185,7 +185,7 @@ public class CreateOfferSecondFragment extends Fragment {
 
                         } else {
                             Toast.makeText(getActivity(), "incorrect service", Toast.LENGTH_LONG).show();
-                            FirebaseDatabase.getInstance().getReference().child("Facebook exception").child(getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING)).setValue(serviceJson);
+                            FirebaseDatabase.getInstance().getReference().child("Facebook exception").child(getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING)).setValue(serviceJson);
                         }
                     }
 
@@ -202,8 +202,8 @@ public class CreateOfferSecondFragment extends Fragment {
                         Log.d(TAG, "onError1: " + error.getMessage().toString());
                         Toast.makeText(getActivity(), error.getMessage().toString(), Toast.LENGTH_SHORT).show();
                         FirebaseDatabase.getInstance().getReference().child("Facebook exception")
-                                .child(getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE)
-                                        .getString(Constants.APP_ID, Constants.RANDOM_STRING)).setValue(error);
+                                .child(getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE)
+                                        .getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING)).setValue(error);
                     }
                 });
 
@@ -225,7 +225,7 @@ public class CreateOfferSecondFragment extends Fragment {
                 Log.d(TAG, "onError: ");
                 Log.d(TAG, "onError179:40: " + error.getMessage().toString());
                 Toast.makeText(getActivity(), error.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                FirebaseDatabase.getInstance().getReference().child("Facebook exception").child(getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING)).setValue(error);
+                FirebaseDatabase.getInstance().getReference().child("Facebook exception").child(getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING)).setValue(error);
 
 
             }
@@ -243,11 +243,11 @@ public class CreateOfferSecondFragment extends Fragment {
         if (data.getBundleExtra("com.facebook.platform.protocol.RESULT_ARGS").getString("completionGesture", "mmm").equals("post")) {
             //add to firebase counter of sharing
             Gson gson = new Gson();
-            String serviceJson = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
-            if (!serviceJson.equals(Constants.RANDOM_STRING)) {
+            String serviceJson = getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
+            if (!serviceJson.equals(PreferenceKeys.RANDOM_STRING)) {
                 Log.d(TAG, "onSuccess: " + serviceJson.toString());
                 Service s = gson.fromJson(serviceJson, Service.class);
-                FirebaseDatabase.getInstance().getReference().child("Facebook exception 102:109").child(getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING)).setValue(s.getTitle());
+                FirebaseDatabase.getInstance().getReference().child("Facebook exception 102:109").child(getActivity().getSharedPreferences(PreferenceKeys.PREFERENCES, Context.MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING)).setValue(s.getTitle());
                 CreateSpecial.offers.setOfferCreator(s);
                 CreateSpecial.offers.setServiceKey(s.getKey());
                 String offerKey = FirebaseDatabase.getInstance().getReference().child("Offers").child(s.getCategory()).child(s.getSubcategory()).push().getKey();

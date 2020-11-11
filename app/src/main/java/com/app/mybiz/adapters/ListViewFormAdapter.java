@@ -1,4 +1,4 @@
-package com.app.mybiz.Adapters;
+package com.app.mybiz.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
-import com.app.mybiz.FormItem;
 import com.app.mybiz.R;
 import com.app.mybiz.ServiceRegistrationFragmentContainer;
 
@@ -52,9 +50,6 @@ public class ListViewFormAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
-
-
-
 
     ViewHolder holder = null;
     @Override
@@ -101,8 +96,6 @@ public class ListViewFormAdapter extends BaseAdapter {
                     ctx.startActivity(intent);
                 }
             });
-
-
         }
         return view;
     }

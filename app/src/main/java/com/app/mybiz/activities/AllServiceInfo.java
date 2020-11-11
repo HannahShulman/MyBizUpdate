@@ -10,6 +10,8 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
+
+import com.app.mybiz.PreferenceKeys;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,12 +38,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
-import com.app.mybiz.Adapters.CommentRecyclerAdapter;
+import com.app.mybiz.adapters.CommentRecyclerAdapter;
 import com.app.mybiz.ChatActivity;
-import com.app.mybiz.Constants;
 import com.app.mybiz.CreateAccountChoiceActivity;
-import com.app.mybiz.Objects.Comment;
-import com.app.mybiz.Objects.Service;
+import com.app.mybiz.objects.Comment;
+import com.app.mybiz.objects.Service;
 import com.app.mybiz.R;
 import com.app.mybiz.ServiceRegistrationActivityForm;
 import com.app.mybiz.ServiceRegistrationFragmentContainer;
@@ -95,8 +96,8 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_service_info_);
-        pref = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
-        isAnonymous = pref.getBoolean(Constants.IS_ANONYMOUS, false);
+        pref = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
+        isAnonymous = pref.getBoolean(PreferenceKeys.IS_ANONYMOUS, false);
         barLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
         barLayout.setExpanded(true);
 
@@ -111,14 +112,9 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         myToolbar.setNavigationIcon(R.drawable.right_arrow_w);
-        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        myId = pref.getString(Constants.APP_ID, Constants.RANDOM_STRING);
-        myName = pref.getString(Constants.NAME, Constants.RANDOM_STRING);
+        myToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        myId = pref.getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
+        myName = pref.getString(PreferenceKeys.NAME, PreferenceKeys.RANDOM_STRING);
         allComments = (RecyclerView) findViewById(R.id.all_comments);
         commentsList = new ArrayList<>();
         commentMap = new HashMap<>();
@@ -156,7 +152,7 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
         ServiceRegistrationActivityForm.newService = currentService;
 
         //here we set the correct view per user. if user is the owner of service (enable edit) or not (disable edit).
-        if (currentService.getUserUid().equals(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING))){
+        if (currentService.getUserUid().equals(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING))){
             openHoursEdit.setOnClickListener(this);
             addressEdit.setOnClickListener(this);
             phoneNumberEdit.setOnClickListener(this);
@@ -203,7 +199,7 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
             }
             serviceProfile.setImageBitmap(b);
         }else {
-            if (currentService.getUserUid().equals(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING))) {
+            if (currentService.getUserUid().equals(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING))) {
                 File f=new File(getFilesDir()+"/profile.jpg");
                 Log.d(TAG, "onCreate: "+f.exists());
                 Bitmap b = null;
@@ -220,7 +216,7 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
         }
 
         //if service owner, then make option of chatting with himself false.
-        if (currentService.getUserUid().equals(pref.getString(Constants.APP_ID, Constants.RANDOM_STRING)))
+        if (currentService.getUserUid().equals(pref.getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING)))
             addCommentFab.setVisibility(View.GONE);
 
 
@@ -327,7 +323,8 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
 
         ref.addValueEventListener(serviceChangeListener);
         Log.d(TAG, "onRestart: ");
-        if (getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(currentService.getUserUid())){
+        if (getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE)
+                .getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(currentService.getUserUid())){
 //            if (ServiceRegistrationActivityForm.newService!=null) {
 //                currentService = ServiceRegistrationActivityForm.newService;
 //                Log.d(TAG, "onRestart: " + currentService.getOpeningHours());
@@ -349,10 +346,10 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
         super.onResume();
         Log.d(TAG, "onResumeService: "+ServiceRegistrationActivityForm.newService.toString());
         Log.d(TAG, "onResume: ");
-        if (!(getIntent().getBooleanExtra("isMidReg", true)) &&getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(currentService.getUserUid())){
+        if (!(getIntent().getBooleanExtra("isMidReg", true)) &&getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(currentService.getUserUid())){
             Gson gson= new Gson();
             Log.d(TAG, "onResume2: ");
-            String s = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
+            String s = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
             try {
                 JSONObject obj = new JSONObject(s);
                 currentService = gson.fromJson(obj.toString(), Service.class);
@@ -373,7 +370,7 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
 
         }else{
             //if came from edit
-            if (getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(currentService.getUserUid())){
+            if (getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(currentService.getUserUid())){
                 openningHoursInfo.setText(ServiceRegistrationActivityForm.newService.getOpeningHours());
                 String homeNumber = ServiceRegistrationActivityForm.newService.getServiceHomeNumber();
                 if (homeNumber==null)
@@ -409,11 +406,11 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
 
         if (v.getId()==R.id.open_hours_edit || v.getId()==R.id.phone_number_edit){
-            String s = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
+            String s = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
             try {
                 JSONObject obj = new JSONObject(s);
                 Gson gson = new Gson();
-                ServiceRegistrationActivityForm.newService = gson.fromJson(obj.toString(),  com.app.mybiz.Objects.Service.class );
+                ServiceRegistrationActivityForm.newService = gson.fromJson(obj.toString(),  com.app.mybiz.objects.Service.class );
                 Intent intent4 = new Intent(AllServiceInfo.this, ServiceRegistrationFragmentContainer.class);
                 intent4.putExtra("fragmentNumber", 4);
                 intent4.putExtra("isEdit", true);
@@ -422,11 +419,12 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
                 e.printStackTrace();
             }
         }else if(v.getId()==R.id.additional_info_edit || v.getId()==R.id.info_edit) {
-            String s = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
+            String s = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE)
+                    .getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
             try {
                 JSONObject obj = new JSONObject(s);
                 Gson gson = new Gson();
-                ServiceRegistrationActivityForm.newService = gson.fromJson(obj.toString(),  com.app.mybiz.Objects.Service.class );
+                ServiceRegistrationActivityForm.newService = gson.fromJson(obj.toString(),  com.app.mybiz.objects.Service.class );
                 Intent intent3 = new Intent(AllServiceInfo.this, ServiceRegistrationFragmentContainer.class);
                 intent3.putExtra("fragmentNumber", 3);
                 intent3.putExtra("isEdit", true);
@@ -436,11 +434,11 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
             }
 
         }else if (v.getId()==R.id.profile_image_edit) {
-            String s = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
+            String s = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
             try {
                 JSONObject obj = new JSONObject(s);
                 Gson gson = new Gson();
-                ServiceRegistrationActivityForm.newService = gson.fromJson(obj.toString(),  com.app.mybiz.Objects.Service.class );
+                ServiceRegistrationActivityForm.newService = gson.fromJson(obj.toString(),  com.app.mybiz.objects.Service.class );
                 Intent intent0 = new Intent(AllServiceInfo.this, ServiceRegistrationFragmentContainer.class);
                 intent0.putExtra("fragmentNumber", 0);
                 intent0.putExtra("isEdit", true);
@@ -449,11 +447,11 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
                 e.printStackTrace();
             }
         } else if(v.getId()==R.id.address_edit){
-            String s = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
+            String s = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
             try {
                 JSONObject obj = new JSONObject(s);
                 Gson gson = new Gson();
-                ServiceRegistrationActivityForm.newService = gson.fromJson(obj.toString(),  com.app.mybiz.Objects.Service.class );
+                ServiceRegistrationActivityForm.newService = gson.fromJson(obj.toString(),  com.app.mybiz.objects.Service.class );
                 Intent intent2 = new Intent(AllServiceInfo.this, ServiceRegistrationFragmentContainer.class);
                 intent2.putExtra("fragmentNumber", 2);
                 intent2.putExtra("isEdit", true);
@@ -563,12 +561,12 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
             } else {
                 Log.d(TAG, "onDataChange: user has not commented");
                 displayMyComment = (ViewSwitcher) findViewById(R.id.display_my_comment);//where you want to add/inflate a view as a child
-                if (!currentService.getUserUid().equals(pref.getString(Constants.APP_ID, Constants.RANDOM_STRING)))
+                if (!currentService.getUserUid().equals(pref.getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING)))
                 {
                     View child = displayMyComment.getChildAt(0);
                     TextView writer = (TextView) child.findViewById(R.id.writer);
                     TextView des = (TextView) child.findViewById(R.id.describe);
-                    String w = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.NAME, Constants.RANDOM_STRING);
+                    String w = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.NAME, PreferenceKeys.RANDOM_STRING);
                     writer.setText(w);
                     des.setText(getResources().getString(R.string.describe_experience)+" "+currentService.getTitle());
 //                    displayMyComment.addView(child);
@@ -668,7 +666,7 @@ public class AllServiceInfo extends AppCompatActivity implements View.OnClickLis
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Log.d(TAG, "onChildAdded: "+dataSnapshot.getValue());
             Comment c = dataSnapshot.getValue(Comment.class);
-            if (!c.getWriterUid().equals(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING))) {
+            if (!c.getWriterUid().equals(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING))) {
                 if (commentMap.get(c.getWriterUid())==null) {
                     commentMap.put(c.getWriterUid(), c);
                     commentsList.add(c);

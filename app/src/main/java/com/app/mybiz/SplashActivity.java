@@ -13,7 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.app.mybiz.Objects.Category;
+import com.app.mybiz.objects.Category;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -76,11 +76,11 @@ public class SplashActivity extends AppCompatActivity {
             muid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
-        SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
-        String uid = prefs.getString(Constants.APP_ID, Constants.RANDOM_STRING);
-        if (uid.equals(Constants.RANDOM_STRING)) {
+        SharedPreferences prefs = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
+        String uid = prefs.getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING);
+        if (uid.equals(PreferenceKeys.RANDOM_STRING)) {
             if (muid != null) {
-                prefs.edit().putString(Constants.APP_ID, muid).apply();
+                prefs.edit().putString(PreferenceKeys.APP_ID, muid).apply();
                 return true;
             }
             return false;

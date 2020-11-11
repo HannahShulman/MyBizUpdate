@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.app.mybiz.adapters.FormItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,9 +49,9 @@ import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.app.mybiz.activities.AllServiceInfo;
 import com.app.mybiz.activities.ShareMyService;
-import com.app.mybiz.Adapters.ListViewFormAdapter;
-import com.app.mybiz.Objects.Service;
-import com.app.mybiz.Objects.User;
+import com.app.mybiz.adapters.ListViewFormAdapter;
+import com.app.mybiz.objects.Service;
+import com.app.mybiz.objects.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,8 +92,8 @@ public class ServiceRegistrationActivityForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_registration_form);
 
-        String myService = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.MY_SERVICE, Constants.RANDOM_STRING);
-        if (myService.equals(Constants.RANDOM_STRING)) {
+        String myService = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.MY_SERVICE, PreferenceKeys.RANDOM_STRING);
+        if (myService.equals(PreferenceKeys.RANDOM_STRING)) {
             newService = new Service();
         } else {
             Gson gson = new Gson();
@@ -267,11 +268,11 @@ public class ServiceRegistrationActivityForm extends AppCompatActivity {
                         protected void onPostExecute(Object o) {
                             super.onPostExecute(o);
 
-                            if (!getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)) {
+                            if (!getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING)) {
                                 Log.d(TAG, "onClick: " + 111);
                                 addServiceToUser();
                             }
-                            if (getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString(Constants.APP_ID, Constants.RANDOM_STRING).equals(Constants.RANDOM_STRING)) {//first time, registering as service
+                            if (getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString(PreferenceKeys.APP_ID, PreferenceKeys.RANDOM_STRING).equals(PreferenceKeys.RANDOM_STRING)) {//first time, registering as service
                                 Log.d(TAG, "onClick: " + 222);
                                 registerBusiness();
                             }
@@ -416,7 +417,7 @@ public class ServiceRegistrationActivityForm extends AppCompatActivity {
 
     private boolean isFirstComplete() {
         Log.d(TAG, "isFirstComplete1: " + list.size());
-        if (newService.getCategory() != null && !newService.getTitle().equals(Constants.DEFAULT_SERVICE_TITLE) && !newService.getCategory().equals(getResources().getString(R.string.choose_category))) {
+        if (newService.getCategory() != null && !newService.getTitle().equals(PreferenceKeys.DEFAULT_SERVICE_TITLE) && !newService.getCategory().equals(getResources().getString(R.string.choose_category))) {
             if (list.size() >= 1) {
                 FormItem tmp = list.get(1);
                 tmp.setComplete(true);
@@ -562,7 +563,7 @@ public class ServiceRegistrationActivityForm extends AppCompatActivity {
         super.onPause();
         saving_service_prog.setVisibility(View.GONE);
         Log.d(TAG + 1, "onPause: ...");
-        getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).edit().putString(Constants.MY_SERVICE, newService.toJson()).commit();
+        getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).edit().putString(PreferenceKeys.MY_SERVICE, newService.toJson()).commit();
     }
 
     @Override
@@ -602,79 +603,77 @@ public class ServiceRegistrationActivityForm extends AppCompatActivity {
         if(FirebaseAuth.getInstance().getCurrentUser().getProviderId().contains("google.com")){
 //        if (FirebaseAuth.getInstance().getCurrentUser().getProviders().contains("google.com")){
             //demi google login
-            credential = GoogleAuthProvider.getCredential(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString("googleToken", ""), null);
+            credential = GoogleAuthProvider.getCredential(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString("googleToken", ""), null);
         }else{//user signed in with facebook
-            credential = FacebookAuthProvider.getCredential(getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE).getString("facebookToken", ""));
+            credential = FacebookAuthProvider.getCredential(getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE).getString("facebookToken", ""));
         }
         FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User re-authenticated1.");
-                            //update user profile
-                            //set email
-                            FirebaseAuth.getInstance().getCurrentUser().updateEmail(newService.getEmail()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "User re-authenticated2: "+FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                                    //set password
-                                    FirebaseAuth.getInstance().getCurrentUser().updatePassword(newService.getPassword()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            //update profile
-                                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                    .setDisplayName(newService.getTitle())
-                                                    .build();
-                                            FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User re-authenticated1.");
+                        //update user profile
+                        //set email
+                        FirebaseAuth.getInstance().getCurrentUser().updateEmail(newService.getEmail()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "User re-authenticated2: "+FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                                //set password
+                                FirebaseAuth.getInstance().getCurrentUser().updatePassword(newService.getPassword()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        //update profile
+                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(newService.getTitle())
+                                                .build();
+                                        FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
 
-                                            //set users profile
-                                            FirebaseStorage storage = FirebaseStorage.getInstance();
-                                            StorageReference storageRef = storage.getReferenceFromUrl("gs://mybizz-3bbe5.appspot.com");
-                                            StorageReference mountainImagesRef = storageRef.child("images/" + System.currentTimeMillis() + ".png");
-                                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                            loadImageFromStorage(getBaseContext().getFilesDir() + "/profile.jpg").compress(Bitmap.CompressFormat.PNG, 100, baos);
-                                            byte[] data = baos.toByteArray();
-                                            UploadTask uploadTask = mountainImagesRef.putBytes(data);
-                                            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {//if profile imge upload has succeeded
-                                                @Override
-                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                    Uri downloadUrl = taskSnapshot.getUploadSessionUri();//.getDownloadUrl();
-                                                    Log.d(TAG, "onSuccess: "+FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
-                                                    ServiceRegistrationActivityForm.newService.setProfileUrl(downloadUrl.toString());
-                                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                            .setPhotoUri(downloadUrl)
-                                                            .build();
+                                        //set users profile
+                                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                                        StorageReference storageRef = storage.getReferenceFromUrl("gs://mybizz-3bbe5.appspot.com");
+                                        StorageReference mountainImagesRef = storageRef.child("images/" + System.currentTimeMillis() + ".png");
+                                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                        loadImageFromStorage(getBaseContext().getFilesDir() + "/profile.jpg").compress(Bitmap.CompressFormat.PNG, 100, baos);
+                                        byte[] data = baos.toByteArray();
+                                        UploadTask uploadTask = mountainImagesRef.putBytes(data);
+                                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {//if profile imge upload has succeeded
+                                            @Override
+                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                Uri downloadUrl = taskSnapshot.getUploadSessionUri();//.getDownloadUrl();
+                                                Log.d(TAG, "onSuccess: "+FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
+                                                ServiceRegistrationActivityForm.newService.setProfileUrl(downloadUrl.toString());
+                                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                        .setPhotoUri(downloadUrl)
+                                                        .build();
 
-                                                    FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
-                                                    Log.d(TAG, "onSuccess: "+FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
-                                                    //add service info to correct places in firebase
-                                                    String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                                    DatabaseReference usersRef = mRootRef.child("AllUsers").child("PrivateData").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                                    addServiceKey = usersRef.child("services").push().getKey();
-                                                    ServiceRegistrationActivityForm.newService.setKey(addServiceKey);
-                                                    ServiceRegistrationActivityForm.newService.setUserUid(myUid);
-                                                    ServiceRegistrationActivityForm.newService.setSubcategory(ServiceRegistrationActivityForm.newService.getCategory());
+                                                FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+                                                Log.d(TAG, "onSuccess: "+FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
+                                                //add service info to correct places in firebase
+                                                String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                DatabaseReference usersRef = mRootRef.child("AllUsers").child("PrivateData").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                                addServiceKey = usersRef.child("services").push().getKey();
+                                                ServiceRegistrationActivityForm.newService.setKey(addServiceKey);
+                                                ServiceRegistrationActivityForm.newService.setUserUid(myUid);
+                                                ServiceRegistrationActivityForm.newService.setSubcategory(ServiceRegistrationActivityForm.newService.getCategory());
 
-                                                    //add to user containsService
-                                                    usersRef.child("containsService").setValue(true);
-                                                    usersRef.child("services").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
-                                                    mRootRef.child("AllUsers").child("PublicData").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("services").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
-                                                    mRootRef.child("AllUsers").child("PublicData").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("containsService").setValue(true);
-                                                    mRootRef.child("Services").child("PrivateData").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
-                                                    mRootRef.child("Services").child("PublicData").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
-                                                    try {
-                                                        endRegistration(newService.getUserUid());
-//                                                        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
+                                                //add to user containsService
+                                                usersRef.child("containsService").setValue(true);
+                                                usersRef.child("services").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
+                                                mRootRef.child("AllUsers").child("PublicData").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("services").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
+                                                mRootRef.child("AllUsers").child("PublicData").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("containsService").setValue(true);
+                                                mRootRef.child("Services").child("PrivateData").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
+                                                mRootRef.child("Services").child("PublicData").child(addServiceKey).setValue(ServiceRegistrationActivityForm.newService);
+                                                try {
+                                                    endRegistration(newService.getUserUid());
+//                                                        SharedPreferences preferences = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
 //                                                        SharedPreferences.Editor editor = preferences.edit();
-//                                                        editor.putString(Constants.APP_ID, newService.getUserUid());
-//                                                        editor.putString(Constants.NAME, newService.getTitle());
-//                                                        editor.putString(Constants.EMAIL, newService.getEmail());
-//                                                        editor.putBoolean(Constants.IS_SERVICE, true);
-//                                                        editor.putString(Constants.MY_CATEGORY, newService.getCategory());
-//                                                        editor.putString(Constants.MY_SUB_CATEGORY, newService.getSubcategory());
-//                                                        editor.putString(Constants.MY_SERVICE, newService.toJson());
-//                                                        editor.putBoolean(Constants.IS_ANONYMOUS, false);
+//                                                        editor.putString(PreferenceKeys.APP_ID, newService.getUserUid());
+//                                                        editor.putString(PreferenceKeys.NAME, newService.getTitle());
+//                                                        editor.putString(PreferenceKeys.EMAIL, newService.getEmail());
+//                                                        editor.putBoolean(PreferenceKeys.IS_SERVICE, true);
+//                                                        editor.putString(PreferenceKeys.MY_CATEGORY, newService.getCategory());
+//                                                        editor.putString(PreferenceKeys.MY_SUB_CATEGORY, newService.getSubcategory());
+//                                                        editor.putString(PreferenceKeys.MY_SERVICE, newService.toJson());
+//                                                        editor.putBoolean(PreferenceKeys.IS_ANONYMOUS, false);
 //                                                        editor.commit();
 //
 //                                                        FileOutputStream fileOutputStream = openFileOutput("myService.json", MODE_PRIVATE);
@@ -696,46 +695,40 @@ public class ServiceRegistrationActivityForm extends AppCompatActivity {
 //                                                                    Settings.Secure.ANDROID_ID);
 //                                                            FirebaseDatabase.getInstance().getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/").child("Devices").child(android_id).setValue(device);
 //                                                        }
-                                                    } catch (IOException e) {
-                                                        e.printStackTrace();
-                                                    }
-
-
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
                                                 }
-                                            });
 
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {//if password not set
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.d(TAG, "onFailure: ");
-                                        }
-                                    });
-                                }
-                            });
-                            //endRegistration
-                        }else{// if re-authentication failed
-                            Log.d(TAG, "User re-authenticated3. "+task.getException().getMessage());
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ServiceRegistrationActivityForm.this);
-                            alertDialogBuilder
-                                    .setMessage(task.getException().getMessage())
-                                    .setCancelable(false)
-                                    .setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            AlertDialog alertDialog = alertDialogBuilder.create();
-                            alertDialog.show();
 
-                        }
+                                            }
+                                        });
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {//if password not set
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: ");
+                                    }
+                                });
+                            }
+                        });
+                        //endRegistration
+                    }else{// if re-authentication failed
+                        Log.d(TAG, "User re-authenticated3. "+task.getException().getMessage());
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ServiceRegistrationActivityForm.this);
+                        alertDialogBuilder
+                                .setMessage(task.getException().getMessage())
+                                .setCancelable(false)
+                                .setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+
                     }
-
                 });
-
-
-
-
     }
 
     private void showInfoDialog(String message, String posBtn, final int position) {
@@ -833,16 +826,16 @@ public class ServiceRegistrationActivityForm extends AppCompatActivity {
     }
 
     private void endRegistration(String mUid) throws IOException {
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCES, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(PreferenceKeys.PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(Constants.APP_ID, mUid);
-        editor.putString(Constants.NAME, newService.getTitle());
-        editor.putString(Constants.EMAIL, newService.getEmail());
-        editor.putBoolean(Constants.IS_SERVICE, true);
-        editor.putString(Constants.MY_CATEGORY, newService.getCategory());
-        editor.putString(Constants.MY_SUB_CATEGORY, newService.getSubcategory());
-        editor.putString(Constants.MY_SERVICE, newService.toJson());
-        editor.putBoolean(Constants.IS_ANONYMOUS, false);
+        editor.putString(PreferenceKeys.APP_ID, mUid);
+        editor.putString(PreferenceKeys.NAME, newService.getTitle());
+        editor.putString(PreferenceKeys.EMAIL, newService.getEmail());
+        editor.putBoolean(PreferenceKeys.IS_SERVICE, true);
+        editor.putString(PreferenceKeys.MY_CATEGORY, newService.getCategory());
+        editor.putString(PreferenceKeys.MY_SUB_CATEGORY, newService.getSubcategory());
+        editor.putString(PreferenceKeys.MY_SERVICE, newService.toJson());
+        editor.putBoolean(PreferenceKeys.IS_ANONYMOUS, false);
         editor.commit();
 
         //upload profile and update fields
@@ -867,7 +860,6 @@ public class ServiceRegistrationActivityForm extends AppCompatActivity {
             FirebaseDatabase.getInstance().getReferenceFromUrl("https://mybizz-3bbe5.firebaseio.com/").child("Devices").child(android_id).setValue(device);
         }
     }
-
 
     private void getLocation(String state, String city, String address) {
         Geocoder geocoder = new Geocoder(getBaseContext());
